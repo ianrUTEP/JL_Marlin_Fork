@@ -158,6 +158,7 @@ void GcodeSuite::D(const int16_t dcode) {
     case 5: { // D5 Read / Write onboard Flash
       #ifdef MARLIN_EEPROM_SIZE
         #define ONBOARD_FLASH_SIZE MARLIN_EEPROM_SIZE
+        //Testing my code here
       #else
         #define ONBOARD_FLASH_SIZE 1024 // 0x400
       #endif
