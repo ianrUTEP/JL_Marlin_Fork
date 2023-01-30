@@ -37,6 +37,8 @@
  */
 #define CONFIGURATION_H_VERSION 02010200
 #define BTT_MOTOR_EXPANSION            // Added by config.ini
+#define NO_AUTO_ASSIGN_WARNING         // Added by config.ini
+#define NO_CONFIGURATION_EMBEDDING_WARNING // Added by config.ini
 
 //===========================================================================
 //============================= Getting Started =============================
