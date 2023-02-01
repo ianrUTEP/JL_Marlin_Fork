@@ -37,8 +37,9 @@
  */
 #define CONFIGURATION_H_VERSION 02010200
 #define BTT_MOTOR_EXPANSION            // Added by config.ini
-#define NO_AUTO_ASSIGN_WARNING         // Added by config.ini
-#define NO_CONFIGURATION_EMBEDDING_WARNING // Added by config.ini
+#define MIXER_NORMALIZER_DEBUG         // Added by config.ini
+//#define NO_AUTO_ASSIGN_WARNING         // Added by config.ini
+//#define NO_CONFIGURATION_EMBEDDING_WARNING // Added by config.ini
 #define MARLIN_EEPROM_SIZE 0x2000      // Added by config.ini
 
 //===========================================================================
@@ -380,9 +381,9 @@
  */
 #define MIXING_EXTRUDER
 #if ENABLED(MIXING_EXTRUDER)
-  #define MIXING_STEPPERS 2        // Number of steppers in your mixing extruder
+  #define MIXING_STEPPERS 4        // Number of steppers in your mixing extruder
   #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
-  //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
+  #define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
   //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
   //#define MIXING_PRESETS         // Assign 8 default V-tool presets for 2 or 3 MIXING_STEPPERS
   #if ENABLED(GRADIENT_MIX)
