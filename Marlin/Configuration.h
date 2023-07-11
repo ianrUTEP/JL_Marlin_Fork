@@ -65,7 +65,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(JointLab, Ian Rybak, 2023-02-16)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(JointLab, Ian Rybak, 2023-04-14)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -140,7 +140,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "JL MP2.1"
+#define CUSTOM_MACHINE_NAME "JL MP2.2"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -672,9 +672,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  167.24
-    #define DEFAULT_Ki   23.6215
-    #define DEFAULT_Kd 296.015
+    #define DEFAULT_Kp  44.4900
+    #define DEFAULT_Ki   3.2700
+    #define DEFAULT_Kd 151.3700
   #endif
 #endif
 
@@ -757,9 +757,9 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 33.5520
-  #define DEFAULT_bedKi 1.7189
-  #define DEFAULT_bedKd 436.6235
+  #define DEFAULT_bedKp 36.7000
+  #define DEFAULT_bedKi 1.4700
+  #define DEFAULT_bedKd 612.4100
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
