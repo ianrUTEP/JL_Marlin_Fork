@@ -1,0 +1,398 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16611,        390]
+NotebookOptionsPosition[     15617,        366]
+NotebookOutlinePosition[     16018,        382]
+CellTagsIndexPosition[     15975,        379]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "Because", " ", "of", " ", "the", " ", "formatting", " ", "of", " ", 
+     "numbers", " ", "in", " ", "Excel", " ", "that", " ", "causes", " ", 
+     "issues", " ", "when", " ", "Mathematica", " ", "recognizes", " ", 
+     "numbers"}], ",", " ", 
+    RowBox[{
+    "we", " ", "must", " ", "first", " ", "convert", " ", "the", " ", "xlsx", 
+     " ", "to", " ", "a", " ", 
+     RowBox[{"csv", ".", " ", "There"}], " ", "is", " ", "a", " ", "visual", 
+     " ", "basic", " ", "script", " ", "that", " ", "should", " ", "be", " ", 
+     "in", " ", "the", " ", "same", " ", "directory", " ", "that", " ", "can",
+      " ", "automate", " ", "this", " ", 
+     RowBox[{"process", ".", " ", "This"}], " ", "line", " ", "runs", " ", 
+     "that", " ", "through", " ", "command", " ", "line"}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"RunProcess", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<cmd\>\"", ",", "\"\</c\>\"", ",", 
+       "\"\<XlsToCsv.vbs ConfigSpreadsheet.xlsx \
+.\\\\configs\\\\config_raw.csv\>\""}], "}"}], ",", 
+     RowBox[{"ProcessDirectory", "->", 
+      RowBox[{"NotebookDirectory", "[", "]"}]}]}], "]"}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.9041609584145627`*^9, 3.9041610984293203`*^9}, 
+   3.9041612697492437`*^9, {3.904161312412941*^9, 3.9041613375036783`*^9}, {
+   3.90416168064515*^9, 3.9041617041229525`*^9}, {3.9041619071635895`*^9, 
+   3.9041619871579795`*^9}, {3.904162070045616*^9, 3.904162115876051*^9}, {
+   3.9041621482446337`*^9, 3.9041621510095396`*^9}, {3.9041621824772844`*^9, 
+   3.9041621930896673`*^9}, {3.904162229877122*^9, 3.9041623069931707`*^9}, {
+   3.904162340903006*^9, 3.904162360053239*^9}, 3.9041623917594476`*^9, {
+   3.9041624704695425`*^9, 3.90416253139618*^9}, {3.9041644793220177`*^9, 
+   3.9041644819733906`*^9}, {3.9041645203426237`*^9, 3.904164525384264*^9}, {
+   3.904164580746189*^9, 3.9041646137753*^9}, {3.9041646501062794`*^9, 
+   3.904164652068299*^9}, {3.904174672964733*^9, 3.90417467351537*^9}, {
+   3.904174726812601*^9, 3.9041747500676136`*^9}, {3.9041748353526163`*^9, 
+   3.904174848009815*^9}, {3.9041748820157704`*^9, 3.9041748896816645`*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"c72e7b09-869e-4069-a0e2-500f827763cc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"configurationExcel", "=", 
+    RowBox[{"Import", "[", 
+     RowBox[{
+      RowBox[{"StringJoin", "[", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+        "\"\<configs\\\\config_raw.csv\>\""}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Data\>\"", ",", 
+        RowBox[{"1", ";;"}], ",", 
+        RowBox[{"1", ";;"}]}], "}"}]}], "]"}]}], ";"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Imports", " ", "from", " ", "csv", " ", "file", " ", "as", " ", 
+      RowBox[{"data", ".", " ", "Gathers"}], " ", "rows", " ", "1"}], "-", 
+     "end"}], ",", " ", 
+    RowBox[{
+     RowBox[{"and", " ", "columns", " ", "1"}], "-", "end"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"configurationExcel", "//", "Grid"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"machineNames", " ", "=", " ", 
+  RowBox[{"configurationExcel", "[", 
+   RowBox[{"[", 
+    RowBox[{"1", ",", 
+     RowBox[{"7", ";;"}]}], "]"}], "]"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"Uses", " ", "first", " ", "row"}], ",", " ", 
+    RowBox[{
+     RowBox[{"columns", " ", "7"}], "-", 
+     RowBox[{
+     "end", " ", "for", " ", "the", " ", "machine", " ", "names", " ", "to", 
+      " ", "be", " ", "used", " ", "later"}]}]}], "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.9041547364158244`*^9, 3.904154780163188*^9}, {
+   3.904154839442047*^9, 3.904154859080722*^9}, 3.904154899299176*^9, {
+   3.9041560264342585`*^9, 3.904156041172409*^9}, {3.9041564371771207`*^9, 
+   3.9041564800012136`*^9}, {3.904157765850956*^9, 3.9041577675111585`*^9}, {
+   3.9041582497537823`*^9, 3.904158250629443*^9}, {3.9041584295837207`*^9, 
+   3.904158471109689*^9}, {3.904158815321043*^9, 3.9041588200906696`*^9}, {
+   3.9041596219718323`*^9, 3.9041596251011696`*^9}, {3.904159896975341*^9, 
+   3.904159897756366*^9}, {3.9041600560819664`*^9, 3.9041600674334345`*^9}, {
+   3.9041604324404407`*^9, 3.9041604837089653`*^9}, {3.90416083862405*^9, 
+   3.904160843297386*^9}, 3.9041616463910255`*^9, 3.9041624139044533`*^9, {
+   3.9041624537263966`*^9, 3.904162466233156*^9}, 3.9041628293301806`*^9, {
+   3.904164483864781*^9, 3.904164489024494*^9}, {3.9041645293377085`*^9, 
+   3.9041645318888903`*^9}, {3.9041746767143707`*^9, 3.904174678442445*^9}, {
+   3.9041747164714155`*^9, 3.9041747185611463`*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"22fa5291-ceb7-45f7-8a80-f3c1dabd895d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"MP2-1\"\>", ",", "\<\"MP2-2\"\>", ",", "\<\"HTMP1-0\"\>", 
+   ",", "\<\"HTMP1-1\"\>", ",", "\<\"OVEN\"\>", ",", "\<\"HTPRUSA\"\>", 
+   ",", "\<\"MP2-0\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.904174986173815*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"69feb930-bab7-4fbe-91ef-2f367c9fede4"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"byColumns", "=", 
+    RowBox[{"Transpose", "[", 
+     RowBox[{"configurationExcel", "[", 
+      RowBox[{"[", 
+       RowBox[{"2", ";;"}], "]"}], "]"}], "]"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+   "Transposes", " ", "so", " ", "that", " ", "data", " ", "is", " ", 
+    "listed", " ", "by", " ", "column", " ", "first", " ", "rather", " ", 
+    "than", " ", "row"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"parameters", " ", "=", " ", 
+    RowBox[{"byColumns", "[", 
+     RowBox[{"[", "1", "]"}], "]"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{"Pulls", " ", "the", " ", "parameter", " ", "column"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"categories", " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"StringJoin", "[", 
+       RowBox[{"\"\<config:\>\"", ",", "#"}], "]"}], "&"}], "/@", 
+     RowBox[{"byColumns", "[", 
+      RowBox[{"[", "2", "]"}], "]"}]}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+   "Pulls", " ", "category", " ", "column", " ", "and", " ", "adds", " ", 
+    "\"\<config:\>\"", " ", "to", " ", "the", " ", "beginning", " ", "of", 
+    " ", "each"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"machines", " ", "=", " ", 
+    RowBox[{"byColumns", "[", 
+     RowBox[{"[", 
+      RowBox[{"7", ";;"}], "]"}], "]"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+   "Pulls", " ", "the", " ", "columns", " ", "for", " ", "all", " ", "the", 
+    " ", "machines"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"grouped", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Thread", "[", 
+       RowBox[{"{", 
+        RowBox[{"categories", ",", "parameters", ",", "#"}], "}"}], "]"}], 
+      "&"}], "/@", "machines"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "Threads", " ", "so", " ", "that", " ", "each", " ", "machine", " ", "is",
+      " ", "a", " ", "list", " ", "with", " ", "sublists", " ", "each", " ", 
+     "of", " ", "a", " ", "category"}], ",", " ", "parameter", ",", " ", 
+    RowBox[{"and", " ", "value", " ", "for", " ", "that", " ", "machine"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"groupedAndGathered", " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"GatherBy", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "&"}]}], "]"}], "&"}], "/@", 
+     "grouped"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+   "Performs", " ", "GatherBy", " ", "on", " ", "each", " ", "machine", " ", 
+    "so", " ", "that", " ", "it", " ", "is", " ", "now", " ", "also", " ", 
+    "broken", " ", "up", " ", "into", " ", "sublists", " ", "based", " ", 
+    "on", " ", "category"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"At", " ", "this", " ", "point"}], ",", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+       "you", " ", "can", " ", "now", " ", "reference", " ", 
+        "groupedAndGathered", " ", 
+        RowBox[{"by", " ", "\[IndentingNewLine]", "[", 
+         RowBox[{"[", 
+          RowBox[{
+          "machineNumber", ",", "categoryNumber", ",", "parameterInCategory", 
+           ",", "_"}], "]"}], "]"}], " ", "\[IndentingNewLine]", "where", " ",
+         "blank", " ", "is", " ", "either"}], "..."}], " ", "1"}], ":", " ", 
+     RowBox[{"the", " ", "category", " ", "name"}]}], ",", " ", 
+    RowBox[{"2", ":", " ", 
+     RowBox[{"the", " ", "parameter", " ", "name"}]}], ",", " ", 
+    RowBox[{
+     RowBox[{"or", " ", "3"}], ":", " ", 
+     RowBox[{
+     "the", " ", "value", " ", "for", " ", "that", " ", "machine", " ", "and",
+       " ", "that", " ", "specific", " ", 
+      RowBox[{"parameter", "."}]}]}]}], "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.904155027610361*^9, 3.904155041613835*^9}, {
+  3.904155080914138*^9, 3.904155114212549*^9}, {3.9041557999937067`*^9, 
+  3.9041558158192005`*^9}, {3.904155878641094*^9, 3.904156060159365*^9}, {
+  3.9041561598334274`*^9, 3.9041561815934916`*^9}, {3.9041562150557547`*^9, 
+  3.9041562978857327`*^9}, {3.904156364559819*^9, 3.904156428348522*^9}, {
+  3.904156486067525*^9, 3.904156744259528*^9}, {3.904158528728134*^9, 
+  3.9041585333265142`*^9}, {3.904158734539999*^9, 3.904158740034507*^9}, {
+  3.904175006619316*^9, 3.9041750518859463`*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"a77e8c3f-557a-4fe0-810f-fe43dbcb76da"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"printerRules", "=", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Outer", " ", "table"}], " ", "=", " ", 
+     RowBox[{"number", " ", "of", " ", "machines"}]}], "*)"}], 
+   RowBox[{"Table", "[", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Output", " ", "of", " ", "table", " ", "is", " ", "association", " ", 
+      "thread", " ", "with", " ", "the", " ", "category", " ", "names", " ", 
+      "as", " ", "keys", " ", "and", " ", "the", " ", "parameters", " ", 
+      "within", " ", "each", " ", "category", " ", "as", " ", "the", " ", 
+      "key"}], "*)"}], 
+    RowBox[{
+     RowBox[{"AssociationThread", "[", 
+      RowBox[{
+       RowBox[{"groupedAndGathered", "[", 
+        RowBox[{"[", 
+         RowBox[{"(*", 
+          RowBox[{"Category", " ", "names"}], "*)"}], 
+         RowBox[{"i", ",", "All", ",", "1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"(*", 
+        RowBox[{
+        "Inner", " ", "table", " ", "is", " ", "building", " ", "the", " ", 
+         "rules", " ", "for", " ", "each", " ", "category", " ", "one", " ", 
+         "at", " ", "a", " ", "time"}], "*)"}], 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"AssociationThread", "[", 
+          RowBox[{
+           RowBox[{"groupedAndGathered", "[", 
+            RowBox[{"[", 
+             RowBox[{"(*", 
+              RowBox[{"Parameter", " ", "names"}], "*)"}], 
+             RowBox[{"i", ",", "j", ",", "All", ",", "2"}], "]"}], "]"}], ",", 
+           RowBox[{"groupedAndGathered", "[", 
+            RowBox[{"[", 
+             RowBox[{"(*", 
+              RowBox[{"Parameter", " ", "values"}], "*)"}], 
+             RowBox[{"i", ",", "j", ",", "All", ",", "3"}], "]"}], "]"}]}], 
+          "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Iterate", " ", "for", " ", "number", " ", "of", " ", "categories",
+             " ", "in", " ", "this", " ", "machine"}], "*)"}], 
+          RowBox[{"j", ",", "1", ",", 
+           RowBox[{"Length", "[", 
+            RowBox[{"groupedAndGathered", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], "]"}]}], "}"}]}], "]"}]}], "]"}],
+      ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "machineNames", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.9041571838843613`*^9, 3.90415722635506*^9}, {
+  3.904157257081323*^9, 3.9041573232222157`*^9}, {3.904157425909543*^9, 
+  3.904157453564023*^9}, {3.904157508094998*^9, 3.9041575856352353`*^9}, {
+  3.9041578284293756`*^9, 3.9041579647767897`*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"c95757f1-c9be-478a-99b2-7b2c6b80a96e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Now", " ", "we", " ", "just", " ", "go", " ", "through", " ", "and", " ", 
+    "export", " ", "all", " ", "the", " ", "rules", " ", "to", " ", "files", 
+    " ", "based", " ", "on", " ", "machine", " ", "names"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{"StringJoin", "[", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<configs\\\\\>\"", 
+        ",", 
+        RowBox[{"machineNames", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], ",", "\"\<_config.ini\>\""}], "]"}], 
+      ",", 
+      RowBox[{"printerRules", "[", 
+       RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", 
+      RowBox[{"Length", "[", "machineNames", "]"}]}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.9041576615971274`*^9, 3.9041577341660953`*^9}, {
+  3.904162572014688*^9, 3.904162593499428*^9}, {3.9041639634900217`*^9, 
+  3.904163977938983*^9}, {3.904164425133541*^9, 3.904164457363414*^9}, {
+  3.904175113330781*^9, 3.9041751144512405`*^9}},
+ CellLabel->"In[29]:=",ExpressionUUID->"c951f645-d6e2-4ed4-93a2-2ad49a935071"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
+Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
+Configurations\\\\configs\\\\MP2-1_config.ini\"\>", 
+   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
+Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
+Configurations\\\\configs\\\\MP2-2_config.ini\"\>", 
+   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
+Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
+Configurations\\\\configs\\\\HTMP1-0_config.ini\"\>", 
+   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
+Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
+Configurations\\\\configs\\\\HTMP1-1_config.ini\"\>", 
+   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
+Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
+Configurations\\\\configs\\\\OVEN_config.ini\"\>", 
+   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
+Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
+Configurations\\\\configs\\\\HTPRUSA_config.ini\"\>", 
+   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
+Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
+Configurations\\\\configs\\\\MP2-0_config.ini\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.904175057061409*^9},
+ CellLabel->"Out[29]=",ExpressionUUID->"cabfaed8-93ec-4fbb-a587-519946558ad6"]
+}, Open  ]]
+},
+WindowSize->{1428, 749.25},
+WindowMargins->{{-6, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"848fb02b-ca06-4157-84ec-455745056034"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 2303, 42, 67, "Input",ExpressionUUID->"c72e7b09-869e-4069-a0e2-500f827763cc"],
+Cell[CellGroupData[{
+Cell[2886, 66, 2446, 52, 67, "Input",ExpressionUUID->"22fa5291-ceb7-45f7-8a80-f3c1dabd895d"],
+Cell[5335, 120, 341, 6, 32, "Output",ExpressionUUID->"69feb930-bab7-4fbe-91ef-2f367c9fede4"]
+}, Open  ]],
+Cell[5691, 129, 4443, 112, 200, "Input",ExpressionUUID->"a77e8c3f-557a-4fe0-810f-fe43dbcb76da"],
+Cell[10137, 243, 2653, 61, 86, "Input",ExpressionUUID->"c95757f1-c9be-478a-99b2-7b2c6b80a96e"],
+Cell[CellGroupData[{
+Cell[12815, 308, 1229, 29, 48, "Input",ExpressionUUID->"c951f645-d6e2-4ed4-93a2-2ad49a935071"],
+Cell[14047, 339, 1554, 24, 147, "Output",ExpressionUUID->"cabfaed8-93ec-4fbb-a587-519946558ad6"]
+}, Open  ]]
+}
+]
+*)
+
