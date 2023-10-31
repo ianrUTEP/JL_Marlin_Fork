@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     16611,        390]
-NotebookOptionsPosition[     15617,        366]
-NotebookOutlinePosition[     16018,        382]
-CellTagsIndexPosition[     15975,        379]
+NotebookDataLength[     15966,        383]
+NotebookOptionsPosition[     14975,        359]
+NotebookOutlinePosition[     15375,        375]
+CellTagsIndexPosition[     15332,        372]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -60,7 +60,7 @@ Cell[BoxData[
    3.904164652068299*^9}, {3.904174672964733*^9, 3.90417467351537*^9}, {
    3.904174726812601*^9, 3.9041747500676136`*^9}, {3.9041748353526163`*^9, 
    3.904174848009815*^9}, {3.9041748820157704`*^9, 3.9041748896816645`*^9}},
- CellLabel->"In[11]:=",ExpressionUUID->"c72e7b09-869e-4069-a0e2-500f827763cc"],
+ CellLabel->"In[1]:=",ExpressionUUID->"c72e7b09-869e-4069-a0e2-500f827763cc"],
 
 Cell[CellGroupData[{
 
@@ -116,15 +116,15 @@ Cell[BoxData[{
    3.904164483864781*^9, 3.904164489024494*^9}, {3.9041645293377085`*^9, 
    3.9041645318888903`*^9}, {3.9041746767143707`*^9, 3.904174678442445*^9}, {
    3.9041747164714155`*^9, 3.9041747185611463`*^9}},
- CellLabel->"In[12]:=",ExpressionUUID->"22fa5291-ceb7-45f7-8a80-f3c1dabd895d"],
+ CellLabel->"In[2]:=",ExpressionUUID->"22fa5291-ceb7-45f7-8a80-f3c1dabd895d"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"\<\"MP2-1\"\>", ",", "\<\"MP2-2\"\>", ",", "\<\"HTMP1-0\"\>", 
    ",", "\<\"HTMP1-1\"\>", ",", "\<\"OVEN\"\>", ",", "\<\"HTPRUSA\"\>", 
    ",", "\<\"MP2-0\"\>"}], "}"}]], "Output",
- CellChangeTimes->{3.904174986173815*^9},
- CellLabel->"Out[14]=",ExpressionUUID->"69feb930-bab7-4fbe-91ef-2f367c9fede4"]
+ CellChangeTimes->{3.904174986173815*^9, 3.9043070788806643`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"d628449d-bdfb-4a2d-a1e6-0e7e3c3e2bcd"]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -239,7 +239,7 @@ Cell[BoxData[{
   3.904156486067525*^9, 3.904156744259528*^9}, {3.904158528728134*^9, 
   3.9041585333265142`*^9}, {3.904158734539999*^9, 3.904158740034507*^9}, {
   3.904175006619316*^9, 3.9041750518859463`*^9}},
- CellLabel->"In[22]:=",ExpressionUUID->"a77e8c3f-557a-4fe0-810f-fe43dbcb76da"],
+ CellLabel->"In[5]:=",ExpressionUUID->"a77e8c3f-557a-4fe0-810f-fe43dbcb76da"],
 
 Cell[BoxData[
  RowBox[{
@@ -302,7 +302,7 @@ Cell[BoxData[
   3.904157257081323*^9, 3.9041573232222157`*^9}, {3.904157425909543*^9, 
   3.904157453564023*^9}, {3.904157508094998*^9, 3.9041575856352353`*^9}, {
   3.9041578284293756`*^9, 3.9041579647767897`*^9}},
- CellLabel->"In[28]:=",ExpressionUUID->"c95757f1-c9be-478a-99b2-7b2c6b80a96e"],
+ CellLabel->"In[11]:=",ExpressionUUID->"c95757f1-c9be-478a-99b2-7b2c6b80a96e"],
 
 Cell[CellGroupData[{
 
@@ -335,37 +335,30 @@ Cell[BoxData[
   3.904162572014688*^9, 3.904162593499428*^9}, {3.9041639634900217`*^9, 
   3.904163977938983*^9}, {3.904164425133541*^9, 3.904164457363414*^9}, {
   3.904175113330781*^9, 3.9041751144512405`*^9}},
- CellLabel->"In[29]:=",ExpressionUUID->"c951f645-d6e2-4ed4-93a2-2ad49a935071"],
+ CellLabel->"In[12]:=",ExpressionUUID->"c951f645-d6e2-4ed4-93a2-2ad49a935071"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
-Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
-Configurations\\\\configs\\\\MP2-1_config.ini\"\>", 
-   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
-Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
-Configurations\\\\configs\\\\MP2-2_config.ini\"\>", 
-   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
-Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
-Configurations\\\\configs\\\\HTMP1-0_config.ini\"\>", 
-   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
-Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
-Configurations\\\\configs\\\\HTMP1-1_config.ini\"\>", 
-   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
-Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
-Configurations\\\\configs\\\\OVEN_config.ini\"\>", 
-   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
-Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
-Configurations\\\\configs\\\\HTPRUSA_config.ini\"\>", 
-   ",", "\<\"C:\\\\Users\\\\Ian\\\\OneDrive - University of Texas at El \
-Paso\\\\Documents - JointLab\\\\MP Construction\\\\Printer Firmware \
-Configurations\\\\configs\\\\MP2-0_config.ini\"\>"}], "}"}]], "Output",
- CellChangeTimes->{3.904175057061409*^9},
- CellLabel->"Out[29]=",ExpressionUUID->"cabfaed8-93ec-4fbb-a587-519946558ad6"]
+  RowBox[{"\<\"C:\\\\JLOFF\\\\FW\\\\JL_Marlin_Fork\\\\Marlin\\\\configs\\\\\
+MP2-1_config.ini\"\>", 
+   ",", "\<\"C:\\\\JLOFF\\\\FW\\\\JL_Marlin_Fork\\\\Marlin\\\\configs\\\\MP2-\
+2_config.ini\"\>", 
+   ",", "\<\"C:\\\\JLOFF\\\\FW\\\\JL_Marlin_Fork\\\\Marlin\\\\configs\\\\\
+HTMP1-0_config.ini\"\>", 
+   ",", "\<\"C:\\\\JLOFF\\\\FW\\\\JL_Marlin_Fork\\\\Marlin\\\\configs\\\\\
+HTMP1-1_config.ini\"\>", 
+   ",", "\<\"C:\\\\JLOFF\\\\FW\\\\JL_Marlin_Fork\\\\Marlin\\\\configs\\\\OVEN_\
+config.ini\"\>", 
+   ",", "\<\"C:\\\\JLOFF\\\\FW\\\\JL_Marlin_Fork\\\\Marlin\\\\configs\\\\\
+HTPRUSA_config.ini\"\>", 
+   ",", "\<\"C:\\\\JLOFF\\\\FW\\\\JL_Marlin_Fork\\\\Marlin\\\\configs\\\\MP2-\
+0_config.ini\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.904175057061409*^9, 3.9043070791460676`*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"ae365596-3ef6-43a6-9cd6-3cd5bb705ac7"]
 }, Open  ]]
 },
-WindowSize->{1428, 749.25},
-WindowMargins->{{-6, Automatic}, {Automatic, 0}},
+WindowSize->{1428, 743.25},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"848fb02b-ca06-4157-84ec-455745056034"
@@ -381,16 +374,16 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 2303, 42, 67, "Input",ExpressionUUID->"c72e7b09-869e-4069-a0e2-500f827763cc"],
+Cell[558, 20, 2302, 42, 67, "Input",ExpressionUUID->"c72e7b09-869e-4069-a0e2-500f827763cc"],
 Cell[CellGroupData[{
-Cell[2886, 66, 2446, 52, 67, "Input",ExpressionUUID->"22fa5291-ceb7-45f7-8a80-f3c1dabd895d"],
-Cell[5335, 120, 341, 6, 32, "Output",ExpressionUUID->"69feb930-bab7-4fbe-91ef-2f367c9fede4"]
+Cell[2885, 66, 2445, 52, 67, "Input",ExpressionUUID->"22fa5291-ceb7-45f7-8a80-f3c1dabd895d"],
+Cell[5333, 120, 364, 6, 32, "Output",ExpressionUUID->"d628449d-bdfb-4a2d-a1e6-0e7e3c3e2bcd"]
 }, Open  ]],
-Cell[5691, 129, 4443, 112, 200, "Input",ExpressionUUID->"a77e8c3f-557a-4fe0-810f-fe43dbcb76da"],
-Cell[10137, 243, 2653, 61, 86, "Input",ExpressionUUID->"c95757f1-c9be-478a-99b2-7b2c6b80a96e"],
+Cell[5712, 129, 4442, 112, 200, "Input",ExpressionUUID->"a77e8c3f-557a-4fe0-810f-fe43dbcb76da"],
+Cell[10157, 243, 2653, 61, 86, "Input",ExpressionUUID->"c95757f1-c9be-478a-99b2-7b2c6b80a96e"],
 Cell[CellGroupData[{
-Cell[12815, 308, 1229, 29, 48, "Input",ExpressionUUID->"c951f645-d6e2-4ed4-93a2-2ad49a935071"],
-Cell[14047, 339, 1554, 24, 147, "Output",ExpressionUUID->"cabfaed8-93ec-4fbb-a587-519946558ad6"]
+Cell[12835, 308, 1229, 29, 48, "Input",ExpressionUUID->"c951f645-d6e2-4ed4-93a2-2ad49a935071"],
+Cell[14067, 339, 892, 17, 71, "Output",ExpressionUUID->"ae365596-3ef6-43a6-9cd6-3cd5bb705ac7"]
 }, Open  ]]
 }
 ]
