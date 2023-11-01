@@ -36,12 +36,11 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02010300
-#define MIXER_NORMALIZER_DEBUG         // Added by config.ini
+//#define MIXER_NORMALIZER_DEBUG         // Added by config.ini
 #define I2C_BD_SDA_PIN PB7             // Added by config.ini
 #define I2C_BD_SCL_PIN PB6             // Added by config.ini
 #define I2C_BD_DELAY 20                // Added by config.ini
-//#define MILLISECONDS_PREHEAT_TIME      // Added by config.ini
-//#define BTT_MOTOR_EXPANSION            // Added by config.ini
+#define BTT_MOTOR_EXPANSION            // Added by config.ini
 //#define NO_CONFIGURATION_EMBEDDING_WARNING // Added by config.ini
 //#define NO_AUTO_ASSIGN_WARNING         // Added by config.ini
 
@@ -110,7 +109,7 @@
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
 #define SERIAL_PORT_2 -1
-#define BAUDRATE_2 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
+#define BAUDRATE_2 25000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
 
 /**
  * Select a third serial port on the board to use for communication with the host.
@@ -124,7 +123,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "JL MP2.2"
+#define CUSTOM_MACHINE_NAME "JL HTMP MOVE"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -150,10 +149,10 @@
 #define X_DRIVER_TYPE TMC2209
 #define Y_DRIVER_TYPE TMC2209
 #define Z_DRIVER_TYPE TMC2209
-//#define X2_DRIVER_TYPE A4988
-//#define Y2_DRIVER_TYPE A4988
+#define X2_DRIVER_TYPE TMC2209
+#define Y2_DRIVER_TYPE TMC2209
 #define Z2_DRIVER_TYPE TMC2209
-//#define Z3_DRIVER_TYPE A4988
+#define Z3_DRIVER_TYPE TMC2209
 //#define Z4_DRIVER_TYPE A4988
 //#define I_DRIVER_TYPE  A4988
 //#define J_DRIVER_TYPE  A4988
@@ -161,10 +160,10 @@
 //#define U_DRIVER_TYPE  A4988
 //#define V_DRIVER_TYPE  A4988
 //#define W_DRIVER_TYPE  A4988
-#define E0_DRIVER_TYPE TMC2209
-#define E1_DRIVER_TYPE TMC2209
-#define E2_DRIVER_TYPE TMC2209
-#define E3_DRIVER_TYPE TMC2209
+//#define E0_DRIVER_TYPE TMC2209
+//#define E1_DRIVER_TYPE TMC2209
+//#define E2_DRIVER_TYPE TMC2209
+//#define E3_DRIVER_TYPE TMC2209
 //#define E4_DRIVER_TYPE A4988
 //#define E5_DRIVER_TYPE A4988
 //#define E6_DRIVER_TYPE A4988
@@ -216,7 +215,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 1
+#define EXTRUDERS 0
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -355,11 +354,11 @@
  *   - This implementation supports up to two mixing extruders.
  *   - Enable DIRECT_MIXING_IN_G1 for M165 and mixing in G1 (from Pia Taubert's reference implementation).
  */
-#define MIXING_EXTRUDER
+//#define MIXING_EXTRUDER
 #if ENABLED(MIXING_EXTRUDER)
-  #define MIXING_STEPPERS 4        // Number of steppers in your mixing extruder
+  //#define MIXING_STEPPERS 4        // Number of steppers in your mixing extruder
   #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
-  #define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
+  //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
   //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
   //#define MIXING_PRESETS         // Assign 8 default V-tool presets for 2 or 3 MIXING_STEPPERS
   #if ENABLED(GRADIENT_MIX)
@@ -552,7 +551,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 5
+#define TEMP_SENSOR_0 1047
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -560,7 +559,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_BED 0
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -569,13 +568,13 @@
 #define TEMP_SENSOR_REDUNDANT 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
-#define DUMMY_THERMISTOR_998_VALUE 25
-#define DUMMY_THERMISTOR_999_VALUE 100
+//#define DUMMY_THERMISTOR_998_VALUE 25
+//#define DUMMY_THERMISTOR_999_VALUE 100
 
 // Resistor values when using MAX31865 sensors (-5) on TEMP_SENSOR_0 / 1
 #if TEMP_SENSOR_IS_MAX_TC(0)
-  #define MAX31865_SENSOR_OHMS_0      100 // (Ω) Typically 100 or 1000 (PT100 or PT1000)
-  #define MAX31865_CALIBRATION_OHMS_0 430 // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
+  //#define MAX31865_SENSOR_OHMS_0      100 // (Ω) Typically 100 or 1000 (PT100 or PT1000)
+  //#define MAX31865_CALIBRATION_OHMS_0 430 // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
 #endif
 #if TEMP_SENSOR_IS_MAX_TC(1)
   #define MAX31865_SENSOR_OHMS_1      100
@@ -589,7 +588,7 @@
 #if HAS_E_TEMP_SENSOR
   #define TEMP_RESIDENCY_TIME 3          // (seconds) Time to wait for hotend to "settle" in M109
   #define TEMP_WINDOW 1                   // (°C) Temperature proximity for the "temperature reached" timer
-  #define TEMP_HYSTERESIS 3               // (°C) Temperature proximity considered "close enough" to the target
+  #define TEMP_HYSTERESIS 5               // (°C) Temperature proximity considered "close enough" to the target
 #endif
 
 #if TEMP_SENSOR_BED
@@ -615,9 +614,9 @@
  * For selecting source/target use: COOLER, PROBE, BOARD, CHAMBER, BED, E0, E1, E2, E3, E4, E5, E6, E7
  */
 #if TEMP_SENSOR_REDUNDANT
-  #define TEMP_SENSOR_REDUNDANT_SOURCE    E1  // The sensor that will provide the redundant reading.
-  #define TEMP_SENSOR_REDUNDANT_TARGET    E0  // The sensor that we are providing a redundant reading for.
-  #define TEMP_SENSOR_REDUNDANT_MAX_DIFF  10  // (°C) Temperature difference that will trigger a print abort.
+  //#define TEMP_SENSOR_REDUNDANT_SOURCE    E1  // The sensor that will provide the redundant reading.
+  //#define TEMP_SENSOR_REDUNDANT_TARGET    E0  // The sensor that we are providing a redundant reading for.
+  //#define TEMP_SENSOR_REDUNDANT_MAX_DIFF  10  // (°C) Temperature difference that will trigger a print abort.
 #endif
 
 // Below this temperature the heater will be switched off
@@ -630,13 +629,13 @@
 #define HEATER_5_MINTEMP   5
 #define HEATER_6_MINTEMP   5
 #define HEATER_7_MINTEMP   5
-#define BED_MINTEMP 15
+#define BED_MINTEMP 12
 #define CHAMBER_MINTEMP    5
 
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 240
+#define HEATER_0_MAXTEMP 400
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -644,7 +643,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP 120
+#define BED_MAXTEMP 170
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -673,8 +672,8 @@
 #define PIDTEMP           // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
 //#define MPCTEMP         // ** EXPERIMENTAL ** See https://marlinfw.org/docs/features/model_predictive_control.html
 
-#define PID_MAX  255      // Limit hotend current while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
-#define PID_K1     0.95   // Smoothing factor within any PID loop
+#define PID_MAX BANG_MAX       // Limit hotend current while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
+#define PID_K1 0.95       // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
   //#define PID_DEBUG             // Print PID debug data to the serial port. Use 'M303 D' to toggle activation.
@@ -688,9 +687,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 44.4900
-    #define DEFAULT_Ki 3.2700
-    #define DEFAULT_Kd 151.3700
+    #define DEFAULT_Kp 167.24
+    #define DEFAULT_Ki 23.6215
+    #define DEFAULT_Kd 296.015
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -778,9 +777,9 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 36.7000
-  #define DEFAULT_bedKi 1.4700
-  #define DEFAULT_bedKd 612.4100
+  #define DEFAULT_bedKp 33.552
+  #define DEFAULT_bedKi 1.7189
+  #define DEFAULT_bedKd 436.6235
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #else
@@ -1112,12 +1111,12 @@
 // @section endstops
 
 // Enable pullup for all endstops to prevent a floating state
-//#define ENDSTOPPULLUPS
+#define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
   // Disable ENDSTOPPULLUPS to set pullups individually
   //#define ENDSTOPPULLUP_XMIN
   #define ENDSTOPPULLUP_YMIN
-  //#define ENDSTOPPULLUP_ZMIN
+  #define ENDSTOPPULLUP_ZMIN
   //#define ENDSTOPPULLUP_IMIN
   //#define ENDSTOPPULLUP_JMIN
   //#define ENDSTOPPULLUP_KMIN
@@ -1133,7 +1132,7 @@
   //#define ENDSTOPPULLUP_UMAX
   //#define ENDSTOPPULLUP_VMAX
   //#define ENDSTOPPULLUP_WMAX
-  //#define ENDSTOPPULLUP_ZMIN_PROBE
+  #define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
 // Enable pulldown for all endstops to prevent a floating state
@@ -1231,18 +1230,18 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT { 100, 100, 400, 419.6 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT { 72.73, 72.73, 400 }
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE { 300, 300, 5, 22 }
+#define DEFAULT_MAX_FEEDRATE { 300, 300, 5}
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES { 600, 600, 10}    // ...or, set your own edit limits
 #endif
 
 /**
@@ -1251,11 +1250,11 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 5000 }
+#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500}
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 200, 20000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES { 6000, 6000, 200}       // ...or, set your own edit limits
 #endif
 
 /**
@@ -1298,7 +1297,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK 5.0     // May be used by Linear Advance
+#define DEFAULT_EJERK 5.     // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -1337,7 +1336,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
 #define USE_PROBE_FOR_Z_HOMING
@@ -1561,7 +1560,7 @@
 #define NOZZLE_TO_PROBE_OFFSET { -21, 23, -0.88 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
-#define PROBING_TOOL 0
+//#define PROBING_TOOL 0
 #ifdef PROBING_TOOL
   //#define PROBE_TOOLCHANGE_NO_MOVE  // Suppress motion on probe tool-change
 #endif
@@ -1624,8 +1623,8 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 2
-//#define EXTRA_PROBING    1
+#define MULTIPLE_PROBING 2
+#define EXTRA_PROBING 1
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -1641,17 +1640,17 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // (mm) Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // (mm) Z Clearance between probe points
-#define Z_CLEARANCE_MULTI_PROBE     5 // (mm) Z Clearance between multiple probes
+#define Z_CLEARANCE_DEPLOY_PROBE 0   // (mm) Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES 4  // (mm) Z Clearance between probe points
+#define Z_CLEARANCE_MULTI_PROBE 1     // (mm) Z Clearance between multiple probes
 #define Z_PROBE_ERROR_TOLERANCE     3 // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
-//#define Z_AFTER_PROBING           5 // (mm) Z position after probing is done
+#define Z_AFTER_PROBING Z_AFTER_HOMING           // (mm) Z position after probing is done
 
-#define Z_PROBE_LOW_POINT          -2 // (mm) Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT -1          // (mm) Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -20  // (mm)
-#define Z_PROBE_OFFSET_RANGE_MAX  20  // (mm)
+#define Z_PROBE_OFFSET_RANGE_MAX 20   // (mm)
 
 // Enable the M48 repeatability test to test probe accuracy
 #define Z_MIN_PROBE_REPEATABILITY_TEST
@@ -1683,7 +1682,7 @@
 //#define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
   #define PROBING_NOZZLE_TEMP 120   // (°C) Only applies to E0 at this time
-  #define PROBING_BED_TEMP     50
+  #define PROBING_BED_TEMP 50
 #endif
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
@@ -1701,9 +1700,9 @@
 
 // Disable axis steppers immediately when they're not being stepped.
 // WARNING: When motors turn off there is a chance of losing position accuracy!
-#define DISABLE_X false
-#define DISABLE_Y false
-#define DISABLE_Z false
+//#define DISABLE_X false
+//#define DISABLE_Y false
+//#define DISABLE_Z false
 //#define DISABLE_I
 //#define DISABLE_J
 //#define DISABLE_K
@@ -1722,7 +1721,7 @@
 // @section motion
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR true
+#define INVERT_X_DIR false
 #define INVERT_Y_DIR false
 #define INVERT_Z_DIR false
 //#define INVERT_I_DIR false
@@ -1735,7 +1734,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+//#define INVERT_E0_DIR false
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1747,7 +1746,7 @@
 // @section homing
 
 //#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed. Also enable HOME_AFTER_DEACTIVATE for extra safety.
-//#define HOME_AFTER_DEACTIVATE   // Require rehoming after steppers are deactivated. Also enable NO_MOTION_BEFORE_HOMING for extra safety.
+#define HOME_AFTER_DEACTIVATE   // Require rehoming after steppers are deactivated. Also enable NO_MOTION_BEFORE_HOMING for extra safety.
 
 /**
  * Set Z_IDLE_HEIGHT if the Z-Axis moves on its own when steppers are disabled.
@@ -1759,12 +1758,12 @@
 #define Z_CLEARANCE_FOR_HOMING 5  // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                     // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
-#define Z_AFTER_HOMING 1         // (mm) Height to move to after homing (if Z was homed)
+#define Z_AFTER_HOMING 10         // (mm) Height to move to after homing (if Z was homed)
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR 1
-#define Y_HOME_DIR -1
+#define X_HOME_DIR -1
+#define Y_HOME_DIR 1
 #define Z_HOME_DIR -1
 //#define I_HOME_DIR -1
 //#define J_HOME_DIR -1
@@ -1795,11 +1794,11 @@
 #define Y_BED_SIZE 215
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS -20
+#define Y_MIN_POS -20
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
+#define X_MAX_POS 210
+#define Y_MAX_POS 235
 #define Z_MAX_POS 140
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -2026,7 +2025,7 @@
  * these options to restore the prior leveling state or to always enable
  * leveling immediately after G28.
  */
-//#define RESTORE_LEVELING_AFTER_G28
+#define RESTORE_LEVELING_AFTER_G28
 //#define ENABLE_LEVELING_AFTER_G28
 
 /**
@@ -2058,7 +2057,7 @@
    */
   #define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
-    #define DEFAULT_LEVELING_FADE_HEIGHT 1.0 // (mm) Default fade height.
+    #define DEFAULT_LEVELING_FADE_HEIGHT 1. // (mm) Default fade height.
   #endif
 
   /**
@@ -2067,7 +2066,7 @@
    * contours of the bed more closely than edge-to-edge straight moves.
    */
   #define SEGMENT_LEVELED_MOVES
-  #define LEVELED_SEGMENT_LENGTH 5.0 // (mm) Length of all segments (except the last one)
+  #define LEVELED_SEGMENT_LENGTH 5. // (mm) Length of all segments (except the last one)
 
   /**
    * Enable the G26 Mesh Validation Pattern tool.
@@ -2126,7 +2125,7 @@
 
   #define UBL_HILBERT_CURVE       // Use Hilbert distribution for less travel when probing multiple points
 
-  //#define UBL_TILT_ON_MESH_POINTS         // Use nearest mesh points with G29 J for better Z reference
+  #define UBL_TILT_ON_MESH_POINTS         // Use nearest mesh points with G29 J for better Z reference
   //#define UBL_TILT_ON_MESH_POINTS_3POINT  // Use nearest mesh points with G29 J0 (3-point)
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
@@ -2243,9 +2242,9 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS X_BED_SIZE
-#define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 0
+//#define MANUAL_X_HOME_POS X_BED_SIZE
+//#define MANUAL_Y_HOME_POS 0
+//#define MANUAL_Z_HOME_POS 0
 //#define MANUAL_I_HOME_POS 0
 //#define MANUAL_J_HOME_POS 0
 //#define MANUAL_K_HOME_POS 0
@@ -2265,7 +2264,7 @@
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
   #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
-  //#define Z_SAFE_HOMING_POINT_ABSOLUTE  // Ignore home offsets (M206) for Z homing position
+  #define Z_SAFE_HOMING_POINT_ABSOLUTE  // Ignore home offsets (M206) for Z homing position
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
@@ -2350,7 +2349,7 @@
 #define EEPROM_SETTINGS     // Persistent storage with M500 and M501
 //#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save PROGMEM.
-#define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
+//#define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
   //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
   //#define EEPROM_INIT_NOW   // Init EEPROM on first boot after a new build.
@@ -2366,7 +2365,7 @@
 //
 #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
 #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
-#define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
+//#define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
 // @section units
 
@@ -2386,7 +2385,7 @@
 // Preheat Constants - Up to 10 are supported without changes
 //
 #define PREHEAT_1_LABEL "PLA"
-#define PREHEAT_1_TEMP_HOTEND 215
+#define PREHEAT_1_TEMP_HOTEND 220
 #define PREHEAT_1_TEMP_BED 60
 #define PREHEAT_1_TEMP_CHAMBER 35
 #define PREHEAT_1_FAN_SPEED 0     // Value from 0 to 255
@@ -2410,7 +2409,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-#define NOZZLE_PARK_FEATURE
+//#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
@@ -2544,9 +2543,9 @@
  *
  * View the current statistics with M78.
  */
-//#define PRINTCOUNTER
+#define PRINTCOUNTER
 #if ENABLED(PRINTCOUNTER)
-  #define PRINTCOUNTER_SAVE_INTERVAL 60 // (minutes) EEPROM save interval during print. A value of 0 will save stats at end of print.
+  #define PRINTCOUNTER_SAVE_INTERVAL 0 // (minutes) EEPROM save interval during print. A value of 0 will save stats at end of print.
 #endif
 
 // @section security
@@ -2742,7 +2741,7 @@
 // Tone queue size, used to keep beeps from blocking execution.
 // Default is 4, or override here. Costs 4 bytes of SRAM per entry.
 //
-//#define TONE_QUEUE_LENGTH 4
+#define TONE_QUEUE_LENGTH 4
 
 //
 // A sequence of tones to play at startup, in pairs of tone (Hz), duration (ms).
@@ -2920,7 +2919,7 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 
 //
 // K.3D Full Graphic Smart Controller
@@ -3439,7 +3438,7 @@
 
 // Set number of user-controlled fans. Disable to use all board-defined fans.
 // :[1,2,3,4,5,6,7,8]
-#define NUM_M106_FANS 3
+#define NUM_M106_FANS 0
 
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
