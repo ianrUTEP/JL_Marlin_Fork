@@ -860,7 +860,7 @@
  */
 #if HAS_X2_STEPPER && DISABLED(DUAL_X_CARRIAGE)
   #define INVERT_X2_VS_X_DIR        // X2 direction signal is the opposite of X
-  //#define X_DUAL_ENDSTOPS           // X2 has its own endstop
+  #define X_DUAL_ENDSTOPS           // X2 has its own endstop
   #if ENABLED(X_DUAL_ENDSTOPS)
     #define X2_STOP_PIN X_MAX_PIN   // X2 endstop pin override
     #define X2_ENDSTOP_ADJUSTMENT 0   // X2 offset relative to X endstop
@@ -869,7 +869,7 @@
 
 #if HAS_Y2_STEPPER
   #define INVERT_Y2_VS_Y_DIR        // Y2 direction signal is the opposite of Y
-  //#define Y_DUAL_ENDSTOPS           // Y2 has its own endstop
+  #define Y_DUAL_ENDSTOPS           // Y2 has its own endstop
   #if ENABLED(Y_DUAL_ENDSTOPS)
     #define Y2_STOP_PIN Y_MAX_PIN   // Y2 endstop pin override
     #define Y2_ENDSTOP_ADJUSTMENT 0   // Y2 offset relative to Y endstop
