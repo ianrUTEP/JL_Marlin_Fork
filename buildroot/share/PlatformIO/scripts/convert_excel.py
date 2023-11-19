@@ -4,8 +4,8 @@
 #
 
 # Because PlatformIO uses its own python environment, must add dependency
-# Import("env")
-# env.Execute("$PYTHONEXE -m pip install xlrd")
+Import("env")
+env.Execute("$PYTHONEXE -m pip install xlrd")
 
 # add imported modules
 import xlrd
