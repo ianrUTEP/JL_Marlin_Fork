@@ -672,7 +672,7 @@
 #define PIDTEMP           // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
 //#define MPCTEMP         // ** EXPERIMENTAL ** See https://marlinfw.org/docs/features/model_predictive_control.html
 
-#define PID_MAX BANG_MAX       // Limit hotend current while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
+#define PID_MAX 255       // Limit hotend current while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95       // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
@@ -755,7 +755,7 @@
  * When set to any value below 255, enables a form of PWM to the bed that acts like a divider
  * so don't use it unless you are OK with PWM on your bed. (See the comment on enabling PIDTEMPBED)
  */
-#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 255.0 // limits duty cycle to bed; 255=full current
 
 /**
  * PID Bed Heating
@@ -787,7 +787,7 @@
 #endif
 
 // Add 'M190 R T' for more gradual M190 R bed cooling.
-//#define BED_ANNEALING_GCODE
+#define BED_ANNEALING_GCODE
 
 //===========================================================================
 //==================== PID > Chamber Temperature Control ====================
@@ -854,7 +854,7 @@
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
 #define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 170
+#define EXTRUDE_MINTEMP 170.0
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
@@ -1300,7 +1300,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK 5.     // May be used by Linear Advance
+#define DEFAULT_EJERK 5.0     // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -2064,7 +2064,7 @@
    */
   #define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
-    #define DEFAULT_LEVELING_FADE_HEIGHT 1. // (mm) Default fade height.
+    #define DEFAULT_LEVELING_FADE_HEIGHT 1.0 // (mm) Default fade height.
   #endif
 
   /**
@@ -2073,7 +2073,7 @@
    * contours of the bed more closely than edge-to-edge straight moves.
    */
   #define SEGMENT_LEVELED_MOVES
-  #define LEVELED_SEGMENT_LENGTH 5. // (mm) Length of all segments (except the last one)
+  #define LEVELED_SEGMENT_LENGTH 5.0 // (mm) Length of all segments (except the last one)
 
   /**
    * Enable the G26 Mesh Validation Pattern tool.
