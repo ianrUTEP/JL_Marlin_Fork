@@ -123,7 +123,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "JL HTMP MOVE"
+#define CUSTOM_MACHINE_NAME "JL HTMP 1.1"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -755,7 +755,7 @@
  * When set to any value below 255, enables a form of PWM to the bed that acts like a divider
  * so don't use it unless you are OK with PWM on your bed. (See the comment on enabling PIDTEMPBED)
  */
-#define MAX_BED_POWER 255.0 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
 
 /**
  * PID Bed Heating
@@ -1233,18 +1233,18 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 582 }
 
 /**
  * Default Max Feed Rate (linear=mm/s, rotational=°/s)
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE { 200, 200, 100}
+#define DEFAULT_MAX_FEEDRATE { 200, 200, 100, 22}
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES { 600, 600, 10}    // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES { 600, 600, 200, 100}    // ...or, set your own edit limits
 #endif
 
 /**
@@ -1253,11 +1253,11 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500}
+#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 5000}
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES { 6000, 6000, 200}       // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES { 6000, 6000, 1000, 6000}       // ...or, set your own edit limits
 #endif
 
 /**
