@@ -884,13 +884,13 @@
 
   //#define Z_MULTI_ENDSTOPS          // Other Z axes have their own endstops
   #if ENABLED(Z_MULTI_ENDSTOPS)
-    #define Z2_STOP_PIN X_MAX_PIN   // Z2 endstop pin override
+    #define Z2_STOP_PIN Z_MAX_PIN   // Z2 endstop pin override
     #define Z2_ENDSTOP_ADJUSTMENT 0   // Z2 offset relative to Z endstop
   #endif
   #ifdef Z3_DRIVER_TYPE
     //#define INVERT_Z3_VS_Z_DIR      // Z3 direction signal is the opposite of Z
     #if ENABLED(Z_MULTI_ENDSTOPS)
-      #define Z3_STOP_PIN Y_MAX_PIN // Z3 endstop pin override
+      #define Z3_STOP_PIN Z_MAX_PIN // Z3 endstop pin override
       #define Z3_ENDSTOP_ADJUSTMENT 0 // Z3 offset relative to Z endstop
     #endif
   #endif

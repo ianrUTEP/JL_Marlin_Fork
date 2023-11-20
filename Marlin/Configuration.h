@@ -41,6 +41,10 @@
 #define I2C_BD_SCL_PIN PB6             // Added by config.ini
 #define I2C_BD_DELAY 20                // Added by config.ini
 #define BTT_MOTOR_EXPANSION            // Added by config.ini
+#define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
+#define Y_MIN_PIN EXP1_05_PIN          // Added by config.ini
+//#define Y_MAX_PIN                      // Added by config.ini
+//#define X_MIN_PIN                      // Added by config.ini
 //#define NO_CONFIGURATION_EMBEDDING_WARNING // Added by config.ini
 //#define NO_AUTO_ASSIGN_WARNING         // Added by config.ini
 

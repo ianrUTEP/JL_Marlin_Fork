@@ -64,9 +64,13 @@
 #ifdef X_STALL_SENSITIVITY
   #define X_STOP_PIN                  X_DIAG_PIN
   #if X_HOME_TO_MIN
-    #define X_MAX_PIN                E0_DIAG_PIN  // E0DET
+    #ifndef X_MAX_PIN
+      #define X_MAX_PIN                E0_DIAG_PIN  // E0DET
+    #endif
   #else
-    #define X_MIN_PIN                E0_DIAG_PIN  // E0DET
+    #ifndef X_MIN_PIN
+      #define X_MIN_PIN                E0_DIAG_PIN  // E0DET
+    #endif
   #endif
 #elif NEEDS_X_MINMAX
   #ifndef X_MIN_PIN
@@ -82,9 +86,13 @@
 #ifdef Y_STALL_SENSITIVITY
   #define Y_STOP_PIN                  Y_DIAG_PIN
   #if Y_HOME_TO_MIN
-    #define Y_MAX_PIN                E1_DIAG_PIN  // E1DET
+    #ifndef Y_MAX_PIN
+      #define Y_MAX_PIN                E1_DIAG_PIN  // E1DET
+    #endif
   #else
-    #define Y_MIN_PIN                E1_DIAG_PIN  // E1DET
+    #ifndef Y_MIN_PIN
+      #define Y_MIN_PIN                E1_DIAG_PIN  // E1DET
+    #endif
   #endif
 #elif NEEDS_Y_MINMAX
   #ifndef Y_MIN_PIN
