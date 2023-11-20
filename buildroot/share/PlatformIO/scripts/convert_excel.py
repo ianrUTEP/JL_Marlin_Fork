@@ -3,12 +3,15 @@
 # Converts values in an xlsx file to _.ini files to be read
 #
 
-# Because PlatformIO uses its own python environment, must add dependency
-Import("env")
-env.Execute("$PYTHONEXE -m pip install xlrd")
-
 # add imported modules
-import xlrd
+try: 
+  # necessary dependency was already added
+  import xlrd
+except: 
+  # Because PlatformIO uses its own python environment, must add dependency
+  Import("env")
+  env.Execute("$PYTHONEXE -m pip install xlrd")
+  import xlrd
 from pathlib import Path
 
 verbose = 0
