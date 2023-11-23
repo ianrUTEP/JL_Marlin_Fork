@@ -1564,7 +1564,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -21, 23, -0.88 }
+#define NOZZLE_TO_PROBE_OFFSET { 63, 10, -1 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 //#define PROBING_TOOL 0
@@ -1656,10 +1656,10 @@
 #define Z_PROBE_LOW_POINT -1          // (mm) Farthest distance below the trigger-point to go before stopping
 
 // For M851 provide ranges for adjusting the X, Y, and Z probe offsets
-//#define PROBE_OFFSET_XMIN -50   // (mm)
-//#define PROBE_OFFSET_XMAX  50   // (mm)
-//#define PROBE_OFFSET_YMIN -50   // (mm)
-//#define PROBE_OFFSET_YMAX  50   // (mm)
+#define PROBE_OFFSET_XMIN -100   // (mm)
+#define PROBE_OFFSET_XMAX 100    // (mm)
+#define PROBE_OFFSET_YMIN -100   // (mm)
+#define PROBE_OFFSET_YMAX 100    // (mm)
 #define PROBE_OFFSET_ZMIN -20   // (mm)
 #define PROBE_OFFSET_ZMAX 20    // (mm)
 
@@ -1802,14 +1802,14 @@
 
 // The size of the printable area
 #define X_BED_SIZE 270
-#define Y_BED_SIZE 350
+#define Y_BED_SIZE 305
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS -250
+#define X_MIN_POS -175
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS (X_BED_SIZE + 150)
-#define Y_MAX_POS (Y_BED_SIZE + 130)
+#define X_MAX_POS (X_BED_SIZE + 130)
+#define Y_MAX_POS (Y_BED_SIZE + 44)
 #define Z_MAX_POS 350
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -2130,7 +2130,7 @@
 
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 0              // Set Mesh bounds as an inset region of the bed
+  #define MESH_INSET 10              // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 15      // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
@@ -2191,7 +2191,7 @@
   //=================================== Mesh ==================================
   //===========================================================================
 
-  #define MESH_INSET 0          // Set Mesh bounds as an inset region of the bed
+  #define MESH_INSET 10          // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 15    // Don't use more than 7 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
