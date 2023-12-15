@@ -104,7 +104,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 1000000
+#define BAUDRATE 250000
 
 #define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
 
@@ -692,9 +692,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 167.24
-    #define DEFAULT_Ki 23.6215
-    #define DEFAULT_Kd 296.015
+    #define DEFAULT_Kp 33.5780
+    #define DEFAULT_Ki 4.9981
+    #define DEFAULT_Kd 56.4261
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -1568,7 +1568,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 63, 10, -1.75 }
+#define NOZZLE_TO_PROBE_OFFSET { 63, 10, -1.32 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 //#define PROBING_TOOL 0
@@ -1578,7 +1578,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 0
+#define PROBING_MARGIN 5
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (60*60)
@@ -1634,8 +1634,8 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#define MULTIPLE_PROBING 2
-#define EXTRA_PROBING 1
+#define MULTIPLE_PROBING 4
+#define EXTRA_PROBING 2
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -1653,7 +1653,7 @@
  */
 #define Z_CLEARANCE_DEPLOY_PROBE 0   // (mm) Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES 2  // (mm) Z Clearance between probe points
-#define Z_CLEARANCE_MULTI_PROBE 4     // (mm) Z Clearance between multiple probes
+#define Z_CLEARANCE_MULTI_PROBE 2     // (mm) Z Clearance between multiple probes
 #define Z_PROBE_ERROR_TOLERANCE 1     // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
 #define Z_AFTER_PROBING Z_AFTER_HOMING           // (mm) Z position after probing is done
 

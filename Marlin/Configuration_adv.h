@@ -1028,7 +1028,7 @@
    * If not defined, probe limits will be used.
    * Override with 'M422 S<index> X<pos> Y<pos>'.
    */
-  #define Z_STEPPER_ALIGN_XY { { 20, 20 }, { X_BED_SIZE-20,20}, { X_CENTER, Y_BED_SIZE -20 } }
+  #define Z_STEPPER_ALIGN_XY { { 20, 20 }, { X_BED_SIZE-20,20}, { X_CENTER, Y_BED_SIZE -30 } }
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -1692,7 +1692,7 @@
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
   #define SD_FINISHED_STEPPERRELEASE false   // Disable steppers when SD Print is finished
-  #define SD_FINISHED_RELEASECOMMAND "M84XYE"  // Use "M84XYE" to keep Z enabled so your bed stays in place
+  #define SD_FINISHED_RELEASECOMMAND "M84XY"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
   // Since the FAT gets out of order with usage, SDCARD_SORT_ALPHA is recommended.
@@ -2576,7 +2576,7 @@
 
 // The ASCII buffer for serial input
 #define MAX_CMD_SIZE 96
-#define BUFSIZE 32
+#define BUFSIZE 8
 
 // Transmission to Host Buffer Size
 // To save 386 bytes of flash (and TX_BUFFER_SIZE+3 bytes of RAM) set to 0.
@@ -3096,7 +3096,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E3)
-    #define E3_CURRENT 900
+    #define E3_CURRENT 1200
     #define E3_MICROSTEPS E0_MICROSTEPS
     #define E3_RSENSE 0.11
     #define E3_CHAIN_POS -1
@@ -3931,7 +3931,7 @@
  *
  * Execute certain G-code commands immediately after power-on.
  */
-//#define STARTUP_COMMANDS "M17 Z"
+#define STARTUP_COMMANDS "M118 A1 P0 action:notification Set your mix ratio"
 
 /**
  * G-code Macros
