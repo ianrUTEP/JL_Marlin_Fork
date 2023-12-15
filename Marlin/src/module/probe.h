@@ -141,6 +141,11 @@ public:
             static_assert(COUNT(obst4) == 4, "OBSTACLE4 must define a rectangle in the form { X1, Y1, X2, Y2 }.");
             if (WITHIN(rx, obst4[0], obst4[2]) && WITHIN(ry, obst4[1], obst4[3])) return false;
           #endif
+          #ifdef OBSTACLE5
+            constexpr float obst5[] = OBSTACLE5;
+            static_assert(COUNT(obst5) == 4, "OBSTACLE5 must define a rectangle in the form { X1, Y1, X2, Y2 }.");
+            if (WITHIN(rx, obst5[0], obst5[2]) && WITHIN(ry, obst5[1], obst5[3])) return false;
+          #endif
         #endif
         return true;
       }
