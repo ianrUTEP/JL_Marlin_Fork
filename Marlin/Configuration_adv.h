@@ -1028,7 +1028,7 @@
    * If not defined, probe limits will be used.
    * Override with 'M422 S<index> X<pos> Y<pos>'.
    */
-  //#define Z_STEPPER_ALIGN_XY { {  10, 190 }, { 100,  10 }, { 190, 190 } }
+  #define Z_STEPPER_ALIGN_XY { { 20, 20 }, { X_BED_SIZE-20,20}, { X_CENTER, Y_BED_SIZE -20 } }
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -1061,7 +1061,7 @@
    * positions in the bed carriage, with one position per Z stepper in stepper
    * driver order.
    */
-  #define Z_STEPPER_ALIGN_STEPPER_XY { { -230, 42 }, { X_BED_SIZE + 15, 42}, { 130, Y_BED_SIZE + 100 } }
+  //#define Z_STEPPER_ALIGN_STEPPER_XY { { -230, 42 }, { X_BED_SIZE + 15, 42}, { 130, Y_BED_SIZE + 100 } }
 
   #ifndef Z_STEPPER_ALIGN_STEPPER_XY
     // Amplification factor. Used to scale the correction step up or down in case
@@ -2591,7 +2591,7 @@
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
 // To use flow control, set this buffer size to at least 1024 bytes.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
-#define RX_BUFFER_SIZE 32
+#define RX_BUFFER_SIZE 2048
 
 #if RX_BUFFER_SIZE >= 1024
   // Enable to have the controller send XON/XOFF control characters to

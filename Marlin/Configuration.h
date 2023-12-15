@@ -43,6 +43,7 @@
 #define BTT_MOTOR_EXPANSION            // Added by config.ini
 #define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
 #define Y_MIN_PIN EXP1_05_PIN          // Added by config.ini
+#define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Y_MAX_PIN                      // Added by config.ini
 //#define X_MIN_PIN                      // Added by config.ini
 //#define NO_CONFIGURATION_EMBEDDING_WARNING // Added by config.ini
@@ -113,7 +114,7 @@
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
 #define SERIAL_PORT_2 -1
-#define BAUDRATE_2 25000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
+#define BAUDRATE_2 250000   // :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000] Enable to override BAUDRATE
 
 /**
  * Select a third serial port on the board to use for communication with the host.
@@ -555,7 +556,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 67
+#define TEMP_SENSOR_0 1047
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -577,8 +578,8 @@
 
 // Resistor values when using MAX31865 sensors (-5) on TEMP_SENSOR_0 / 1
 #if TEMP_SENSOR_IS_MAX_TC(0)
-  //#define MAX31865_SENSOR_OHMS_0      100 // (Ω) Typically 100 or 1000 (PT100 or PT1000)
-  //#define MAX31865_CALIBRATION_OHMS_0 430 // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
+  #define MAX31865_SENSOR_OHMS_0 1000      // (Ω) Typically 100 or 1000 (PT100 or PT1000)
+  #define MAX31865_CALIBRATION_OHMS_0 4300 // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
 #endif
 #if TEMP_SENSOR_IS_MAX_TC(1)
   #define MAX31865_SENSOR_OHMS_1      100
@@ -625,7 +626,7 @@
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP 15
+#define HEATER_0_MINTEMP 12
 #define HEATER_1_MINTEMP   5
 #define HEATER_2_MINTEMP   5
 #define HEATER_3_MINTEMP   5
@@ -639,7 +640,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 415
+#define HEATER_0_MAXTEMP 417
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -647,7 +648,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP 170
+#define BED_MAXTEMP 203
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -759,7 +760,7 @@
  * When set to any value below 255, enables a form of PWM to the bed that acts like a divider
  * so don't use it unless you are OK with PWM on your bed. (See the comment on enabling PIDTEMPBED)
  */
-#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 212 // limits duty cycle to bed; 255=full current
 
 /**
  * PID Bed Heating
@@ -1567,7 +1568,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 63, 10, -1 }
+#define NOZZLE_TO_PROBE_OFFSET { 63, 10, -1.75 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 //#define PROBING_TOOL 0
@@ -1815,7 +1816,7 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS (X_BED_SIZE + 130)
-#define Y_MAX_POS (Y_BED_SIZE + 44)
+#define Y_MAX_POS (Y_BED_SIZE + 13)
 #define Z_MAX_POS 350
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -2136,7 +2137,7 @@
 
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 10              // Set Mesh bounds as an inset region of the bed
+  #define MESH_INSET 5              // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 15      // Don't use more than 15 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
@@ -2156,35 +2157,16 @@
   /**
    * Probing not allowed within the position of an obstacle.
    */
-  //#define AVOID_OBSTACLES
+  #define AVOID_OBSTACLES
   #if ENABLED(AVOID_OBSTACLES)
-    #define CLIP_W  23  // Bed clip width, should be padded a few mm over its physical size
-    #define CLIP_H  14  // Bed clip height, should be padded a few mm over its physical size
+    #define CLIP_W 20   // Bed clip width, should be padded a few mm over its physical size
+    #define CLIP_H 15   // Bed clip height, should be padded a few mm over its physical size
 
     // Obstacle Rectangles defined as { X1, Y1, X2, Y2 }
-    #define OBSTACLE1 { (X_BED_SIZE) / 4     - (CLIP_W) / 2,                       0, (X_BED_SIZE) / 4     + (CLIP_W) / 2, CLIP_H }
-    #define OBSTACLE2 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2,                       0, (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, CLIP_H }
-    #define OBSTACLE3 { (X_BED_SIZE) / 4     - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) / 4     + (CLIP_W) / 2, Y_BED_SIZE }
-    #define OBSTACLE4 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, Y_BED_SIZE }
-
-    // The probed grid must be inset for G29 J. This is okay, since it is
-    // only used to compute a linear transformation for the mesh itself.
-    #define G29J_MESH_TILT_MARGIN ((CLIP_H) + 1)
-  #endif
-
-  /**
-   * Probing not allowed within the position of an obstacle.
-   */
-  //#define AVOID_OBSTACLES
-  #if ENABLED(AVOID_OBSTACLES)
-    #define CLIP_W  23  // Bed clip width, should be padded a few mm over its physical size
-    #define CLIP_H  14  // Bed clip height, should be padded a few mm over its physical size
-
-    // Obstacle Rectangles defined as { X1, Y1, X2, Y2 }
-    #define OBSTACLE1 { (X_BED_SIZE) / 4     - (CLIP_W) / 2,                       0, (X_BED_SIZE) / 4     + (CLIP_W) / 2, CLIP_H }
-    #define OBSTACLE2 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2,                       0, (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, CLIP_H }
-    #define OBSTACLE3 { (X_BED_SIZE) / 4     - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) / 4     + (CLIP_W) / 2, Y_BED_SIZE }
-    #define OBSTACLE4 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, Y_BED_SIZE }
+    #define OBSTACLE1 {13-(CLIP_W)/2,0,13+(CLIP_W)/2,CLIP_H}
+    #define OBSTACLE2 { 257-(CLIP_W)/2,0, 257 - (CLIP_W)/2,CLIP_H}
+    #define OBSTACLE3 {30-(CLIP_W),305-(CLIP_H),30+(CLIP_W),305}
+    #define OBSTACLE4 {130-(CLIP_W),305-(CLIP_H),130+(CLIP_W),305}
 
     // The probed grid must be inset for G29 J. This is okay, since it is
     // only used to compute a linear transformation for the mesh itself.
@@ -2197,7 +2179,7 @@
   //=================================== Mesh ==================================
   //===========================================================================
 
-  #define MESH_INSET 10          // Set Mesh bounds as an inset region of the bed
+  #define MESH_INSET 5          // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 15    // Don't use more than 7 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
