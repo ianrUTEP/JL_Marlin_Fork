@@ -42,7 +42,7 @@
 #define I2C_BD_DELAY 20                // Added by config.ini
 #define BTT_MOTOR_EXPANSION            // Added by config.ini
 #define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
-#define Y_MIN_PIN EXP1_05_PIN          // Added by config.ini
+#define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini
 #define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Y_MAX_PIN                      // Added by config.ini
 //#define X_MIN_PIN                      // Added by config.ini
