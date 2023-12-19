@@ -552,7 +552,7 @@
   #define HOTEND_IDLE_TIMEOUT_SEC (5*60)    // (seconds) Time without extruder movement to trigger protection
   #define HOTEND_IDLE_MIN_TRIGGER 150       // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET 0       // (°C) Safe temperature for the nozzle after timeout
-  #define HOTEND_IDLE_BED_TARGET 0          // (°C) Safe temperature for the bed after timeout
+  #define HOTEND_IDLE_BED_TARGET 30          // (°C) Safe temperature for the bed after timeout
 #endif
 
 // @section temperature
@@ -859,8 +859,8 @@
  *   - Define the extra endstop pins here to override defaults. No auto-assignment.
  */
 #if HAS_X2_STEPPER && DISABLED(DUAL_X_CARRIAGE)
-  #define INVERT_X2_VS_X_DIR        // X2 direction signal is the opposite of X
-  #define X_DUAL_ENDSTOPS           // X2 has its own endstop
+  //#define INVERT_X2_VS_X_DIR        // X2 direction signal is the opposite of X
+  //#define X_DUAL_ENDSTOPS           // X2 has its own endstop
   #if ENABLED(X_DUAL_ENDSTOPS)
     #define X2_STOP_PIN X_MAX_PIN   // X2 endstop pin override
     #define X2_ENDSTOP_ADJUSTMENT 0   // X2 offset relative to X endstop
@@ -868,8 +868,8 @@
 #endif
 
 #if HAS_Y2_STEPPER
-  #define INVERT_Y2_VS_Y_DIR        // Y2 direction signal is the opposite of Y
-  #define Y_DUAL_ENDSTOPS           // Y2 has its own endstop
+  //#define INVERT_Y2_VS_Y_DIR        // Y2 direction signal is the opposite of Y
+  //#define Y_DUAL_ENDSTOPS           // Y2 has its own endstop
   #if ENABLED(Y_DUAL_ENDSTOPS)
     #define Y2_STOP_PIN Y_MAX_PIN   // Y2 endstop pin override
     #define Y2_ENDSTOP_ADJUSTMENT 0   // Y2 offset relative to Y endstop
@@ -925,13 +925,13 @@
 
 #define SENSORLESS_BACKOFF_MM {8, 8, 0}   // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
 
-#define HOMING_BUMP_MM {0,0,2}            // (linear=mm, rotational=°) Backoff from endstops after first bump
+#define HOMING_BUMP_MM {1,1,2}            // (linear=mm, rotational=°) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR {2,2,4}       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (linear=mm, rotational=°) Backoff from endstops after homing
 //#define XY_COUNTERPART_BACKOFF_MM 0         // (mm) Backoff X after homing Y, and vice-versa
 
-//#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
+#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define HOME_Z_FIRST                        // Home Z first. Requires a real endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
@@ -1028,7 +1028,7 @@
    * If not defined, probe limits will be used.
    * Override with 'M422 S<index> X<pos> Y<pos>'.
    */
-  #define Z_STEPPER_ALIGN_XY { { 20, 20 }, { X_BED_SIZE-20,20}, { X_CENTER, Y_BED_SIZE -30 } }
+  //#define Z_STEPPER_ALIGN_XY { { 20, 20 }, { X_BED_SIZE-20,20}, { X_CENTER, Y_BED_SIZE -30 } }
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -1692,7 +1692,7 @@
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
   #define SD_FINISHED_STEPPERRELEASE false   // Disable steppers when SD Print is finished
-  #define SD_FINISHED_RELEASECOMMAND "M84XY"  // Use "M84XYE" to keep Z enabled so your bed stays in place
+  #define SD_FINISHED_RELEASECOMMAND "M84XYE"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
   // Since the FAT gets out of order with usage, SDCARD_SORT_ALPHA is recommended.
@@ -2260,7 +2260,7 @@
   #define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
   #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
     //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
-    //#define BABYSTEP_GFX_OVERLAY          // Enable graphical overlay on Z-offset editor
+    #define BABYSTEP_GFX_OVERLAY          // Enable graphical overlay on Z-offset editor
   #endif
 #endif
 
@@ -2975,7 +2975,7 @@
     #define Z_RSENSE 0.11
     #define Z_CHAIN_POS -1
     //#define Z_INTERPOLATE  true
-    //#define Z_HOLD_MULTIPLIER 1
+    #define Z_HOLD_MULTIPLIER 1.0
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z2)
@@ -2985,7 +2985,7 @@
     #define Z2_RSENSE Z_RSENSE
     #define Z2_CHAIN_POS -1
     //#define Z2_INTERPOLATE true
-    //#define Z2_HOLD_MULTIPLIER 1
+    #define Z2_HOLD_MULTIPLIER 1.0
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z3)
@@ -3369,9 +3369,9 @@
 
   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY 40
+    #define X_STALL_SENSITIVITY 35
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY 40
+    #define Y_STALL_SENSITIVITY 35
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -3931,7 +3931,7 @@
  *
  * Execute certain G-code commands immediately after power-on.
  */
-#define STARTUP_COMMANDS "M118 A1 P0 action:notification Set your mix ratio"
+//#define STARTUP_COMMANDS "M118 A1 P0 action:notification Set your mix ratio"
 
 /**
  * G-code Macros
