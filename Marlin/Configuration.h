@@ -692,9 +692,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 33.5780
-    #define DEFAULT_Ki 4.9981
-    #define DEFAULT_Kd 56.4261
+    #define DEFAULT_Kp 7.4327
+    #define DEFAULT_Ki 0.1556
+    #define DEFAULT_Kd 88.7465
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -1283,7 +1283,7 @@
  */
 #define DEFAULT_ACCELERATION 3000             // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION 3000     // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION 3000      // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION 500      // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
