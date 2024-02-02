@@ -327,8 +327,8 @@
    * and/or decrease WATCH_TEMP_INCREASE. WATCH_TEMP_INCREASE should not be set
    * below 2.
    */
-  #define WATCH_TEMP_PERIOD 40                // (seconds)
-  #define WATCH_TEMP_INCREASE 1               // (°C)
+  #define WATCH_TEMP_PERIOD 60                // (seconds)
+  #define WATCH_TEMP_INCREASE 2               // (°C)
 #endif
 
 /**
@@ -549,8 +549,8 @@
  */
 #define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
-  #define HOTEND_IDLE_TIMEOUT_SEC (8*60)    // (seconds) Time without extruder movement to trigger protection
-  #define HOTEND_IDLE_MIN_TRIGGER 150       // (°C) Minimum temperature to enable hotend protection
+  #define HOTEND_IDLE_TIMEOUT_SEC (12*60)    // (seconds) Time without extruder movement to trigger protection
+  #define HOTEND_IDLE_MIN_TRIGGER 280       // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET 0       // (°C) Safe temperature for the nozzle after timeout
   #define HOTEND_IDLE_BED_TARGET 0          // (°C) Safe temperature for the bed after timeout
 #endif
