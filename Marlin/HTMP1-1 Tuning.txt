@@ -38,3 +38,6 @@ x sensitivity
 E2 power
 hotend timeout
 pid
+
+bang-bang, capped to 20%
+See if the temperature jumps as much
