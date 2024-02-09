@@ -675,7 +675,7 @@
  * PIDTEMP : PID temperature control (~4.1K)
  * MPCTEMP : Predictive Model temperature control. (~1.8K without auto-tune)
  */
-//#define PIDTEMP           // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
+#define PIDTEMP           // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
 //#define MPCTEMP         // ** EXPERIMENTAL ** See https://marlinfw.org/docs/features/model_predictive_control.html
 
 #define PID_MAX 255       // Limit hotend current while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
@@ -693,12 +693,12 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 6.7
-    #define DEFAULT_Ki 1.22
-    #define DEFAULT_Kd 7.98
+    #define DEFAULT_Kp 26.96
+    #define DEFAULT_Ki 0.355
+    #define DEFAULT_Kd 0
   #endif
 #else
-  #define BANG_MAX 38    // Limit hotend current while in bang-bang mode; 255=full current
+  #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
 #endif
 
 /**
