@@ -1149,7 +1149,7 @@
   //#define ENDSTOPPULLUP_UMAX
   //#define ENDSTOPPULLUP_VMAX
   //#define ENDSTOPPULLUP_WMAX
-  #define ENDSTOPPULLUP_ZMIN_PROBE
+  //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
 // Enable pulldown for all endstops to prevent a floating state
@@ -1174,7 +1174,7 @@
   //#define ENDSTOPPULLDOWN_UMAX
   //#define ENDSTOPPULLDOWN_VMAX
   //#define ENDSTOPPULLDOWN_WMAX
-  //#define ENDSTOPPULLDOWN_ZMIN_PROBE
+  #define ENDSTOPPULLDOWN_ZMIN_PROBE
 #endif
 
 /**
@@ -1199,7 +1199,7 @@
 #define V_MAX_ENDSTOP_HIT_STATE HIGH
 #define W_MIN_ENDSTOP_HIT_STATE HIGH
 #define W_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_PROBE_ENDSTOP_HIT_STATE LOW
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1395,7 +1395,7 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 /**
  * Use the nozzle as the probe, as with a conductive
@@ -1417,7 +1417,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-#define BLTOUCH
+//#define BLTOUCH
 
 /**
  * MagLev V4 probe by MDD
@@ -1608,7 +1608,7 @@
 #define XY_PROBE_FEEDRATE (120*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (5*60)
+#define Z_PROBE_FEEDRATE_FAST (10*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
@@ -1644,7 +1644,7 @@
  * Probe Enable / Disable
  * The probe only provides a triggered signal when enabled.
  */
-#define PROBE_ENABLE_DISABLE
+//#define PROBE_ENABLE_DISABLE
 #if ENABLED(PROBE_ENABLE_DISABLE)
   //#define PROBE_ENABLE_PIN -1   // Override the default pin here
 #endif
@@ -1675,8 +1675,8 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE 15   // (mm) Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES 5  // (mm) Z Clearance between probe points
+#define Z_CLEARANCE_DEPLOY_PROBE 0   // (mm) Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES 2  // (mm) Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE 2     // (mm) Z Clearance between multiple probes
 #define Z_PROBE_ERROR_TOLERANCE 1     // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
 #define Z_AFTER_PROBING Z_AFTER_HOMING           // (mm) Z position after probing is done
