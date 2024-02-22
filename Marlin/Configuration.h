@@ -40,9 +40,9 @@
 #define I2C_BD_SDA_PIN PB7             // Added by config.ini
 #define I2C_BD_SCL_PIN PB6             // Added by config.ini
 #define I2C_BD_DELAY 20                // Added by config.ini
-//#define BTT_MOTOR_EXPANSION            // Added by config.ini
-//#define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
-//#define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini
+#define BTT_MOTOR_EXPANSION            // Added by config.ini
+#define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
+#define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini
 //#define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Z_PROBE_END_SCRIPT             // Added by config.ini 2024-01-22 15:09:02
 //#define Y_MAX_PIN                      // Added by config.ini
@@ -74,7 +74,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Ian,24-02-21,MP2.2)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Ian,24-02-21,HTMP1.1)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section machine
@@ -129,7 +129,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "JL MP2.2"
+#define CUSTOM_MACHINE_NAME "JL HTMP 1.1"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -155,10 +155,10 @@
 #define X_DRIVER_TYPE TMC2209
 #define Y_DRIVER_TYPE TMC2209
 #define Z_DRIVER_TYPE TMC2209
-//#define X2_DRIVER_TYPE TMC2209
-//#define Y2_DRIVER_TYPE TMC2209
+#define X2_DRIVER_TYPE TMC2209
+#define Y2_DRIVER_TYPE TMC2209
 #define Z2_DRIVER_TYPE TMC2209
-//#define Z3_DRIVER_TYPE TMC2209
+#define Z3_DRIVER_TYPE TMC2209
 //#define Z4_DRIVER_TYPE A4988
 //#define I_DRIVER_TYPE  A4988
 //#define J_DRIVER_TYPE  A4988
@@ -169,7 +169,7 @@
 #define E0_DRIVER_TYPE TMC2209
 #define E1_DRIVER_TYPE TMC2209
 #define E2_DRIVER_TYPE TMC2209
-#define E3_DRIVER_TYPE TMC2209
+//#define E3_DRIVER_TYPE TMC2209
 //#define E4_DRIVER_TYPE A4988
 //#define E5_DRIVER_TYPE A4988
 //#define E6_DRIVER_TYPE A4988
@@ -362,7 +362,7 @@
  */
 #define MIXING_EXTRUDER
 #if ENABLED(MIXING_EXTRUDER)
-  #define MIXING_STEPPERS 4        // Number of steppers in your mixing extruder
+  #define MIXING_STEPPERS 3        // Number of steppers in your mixing extruder
   #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
   #define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
   //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
@@ -557,7 +557,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 5
+#define TEMP_SENSOR_0 1047
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -565,7 +565,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_BED 501
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -574,13 +574,13 @@
 #define TEMP_SENSOR_REDUNDANT 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
-#define DUMMY_THERMISTOR_998_VALUE 25
-#define DUMMY_THERMISTOR_999_VALUE 100
+//#define DUMMY_THERMISTOR_998_VALUE 25
+//#define DUMMY_THERMISTOR_999_VALUE 100
 
 // Resistor values when using MAX31865 sensors (-5) on TEMP_SENSOR_0 / 1
 #if TEMP_SENSOR_IS_MAX_TC(0)
-  //#define MAX31865_SENSOR_OHMS_0 1000      // (Ω) Typically 100 or 1000 (PT100 or PT1000)
-  //#define MAX31865_CALIBRATION_OHMS_0 4300 // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
+  #define MAX31865_SENSOR_OHMS_0 1000      // (Ω) Typically 100 or 1000 (PT100 or PT1000)
+  #define MAX31865_CALIBRATION_OHMS_0 4300 // (Ω) Typically 430 for Adafruit PT100; 4300 for Adafruit PT1000
 #endif
 #if TEMP_SENSOR_IS_MAX_TC(1)
   #define MAX31865_SENSOR_OHMS_1      100
@@ -594,13 +594,13 @@
 #if HAS_E_TEMP_SENSOR
   #define TEMP_RESIDENCY_TIME 3          // (seconds) Time to wait for hotend to "settle" in M109
   #define TEMP_WINDOW 1                   // (°C) Temperature proximity for the "temperature reached" timer
-  #define TEMP_HYSTERESIS 5               // (°C) Temperature proximity considered "close enough" to the target
+  #define TEMP_HYSTERESIS 2               // (°C) Temperature proximity considered "close enough" to the target
 #endif
 
 #if TEMP_SENSOR_BED
   #define TEMP_BED_RESIDENCY_TIME 10      // (seconds) Time to wait for bed to "settle" in M190
   #define TEMP_BED_WINDOW 1               // (°C) Temperature proximity for the "temperature reached" timer
-  #define TEMP_BED_HYSTERESIS 3           // (°C) Temperature proximity considered "close enough" to the target
+  #define TEMP_BED_HYSTERESIS 2           // (°C) Temperature proximity considered "close enough" to the target
 #endif
 
 #if TEMP_SENSOR_CHAMBER
@@ -620,14 +620,14 @@
  * For selecting source/target use: COOLER, PROBE, BOARD, CHAMBER, BED, E0, E1, E2, E3, E4, E5, E6, E7
  */
 #if TEMP_SENSOR_REDUNDANT
-  #define TEMP_SENSOR_REDUNDANT_SOURCE E1     // The sensor that will provide the redundant reading.
-  #define TEMP_SENSOR_REDUNDANT_TARGET E0     // The sensor that we are providing a redundant reading for.
-  #define TEMP_SENSOR_REDUNDANT_MAX_DIFF 10   // (°C) Temperature difference that will trigger a print abort.
+  //#define TEMP_SENSOR_REDUNDANT_SOURCE E1     // The sensor that will provide the redundant reading.
+  //#define TEMP_SENSOR_REDUNDANT_TARGET E0     // The sensor that we are providing a redundant reading for.
+  //#define TEMP_SENSOR_REDUNDANT_MAX_DIFF 10   // (°C) Temperature difference that will trigger a print abort.
 #endif
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP 15
+#define HEATER_0_MINTEMP 12
 #define HEATER_1_MINTEMP   5
 #define HEATER_2_MINTEMP   5
 #define HEATER_3_MINTEMP   5
@@ -641,7 +641,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 240
+#define HEATER_0_MAXTEMP 460
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -649,7 +649,7 @@
 #define HEATER_5_MAXTEMP 275
 #define HEATER_6_MAXTEMP 275
 #define HEATER_7_MAXTEMP 275
-#define BED_MAXTEMP 120
+#define BED_MAXTEMP 203
 #define CHAMBER_MAXTEMP  60
 
 /**
@@ -658,8 +658,8 @@
  * (especially before PID tuning). Setting the target temperature too close to MAXTEMP guarantees
  * a MAXTEMP shutdown! Use these values to forbid temperatures being set too close to MAXTEMP.
  */
-#define HOTEND_OVERSHOOT 5   // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
-#define BED_OVERSHOOT 5      // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
+#define HOTEND_OVERSHOOT 20   // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
+#define BED_OVERSHOOT 3      // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
 #define COOLER_OVERSHOOT  2   // (°C) Forbid temperatures closer than OVERSHOOT
 
 //===========================================================================
@@ -693,9 +693,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 44.4900
-    #define DEFAULT_Ki 3.2700
-    #define DEFAULT_Kd 151.3700
+    #define DEFAULT_Kp 35.9478260869565
+    #define DEFAULT_Ki 0.7814744801512287
+    #define DEFAULT_Kd 413.4
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -761,7 +761,7 @@
  * When set to any value below 255, enables a form of PWM to the bed that acts like a divider
  * so don't use it unless you are OK with PWM on your bed. (See the comment on enabling PIDTEMPBED)
  */
-#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 212 // limits duty cycle to bed; 255=full current
 
 /**
  * PID Bed Heating
@@ -783,9 +783,9 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 36.7000
-  #define DEFAULT_bedKi 1.4700
-  #define DEFAULT_bedKd 612.4100
+  #define DEFAULT_bedKp 33.552
+  #define DEFAULT_bedKi 1.7189
+  #define DEFAULT_bedKd 436.6235
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #else
@@ -860,7 +860,7 @@
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
 #define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 170
+#define EXTRUDE_MINTEMP 350
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
@@ -1131,7 +1131,7 @@
 //#define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
   // Disable ENDSTOPPULLUPS to set pullups individually
-  //#define ENDSTOPPULLUP_XMIN
+  #define ENDSTOPPULLUP_XMIN
   #define ENDSTOPPULLUP_YMIN
   //#define ENDSTOPPULLUP_ZMIN
   //#define ENDSTOPPULLUP_IMIN
@@ -1141,7 +1141,7 @@
   //#define ENDSTOPPULLUP_VMIN
   //#define ENDSTOPPULLUP_WMIN
   #define ENDSTOPPULLUP_XMAX
-  //#define ENDSTOPPULLUP_YMAX
+  #define ENDSTOPPULLUP_YMAX
   //#define ENDSTOPPULLUP_ZMAX
   //#define ENDSTOPPULLUP_IMAX
   //#define ENDSTOPPULLUP_JMAX
@@ -1185,7 +1185,7 @@
 #define X_MAX_ENDSTOP_HIT_STATE HIGH
 #define Y_MIN_ENDSTOP_HIT_STATE HIGH
 #define Y_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_ENDSTOP_HIT_STATE LOW
 #define Z_MAX_ENDSTOP_HIT_STATE HIGH
 #define I_MIN_ENDSTOP_HIT_STATE HIGH
 #define I_MAX_ENDSTOP_HIT_STATE HIGH
@@ -1199,7 +1199,7 @@
 #define V_MAX_ENDSTOP_HIT_STATE HIGH
 #define W_MIN_ENDSTOP_HIT_STATE HIGH
 #define W_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_PROBE_ENDSTOP_HIT_STATE LOW
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1247,7 +1247,7 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT { 100, 100, 400, 419.6 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 582 }
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1259,11 +1259,11 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE { 300, 300, 5, 22 }
+#define DEFAULT_MAX_FEEDRATE { 200, 200, 100, 22}
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES { 600, 600, 10, 50 }    // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES { 600, 600, 200, 100}    // ...or, set your own edit limits
 #endif
 
 /**
@@ -1272,11 +1272,11 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 5000 }
+#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 5000}
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES { 6000, 6000, 200, 20000 }       // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES { 6000, 6000, 1000, 6000}       // ...or, set your own edit limits
 #endif
 
 /**
@@ -1592,7 +1592,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -21, 23, -0.88 }
+#define NOZZLE_TO_PROBE_OFFSET { 63, 10, -1.32 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 //#define PROBING_TOOL 0
@@ -1602,13 +1602,13 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 0
+#define PROBING_MARGIN 30
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_FEEDRATE (133*60)
+#define XY_PROBE_FEEDRATE (120*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (4*60)
+#define Z_PROBE_FEEDRATE_FAST (10*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
@@ -1658,8 +1658,8 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-#define MULTIPLE_PROBING 2
-#define EXTRA_PROBING 1
+#define MULTIPLE_PROBING 3
+#define EXTRA_PROBING 0
 
 /**
  * Z probes require clearance when deploying, stowing, and moving between
@@ -1760,7 +1760,7 @@
 // @section motion
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR true
+#define INVERT_X_DIR false
 #define INVERT_Y_DIR false
 #define INVERT_Z_DIR false
 //#define INVERT_I_DIR false
@@ -1773,8 +1773,8 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
-#define INVERT_E1_DIR false
+#define INVERT_E0_DIR true
+#define INVERT_E1_DIR true
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 #define INVERT_E4_DIR false
@@ -1804,8 +1804,8 @@
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR 1
-#define Y_HOME_DIR -1
+#define X_HOME_DIR -1
+#define Y_HOME_DIR 1
 #define Z_HOME_DIR -1
 //#define I_HOME_DIR -1
 //#define J_HOME_DIR -1
@@ -1832,16 +1832,16 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 212
-#define Y_BED_SIZE 215
+#define X_BED_SIZE 270
+#define Y_BED_SIZE 285
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS -165
+#define Y_MIN_POS -10
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 140
+#define X_MAX_POS (X_BED_SIZE + 130)
+#define Y_MAX_POS (Y_BED_SIZE + 28)
+#define Z_MAX_POS 350
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
 //#define J_MIN_POS 0
@@ -2075,8 +2075,8 @@
  */
 #define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
-  #define LEVELING_NOZZLE_TEMP 0   // (°C) Only applies to E0 at this time
-  #define LEVELING_BED_TEMP 60
+  #define LEVELING_NOZZLE_TEMP 100   // (°C) Only applies to E0 at this time
+  #define LEVELING_BED_TEMP 100
 #endif
 
 /**
@@ -2084,7 +2084,7 @@
  * Turn on with the command 'M111 S32'.
  * NOTE: Requires a lot of flash!
  */
-//#define DEBUG_LEVELING_FEATURE
+#define DEBUG_LEVELING_FEATURE
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_UBL, PROBE_MANUALLY)
   // Set a height for the start of manual adjustment
@@ -2129,8 +2129,8 @@
 #if ANY(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 15
-  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
+  #define GRID_MAX_POINTS_X 11
+  #define GRID_MAX_POINTS_Y 13
 
   // Probe along the Y axis, advancing X after each column
   //#define PROBE_Y_FIRST
@@ -2161,9 +2161,9 @@
 
   //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 0              // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 15      // Don't use more than 15 points per axis, implementation limited.
-  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
+  #define MESH_INSET 15              // Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X 11      // Don't use more than 15 points per axis, implementation limited.
+  #define GRID_MAX_POINTS_Y 13
 
   #define UBL_HILBERT_CURVE       // Use Hilbert distribution for less travel when probing multiple points
 
@@ -2183,14 +2183,14 @@
    */
   //#define AVOID_OBSTACLES
   #if ENABLED(AVOID_OBSTACLES)
-    //#define CLIP_W 20   // Bed clip width, should be padded a few mm over its physical size
-    //#define CLIP_H 15   // Bed clip height, should be padded a few mm over its physical size
+    #define CLIP_W 20   // Bed clip width, should be padded a few mm over its physical size
+    #define CLIP_H 15   // Bed clip height, should be padded a few mm over its physical size
 
     // Obstacle Rectangles defined as { X1, Y1, X2, Y2 }
-    #define OBSTACLE1 { (X_BED_SIZE) / 4     - (CLIP_W) / 2,                       0, (X_BED_SIZE) / 4     + (CLIP_W) / 2, CLIP_H }
-    #define OBSTACLE2 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2,                       0, (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, CLIP_H }
-    #define OBSTACLE3 { (X_BED_SIZE) / 4     - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) / 4     + (CLIP_W) / 2, Y_BED_SIZE }
-    #define OBSTACLE4 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, Y_BED_SIZE }
+    //#define OBSTACLE1 { (X_BED_SIZE) / 4     - (CLIP_W) / 2,                       0, (X_BED_SIZE) / 4     + (CLIP_W) / 2, CLIP_H }
+    //#define OBSTACLE2 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2,                       0, (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, CLIP_H }
+    //#define OBSTACLE3 { (X_BED_SIZE) / 4     - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) / 4     + (CLIP_W) / 2, Y_BED_SIZE }
+    //#define OBSTACLE4 { (X_BED_SIZE) * 3 / 4 - (CLIP_W) / 2, (Y_BED_SIZE) - (CLIP_H), (X_BED_SIZE) * 3 / 4 + (CLIP_W) / 2, Y_BED_SIZE }
 
     // The probed grid must be inset for G29 J. This is okay, since it is
     // only used to compute a linear transformation for the mesh itself.
@@ -2203,9 +2203,9 @@
   //=================================== Mesh ==================================
   //===========================================================================
 
-  #define MESH_INSET 0          // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X 15    // Don't use more than 7 points per axis, implementation limited.
-  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
+  #define MESH_INSET 15          // Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X 11    // Don't use more than 7 points per axis, implementation limited.
+  #define GRID_MAX_POINTS_Y 13
 
   //#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
 
@@ -2387,7 +2387,7 @@
 // every couple of seconds when it can't accept commands.
 //
 #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
-#define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
+#define DEFAULT_KEEPALIVE_INTERVAL 6  // Number of seconds between "busy" messages. Set with M113.
 //#define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
 // @section units
@@ -3549,17 +3549,17 @@
 #endif
 
 // Support for Adafruit NeoPixel LED driver
-//#define NEOPIXEL_LED
+#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
-  //#define NEOPIXEL_TYPE NEO_GRB          // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
+  #define NEOPIXEL_TYPE NEO_GRB          // NEO_GRBW, NEO_RGBW, NEO_GRB, NEO_RBG, etc.
                                           // See https://github.com/adafruit/Adafruit_NeoPixel/blob/master/Adafruit_NeoPixel.h
   //#define NEOPIXEL_PIN                4 // LED driving pin
   //#define NEOPIXEL2_TYPE  NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN               5
-  //#define NEOPIXEL_PIXELS 15              // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
+  #define NEOPIXEL_PIXELS 15              // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
   #define NEOPIXEL_IS_SEQUENTIAL          // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
   #define NEOPIXEL_BRIGHTNESS         127 // Initial brightness (0-255)
-  //#define NEOPIXEL_STARTUP_TEST         // Cycle through colors at startup
+  #define NEOPIXEL_STARTUP_TEST         // Cycle through colors at startup
 
   // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
   //#define NEOPIXEL2_SEPARATE
@@ -3592,7 +3592,7 @@
  *  - Turn off after the print has finished and the user has pushed a button
  */
 #if ANY(BLINKM, RGB_LED, RGBW_LED, PCA9632, PCA9533, NEOPIXEL_LED)
-  //#define PRINTER_EVENT_LEDS
+  #define PRINTER_EVENT_LEDS
 #endif
 
 // @section servos
