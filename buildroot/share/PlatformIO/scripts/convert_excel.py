@@ -1,6 +1,6 @@
 #
 # convert_excel.py
-# Converts values in an xlsx file to _.ini files to be read
+# Converts values in an xls file to _.ini files to be read
 #
 
 # add imported modules
@@ -39,7 +39,7 @@ def process_sheet(workbook):
   
   # make a dictionary of printers with the name as the key and empty dict as value
   printers = {}
-  for printer in first_row[6::]:
+  for printer in first_row[7::]:
     printers[printer] = {}
   
   # populate the settings for each printer
