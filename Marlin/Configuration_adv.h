@@ -1241,8 +1241,8 @@
  * The default timeout duration can be overridden with M18 and M84. Set to 0 for No Timeout.
  */
 #define DEFAULT_STEPPER_TIMEOUT_SEC 120
-#define DISABLE_IDLE_X
-#define DISABLE_IDLE_Y
+//#define DISABLE_IDLE_X
+//#define DISABLE_IDLE_Y
 //#define DISABLE_IDLE_Z    // Disable if the nozzle could fall onto your printed part!
 //#define DISABLE_IDLE_I
 //#define DISABLE_IDLE_J
@@ -3413,9 +3413,9 @@
   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
     #define X_STALL_SENSITIVITY 41
-    #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
+    #define X2_STALL_SENSITIVITY 41
     #define Y_STALL_SENSITIVITY 40
-    #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
+    #define Y2_STALL_SENSITIVITY 40
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
