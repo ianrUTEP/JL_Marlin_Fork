@@ -101,9 +101,9 @@ namespace LanguageNarrow_tr {
   LSTR MSG_LEVEL_BED_DONE                 = _UxGT("Seviyeleme Tamam!");
   LSTR MSG_Z_FADE_HEIGHT                  = _UxGT("Kaçınma Yüksekliği");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Ofset Ayarla");
-  LSTR MSG_HOME_OFFSET_X                  = _UxGT("X Ofset Sıfırla");
-  LSTR MSG_HOME_OFFSET_Y                  = _UxGT("Y Ofset Sıfırla");
-  LSTR MSG_HOME_OFFSET_Z                  = _UxGT("Z Ofset Sıfırla");
+  LSTR MSG_HOME_OFFSET_X                  = _UxGT("X Ofset Sıfırla"); // DWIN
+  LSTR MSG_HOME_OFFSET_Y                  = _UxGT("Y Ofset Sıfırla"); // DWIN
+  LSTR MSG_HOME_OFFSET_Z                  = _UxGT("Z Ofset Sıfırla"); // DWIN
   LSTR MSG_HOME_OFFSETS_APPLIED           = _UxGT("Ofset Tamam");
   LSTR MSG_ERR_M428_TOO_FAR               = _UxGT("MIN/MAX Çok Fazla");
   LSTR MSG_TRAMMING_WIZARD                = _UxGT("Hizalama Sihirbazı");
@@ -341,6 +341,7 @@ namespace LanguageNarrow_tr {
   LSTR MSG_MAX                            = " " LCD_STR_THERMOMETER _UxGT(" Max");
   LSTR MSG_FACTOR                         = " " LCD_STR_THERMOMETER _UxGT(" Çarpan");
   LSTR MSG_AUTOTEMP                       = _UxGT("Oto. Sıcaklık");
+  LSTR MSG_TIMEOUT                        = _UxGT("Zaman aşımı");
   LSTR MSG_LCD_ON                         = _UxGT("Açık");
   LSTR MSG_LCD_OFF                        = _UxGT("Kapalı");
   LSTR MSG_PID_AUTOTUNE                   = _UxGT("PID Kalibrasyonu");
@@ -350,7 +351,7 @@ namespace LanguageNarrow_tr {
   LSTR MSG_PID_AUTOTUNE_FAILED            = _UxGT("Kalibrasyon başarısız!");
   LSTR MSG_BAD_HEATER_ID                  = _UxGT("Kötü ekstruder.");
   LSTR MSG_TEMP_TOO_HIGH                  = _UxGT("Sıcaklık çok yüksek.");
-  LSTR MSG_TIMEOUT                        = _UxGT("Zaman aşımı");
+  LSTR MSG_TEMP_TOO_LOW                   = _UxGT("Sıcaklık çok düşük");
   LSTR MSG_PID_BAD_HEATER_ID              = _UxGT("Kalibrasyon başarısız! Kötü ekstruder.");
   LSTR MSG_PID_TEMP_TOO_HIGH              = _UxGT("Kalibrasyon başarısız! Sıcaklık çok yüksek.");
   LSTR MSG_PID_TIMEOUT                    = _UxGT("Kalibrasyon başarısız! Zaman aşımı.");
@@ -402,12 +403,12 @@ namespace LanguageNarrow_tr {
   LSTR MSG_SHAPING_DISABLE                = _UxGT("@ Biçimlemeyi Kapat");
   LSTR MSG_SHAPING_FREQ                   = _UxGT("@ frekans");
   LSTR MSG_SHAPING_ZETA                   = _UxGT("@ sönümleme");
-  LSTR MSG_SHAPING_A_FREQ                 = STR_A _UxGT(" frekansı");
-  LSTR MSG_SHAPING_B_FREQ                 = STR_B _UxGT(" frekansı");
-  LSTR MSG_SHAPING_A_ZETA                 = STR_A _UxGT(" sönümleme ");
-  LSTR MSG_SHAPING_B_ZETA                 = STR_B _UxGT(" sönümleme ");
-  LSTR MSG_SHAPING_X_ENABLE               = _UxGT("X şekilleme etkin");
-  LSTR MSG_SHAPING_Y_ENABLE               = _UxGT("Y şekilleme etkin");
+  LSTR MSG_SHAPING_A_FREQ                 = STR_A _UxGT(" frekansı");   // ProUI
+  LSTR MSG_SHAPING_B_FREQ                 = STR_B _UxGT(" frekansı");   // ProUI
+  LSTR MSG_SHAPING_C_FREQ                 = STR_C _UxGT(" frekansı");   // ProUI
+  LSTR MSG_SHAPING_A_ZETA                 = STR_A _UxGT(" sönümleme");  // ProUI
+  LSTR MSG_SHAPING_B_ZETA                 = STR_B _UxGT(" sönümleme");  // ProUI
+  LSTR MSG_SHAPING_C_ZETA                 = STR_C _UxGT(" sönümleme");  // ProUI
   LSTR MSG_XY_FREQUENCY_LIMIT             = _UxGT("XY Frek. Sınırı");
   LSTR MSG_XY_FREQUENCY_FEEDRATE          = _UxGT("Min FR Factörü");
   LSTR MSG_STEPS_PER_MM                   = _UxGT("Adım/mm");
@@ -867,7 +868,6 @@ namespace LanguageNarrow_tr {
   LSTR DGUS_MSG_NOT_WHILE_PRINTING        = _UxGT("Yazdırma sırasında izin verilmez");
   LSTR DGUS_MSG_NOT_WHILE_IDLE            = _UxGT("Boştayken izin verilmez");
   LSTR DGUS_MSG_NO_FILE_SELECTED          = _UxGT("Seçili dosya yok");
-  LSTR DGUS_MSG_TEMP_TOO_LOW              = _UxGT("Sıcaklık çok düşük");
   LSTR DGUS_MSG_EXECUTING_COMMAND         = _UxGT("Komut yürütülüyor...");
   LSTR DGUS_MSG_BED_PID_DISABLED          = _UxGT("Tabla PID pasif");
   LSTR DGUS_MSG_PID_DISABLED              = _UxGT("PID devre dışı");
