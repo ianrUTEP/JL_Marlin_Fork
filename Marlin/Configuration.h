@@ -41,8 +41,8 @@
 #define I2C_BD_SCL_PIN PB6             // Added by config.ini
 #define I2C_BD_DELAY 20                // Added by config.ini
 #define BTT_MOTOR_EXPANSION            // Added by config.ini
-//#define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
-//#define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini
+#define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
+#define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini
 //#define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Z_PROBE_END_SCRIPT             // Added by config.ini 2024-01-22 15:09:02
 //#define Y_MAX_PIN                      // Added by config.ini
@@ -81,7 +81,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BTT_SKR_V1_4_TURBO
+  #define MOTHERBOARD BOARD_BTT_OCTOPUS_PRO_V1_1
 #endif
 
 /**
@@ -92,7 +92,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT 0
+#define SERIAL_PORT 1
 
 /**
  * Serial Port Baud Rate
@@ -107,7 +107,7 @@
  */
 #define BAUDRATE 250000
 
-//#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
+#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
@@ -155,8 +155,8 @@
 #define X_DRIVER_TYPE TMC2209
 #define Y_DRIVER_TYPE TMC2209
 #define Z_DRIVER_TYPE TMC2209
-//#define X2_DRIVER_TYPE TMC2209
-//#define Y2_DRIVER_TYPE TMC2209
+#define X2_DRIVER_TYPE TMC2209
+#define Y2_DRIVER_TYPE TMC2209
 #define Z2_DRIVER_TYPE TMC2209
 #define Z3_DRIVER_TYPE TMC2209
 //#define Z4_DRIVER_TYPE A4988
@@ -166,9 +166,9 @@
 //#define U_DRIVER_TYPE  A4988
 //#define V_DRIVER_TYPE  A4988
 //#define W_DRIVER_TYPE  A4988
-//#define E0_DRIVER_TYPE TMC2209
-#define E1_DRIVER_TYPE en
-//#define E2_DRIVER_TYPE TMC2209
+#define E0_DRIVER_TYPE TMC2209
+#define E1_DRIVER_TYPE TMC2209
+#define E2_DRIVER_TYPE TMC2209
 //#define E3_DRIVER_TYPE TMC2209
 //#define E4_DRIVER_TYPE A4988
 //#define E5_DRIVER_TYPE A4988
@@ -360,11 +360,11 @@
  *   - This implementation supports up to two mixing extruders.
  *   - Enable DIRECT_MIXING_IN_G1 for M165 and mixing in G1 (from Pia Taubert's reference implementation).
  */
-//#define MIXING_EXTRUDER
+#define MIXING_EXTRUDER
 #if ENABLED(MIXING_EXTRUDER)
-  //#define MIXING_STEPPERS 4        // Number of steppers in your mixing extruder
+  #define MIXING_STEPPERS 3        // Number of steppers in your mixing extruder
   #define MIXING_VIRTUAL_TOOLS 16  // Use the Virtual Tool method with M163 and M164
-  //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
+  #define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
   //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
   //#define MIXING_PRESETS         // Assign 8 default V-tool presets for 2 or 3 MIXING_STEPPERS
   #if ENABLED(GRADIENT_MIX)
@@ -1359,7 +1359,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
 #define USE_PROBE_FOR_Z_HOMING
