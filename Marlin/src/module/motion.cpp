@@ -102,6 +102,8 @@ xyze_pos_t current_position = LOGICAL_AXIS_ARRAY(0, X_HOME_POS, Y_HOME_POS, Z_IN
  */
 xyze_pos_t destination; // {0}
 
+float z_deltas[3] = {0, 0, 0};  // Initialize array to zeros
+
 // G60/G61 Position Save and Return
 #if SAVED_POSITIONS
   uint8_t saved_slots[(SAVED_POSITIONS + 7) >> 3];
