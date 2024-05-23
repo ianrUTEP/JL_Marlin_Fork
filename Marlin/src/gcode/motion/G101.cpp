@@ -22,6 +22,7 @@
 
 #include "../gcode.h"
 #include "../../module/motion.h"
+#include "../../module/stepper.h"
 
 #include "../../MarlinCore.h"
 
@@ -58,6 +59,16 @@ void GcodeSuite::G101(TERN_(HAS_FAST_MOVES, const bool fast_move/*=false*/)) {
       }
     #endif
   #endif
+
+  if(parser.seen('U')) {
+    float delta;
+    stepper.set_separate_multi_axis(true);
+    stepper.set_all_z_lock(true, 0);
+    delta = parser.floatval('U');
+    do_blocking_move_to_z(delta + current_position.z);
+    stepper.set_all_z_lock(false);
+    stepper.set_separate_multi_axis(false);
+  }
 
   get_destination_from_command();                 // Get X Y [Z[I[J[K]]]] [E] F (and set cutter power)
 
