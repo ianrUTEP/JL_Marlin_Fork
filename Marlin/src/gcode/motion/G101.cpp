@@ -85,9 +85,9 @@ void GcodeSuite::G101(TERN_(HAS_FAST_MOVES, const bool fast_move/*=false*/)) {
       do_blocking_move_to_z(change + current_position.z);
       stepper.set_all_z_lock(false);  // Unlock all axes
       z_deltas[i] = parser.floatval(z_axis_codes[i]); // Save the cumulative position
-      // stepper.set_separate_multi_axis(false); // Relock all the steppers
     }
   }
+  stepper.set_separate_multi_axis(false); // Relock all the steppers
 
   get_destination_from_command();                 // Get X Y [Z[I[J[K]]]] [E] F (and set cutter power)
 
