@@ -46,6 +46,9 @@ extern xyze_pos_t destination;
  * G0, G1: Coordinated movement of X Y Z E axes
  */
 void GcodeSuite::G101(TERN_(HAS_FAST_MOVES, const bool fast_move/*=false*/)) {
+  static const char z_axis_codes[] = { LIST_N(NUM_Z_STEPPERS, 'U', 'V', 'W') };
+  static float change = 0; //A variable to store changes of each z stepper
+
   if (!MOTION_CONDITIONS) return;
 
   TERN_(FULL_REPORT_TO_HOST_FEATURE, set_and_report_grblstate(M_RUNNING));
@@ -60,41 +63,30 @@ void GcodeSuite::G101(TERN_(HAS_FAST_MOVES, const bool fast_move/*=false*/)) {
     #endif
   #endif
 
-  if(parser.seen('U') || parser.seen('V') || parser.seen('W')) {
-    float change = 0; //A variable to store changes of each z stepper
-    // Change is the difference between the provided value and the stored value
-    // In this way, only the required motion for each axis will be done
-    // The provided value is then stored to the array holding the difference positions
-    // Values are signed floats - not sure if necessary for resolution
-    // 
-    // The movement target for each axis is the current z position of the entire axis
-    // plus the necessary change to get to the delta location
-    stepper.set_separate_multi_axis(true);  //Separate Z axes
-    // Check for U pressence
-    if (parser.seen('U')) {
-      stepper.set_all_z_lock(true, 0);  // Lock all except Z0
-      change = z_deltas[0] - parser.floatval('U');
+  if (parser.seen('O')) {
+    for(int i = 0; i < NUM_Z_STEPPERS; i++) {
+      z_deltas[i] = 0;
+    }
+  }
+
+  stepper.set_separate_multi_axis(true);  //Separate Z axes
+  for (int i = 0; i < NUM_Z_STEPPERS; i++) {
+    // Check for pressence of current stepper
+    if (parser.seenval(z_axis_codes[i])) {
+      // Change is the difference between the provided value and the stored value
+      // In this way, only the required motion for each axis will be done
+      // The provided value is then stored to the array holding the difference positions
+      // Values are signed floats - not sure if necessary for resolution
+      // 
+      // The movement target for each axis is the current z position of the entire axis
+      // plus the necessary change to get to the delta location
+      stepper.set_all_z_lock(true, i);  // Lock all except current Z stepper
+      change = z_deltas[i] - parser.floatval(z_axis_codes[i]);
       do_blocking_move_to_z(change + current_position.z);
       stepper.set_all_z_lock(false);  // Unlock all axes
-      z_deltas[0] = z_deltas[0] + change; // Save the cumulative position
+      z_deltas[i] = z_deltas[i] + change; // Save the cumulative position
+      // stepper.set_separate_multi_axis(false); // Relock all the steppers
     }
-    if (parser.seen('V')) {
-      // Check for V pressence
-      stepper.set_all_z_lock(true, 1);  //Lock all except Z1
-      change = z_deltas[1] - parser.floatval('V');
-      do_blocking_move_to_z(change + current_position.z);
-      stepper.set_all_z_lock(false);  // Unlock all axes
-      z_deltas[1] = z_deltas[1] + change; // Save the cumulative position
-    }
-    if (parser.seen('W')) {
-      // Check for W pressence
-      stepper.set_all_z_lock(true, 2);  //Lock all except Z2
-      change = z_deltas[2] - parser.floatval('W');
-      do_blocking_move_to_z(change + current_position.z);
-      stepper.set_all_z_lock(false);  // Unlock all axes
-      z_deltas[2] = z_deltas[2] + change; // Save the cumulative position
-    }
-    stepper.set_separate_multi_axis(false); // Relock all the steppers
   }
 
   get_destination_from_command();                 // Get X Y [Z[I[J[K]]]] [E] F (and set cutter power)
