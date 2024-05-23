@@ -3014,7 +3014,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z)
-    #define Z_CURRENT 1000
+    #define Z_CURRENT 300
     #define Z_CURRENT_HOME Z_CURRENT
     #define Z_MICROSTEPS 16
     #define Z_RSENSE 0.11
@@ -3024,7 +3024,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z2)
-    #define Z2_CURRENT 1000
+    #define Z2_CURRENT 300
     #define Z2_CURRENT_HOME Z_CURRENT_HOME
     #define Z2_MICROSTEPS Z_MICROSTEPS
     #define Z2_RSENSE Z_RSENSE
@@ -3034,7 +3034,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z3)
-    #define Z3_CURRENT 1000
+    #define Z3_CURRENT 300
     #define Z3_CURRENT_HOME Z_CURRENT_HOME
     #define Z3_MICROSTEPS Z_MICROSTEPS
     #define Z3_RSENSE Z_RSENSE
