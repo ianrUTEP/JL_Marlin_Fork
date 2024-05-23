@@ -84,7 +84,7 @@ void GcodeSuite::G101(TERN_(HAS_FAST_MOVES, const bool fast_move/*=false*/)) {
       change = z_deltas[i] - parser.floatval(z_axis_codes[i]);
       do_blocking_move_to_z(change + current_position.z);
       stepper.set_all_z_lock(false);  // Unlock all axes
-      z_deltas[i] = z_deltas[i] + change; // Save the cumulative position
+      z_deltas[i] = parser.floatval(z_axis_codes[i]); // Save the cumulative position
       // stepper.set_separate_multi_axis(false); // Relock all the steppers
     }
   }
