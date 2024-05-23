@@ -84,7 +84,7 @@ void GcodeSuite::G101(TERN_(HAS_FAST_MOVES, const bool fast_move/*=false*/)) {
       // plus the necessary change to get to the delta location
       stepper.set_all_z_lock(true, i);  // Lock all except current Z stepper
       change = z_deltas[i] - parser.floatval(z_axis_codes[i]);
-      do_blocking_move_to_z(change + current_position.z);
+      do_blocking_move_to_z(current_position.z - change);
       stepper.set_all_z_lock(false);  // Unlock all axes
       z_deltas[i] = parser.floatval(z_axis_codes[i]); // Save the new delta position
       current_position.z = last_z;
