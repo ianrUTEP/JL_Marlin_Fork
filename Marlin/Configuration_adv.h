@@ -2621,7 +2621,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#define TX_BUFFER_SIZE 128
+#define TX_BUFFER_SIZE 256
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
@@ -2974,7 +2974,7 @@
   #define INTERPOLATE true
 
   #if AXIS_IS_TMC_CONFIG(X)
-    #define X_CURRENT 2000              // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT 300              // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME X_CURRENT   // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS 16            // 0..256
     #define X_RSENSE 0.11
@@ -2994,7 +2994,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Y)
-    #define Y_CURRENT 2000
+    #define Y_CURRENT 300
     #define Y_CURRENT_HOME Y_CURRENT
     #define Y_MICROSTEPS 16
     #define Y_RSENSE 0.11
@@ -3114,7 +3114,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E0)
-    #define E0_CURRENT 900
+    #define E0_CURRENT 300
     #define E0_MICROSTEPS 16
     #define E0_RSENSE 0.11
     #define E0_CHAIN_POS -1
@@ -3123,7 +3123,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E1)
-    #define E1_CURRENT 900
+    #define E1_CURRENT 300
     #define E1_MICROSTEPS E0_MICROSTEPS
     #define E1_RSENSE 0.11
     #define E1_CHAIN_POS -1
@@ -3132,7 +3132,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E2)
-    #define E2_CURRENT 1900
+    #define E2_CURRENT 300
     #define E2_MICROSTEPS E0_MICROSTEPS
     #define E2_RSENSE 0.11
     #define E2_CHAIN_POS -1
