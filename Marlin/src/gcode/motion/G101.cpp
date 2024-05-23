@@ -88,6 +88,7 @@ void GcodeSuite::G101(TERN_(HAS_FAST_MOVES, const bool fast_move/*=false*/)) {
       stepper.set_all_z_lock(false);  // Unlock all axes
       z_deltas[i] = parser.floatval(z_axis_codes[i]); // Save the new delta position
       current_position.z = last_z;
+      planner.set_position_mm(current_position);
     }
   }
   stepper.set_separate_multi_axis(false); // Relock all the steppers
