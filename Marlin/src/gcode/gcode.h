@@ -499,6 +499,7 @@ private:
   #endif
 
   static void G0_G1(TERN_(HAS_FAST_MOVES, const bool fast_move=false));
+  static void G101(TERN_(HAS_FAST_MOVES, const bool fast_move=false));
 
   #if ENABLED(ARC_SUPPORT)
     static void G2_G3(const bool clockwise);
