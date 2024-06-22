@@ -121,6 +121,10 @@
   #define Z_STOP_PIN                  Z_DIAG_PIN  // Z-STOP
 #endif
 
+//Added by Ian
+#define I_MIN_PIN PC5
+#define J_MIN_PIN PC5
+
 //
 // Z Probe (when not Z_MIN_PIN)
 //
