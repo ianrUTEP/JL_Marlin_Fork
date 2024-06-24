@@ -1914,11 +1914,11 @@ void prepare_line_to_destination() {
 
       // TODO: potentially add logic to synchronize I, J, and Z axes here
       // In theory this works by updating multiple targets
-      #if ENABLED(SYNC_NONZ_BED)
+      if (ENABLED(SYNC_NONZ_BED) && (axis==Z_AXIS || axis==I_AXIS || axis==J_AXIS)) {
         target[Z_AXIS] = 0;
         target[I_AXIS] = 0;
         target[J_AXIS] = 0;
-      #endif
+      }
       target[axis] = 0;                         // Set the single homing axis to 0
       planner.set_machine_position_mm(target);  // Update the machine position
 
