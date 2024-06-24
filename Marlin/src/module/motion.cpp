@@ -1912,6 +1912,7 @@ void prepare_line_to_destination() {
       // Get the ABC or XYZ positions in mm
       abce_pos_t target = planner.get_axis_positions_mm();
 
+      // TODO: potentially add logic to synchronize I, J, and Z axes here
       target[axis] = 0;                         // Set the single homing axis to 0
       planner.set_machine_position_mm(target);  // Update the machine position
 
