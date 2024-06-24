@@ -48,6 +48,7 @@
 #define J_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
 #define J_SAFE_HOMING_X_POINT 129.03   // Added by config.ini 2024-06-23 21:07:02
 #define J_SAFE_HOMING_Y_POINT 261.36   // Added by config.ini 2024-06-23 21:07:02
+#define SYNC_NONZ_BED                  // Added by config.ini 2024-06-23 22:38:57
 //#define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Z_PROBE_END_SCRIPT             // Added by config.ini 2024-01-22 15:09:02
 //#define Y_MAX_PIN                      // Added by config.ini
