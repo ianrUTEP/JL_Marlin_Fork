@@ -40,8 +40,8 @@
 #define BTT_MOTOR_EXPANSION            // Added by config.ini
 #define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
 #define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini
-#define I_MIN_PIN Z_MIN_PROBE_PIN      // Added by config.ini 2024-06-23 20:38:19
-#define J_MIN_PIN Z_MIN_PROBE_PIN      // Added by config.ini 2024-06-23 20:38:19
+#define I_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
+#define J_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
 #define I_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
 #define I_SAFE_HOMING_X_POINT 231.55   // Added by config.ini 2024-06-23 21:07:02
 #define I_SAFE_HOMING_Y_POINT 30.09    // Added by config.ini 2024-06-23 21:07:02
