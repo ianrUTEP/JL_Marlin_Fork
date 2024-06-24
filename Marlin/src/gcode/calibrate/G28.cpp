@@ -117,8 +117,8 @@
      * Move the Z probe (or just the nozzle) to the safe homing point
      * (Z is already at the right height)
      */
-    constexpr xy_float_t safe_homing_xy = { Z_SAFE_HOMING_X_POINT, Z_SAFE_HOMING_Y_POINT };
-    destination.set(safe_homing_xy, current_position.z);
+    constexpr xy_float_t z_safe_homing_xy = { Z_SAFE_HOMING_X_POINT, Z_SAFE_HOMING_Y_POINT };
+    destination.set(z_safe_homing_xy, current_position.z);
 
     TERN_(HOMING_Z_WITH_PROBE, destination -= probe.offset_xy);
 
@@ -141,6 +141,84 @@
   }
 
 #endif // Z_SAFE_HOMING
+
+#if ENABLED(I_SAFE_HOMING)
+
+  inline void home_i_safely() {
+    DEBUG_SECTION(log_G28, "home_i_safely", DEBUGGING(LEVELING));
+
+    // Disallow I homing if X or Y homing is needed
+    if (homing_needed_error(_BV(X_AXIS) | _BV(Y_AXIS))) return;
+
+    sync_plan_position();
+
+    /**
+     * Move the Z probe (or just the nozzle) to the safe homing point
+     * (Z is already at the right height)
+     */
+    constexpr xy_float_t i_safe_homing_xy = { I_SAFE_HOMING_X_POINT, I_SAFE_HOMING_Y_POINT };
+    destination.set(i_safe_homing_xy, current_position.i);
+
+    TERN_(HOMING_Z_WITH_PROBE, destination -= probe.offset_xy);
+
+    if (position_is_reachable(destination)) {
+
+      if (DEBUGGING(LEVELING)) DEBUG_POS("home_i_safely", destination);
+
+      // Free the active extruder for movement
+      TERN_(DUAL_X_CARRIAGE, idex_set_parked(false));
+
+      TERN_(SENSORLESS_HOMING, safe_delay(500)); // Short delay needed to settle
+
+      do_blocking_move_to_xy(destination);
+      homeaxis(I_AXIS);
+    }
+    else {
+      LCD_MESSAGE(MSG_ZPROBE_OUT);
+      SERIAL_ECHO_MSG(STR_ZPROBE_OUT_SER);
+    }
+  }
+
+#endif // I_SAFE_HOMING
+
+#if ENABLED(J_SAFE_HOMING)
+
+  inline void home_j_safely() {
+    DEBUG_SECTION(log_G28, "home_j_safely", DEBUGGING(LEVELING));
+
+    // Disallow Z homing if X or Y homing is needed
+    if (homing_needed_error(_BV(X_AXIS) | _BV(Y_AXIS))) return;
+
+    sync_plan_position();
+
+    /**
+     * Move the Z probe (or just the nozzle) to the safe homing point
+     * (Z is already at the right height)
+     */
+    constexpr xy_float_t j_safe_homing_xy = { J_SAFE_HOMING_X_POINT, J_SAFE_HOMING_Y_POINT };
+    destination.set(j_safe_homing_xy, current_position.j);
+
+    TERN_(HOMING_Z_WITH_PROBE, destination -= probe.offset_xy);
+
+    if (position_is_reachable(destination)) {
+
+      if (DEBUGGING(LEVELING)) DEBUG_POS("home_j_safely", destination);
+
+      // Free the active extruder for movement
+      TERN_(DUAL_X_CARRIAGE, idex_set_parked(false));
+
+      TERN_(SENSORLESS_HOMING, safe_delay(500)); // Short delay needed to settle
+
+      do_blocking_move_to_xy(destination);
+      homeaxis(J_AXIS);
+    }
+    else {
+      LCD_MESSAGE(MSG_ZPROBE_OUT);
+      SERIAL_ECHO_MSG(STR_ZPROBE_OUT_SER);
+    }
+  }
+
+#endif // J_SAFE_HOMING
 
 #if ENABLED(IMPROVE_HOMING_RELIABILITY)
 
@@ -516,14 +594,19 @@ void GcodeSuite::G28() {
           }
         #endif
 
-        SECONDARY_AXIS_CODE(
-          if (doI) homeaxis(I_AXIS),
-          if (doJ) homeaxis(J_AXIS),
-          if (doK) homeaxis(K_AXIS),
-          if (doU) homeaxis(U_AXIS),
-          if (doV) homeaxis(V_AXIS),
-          if (doW) homeaxis(W_AXIS)
-        );
+        if (doI && ENABLED(I_SAFE_HOMING)) home_i_safely(); else if (doI) homeaxis(I_AXIS);
+        if (doJ && ENABLED(J_SAFE_HOMING)) home_j_safely(); else if (doJ) homeaxis(J_AXIS);
+
+        // Go ahead and disable these because we don't want repeats of I and J, but removing them from the
+        // macro results in a compile problem for some reason
+        // SECONDARY_AXIS_CODE(
+        //   if (doI) homeaxis(I_AXIS),
+        //   if (doJ) homeaxis(J_AXIS),
+        //   if (doK) homeaxis(K_AXIS),
+        //   if (doU) homeaxis(U_AXIS),
+        //   if (doV) homeaxis(V_AXIS),
+        //   if (doW) homeaxis(W_AXIS)
+        // );
 
       #endif // HAS_Z_AXIS
 
