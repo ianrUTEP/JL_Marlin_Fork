@@ -3009,7 +3009,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z)
-    #define Z_CURRENT 1000
+    #define Z_CURRENT 1500
     #define Z_CURRENT_HOME Z_CURRENT
     #define Z_MICROSTEPS 16
     #define Z_RSENSE 0.11
@@ -3049,21 +3049,21 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(I)
-    #define I_CURRENT      800
-    #define I_CURRENT_HOME I_CURRENT
-    #define I_MICROSTEPS    16
-    #define I_RSENSE         0.11
-    #define I_CHAIN_POS     -1
+    #define I_CURRENT Z_CURRENT
+    #define I_CURRENT_HOME Z_CURRENT_HOME
+    #define I_MICROSTEPS Z_MICROSTEPS
+    #define I_RSENSE Z_RSENSE
+    #define I_CHAIN_POS -1
     //#define I_INTERPOLATE  true
     //#define I_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(J)
-    #define J_CURRENT      800
-    #define J_CURRENT_HOME J_CURRENT
-    #define J_MICROSTEPS    16
-    #define J_RSENSE         0.11
-    #define J_CHAIN_POS     -1
+    #define J_CURRENT Z_CURRENT
+    #define J_CURRENT_HOME Z_CURRENT_HOME
+    #define J_MICROSTEPS Z_MICROSTEPS
+    #define J_RSENSE Z_RSENSE
+    #define J_CHAIN_POS -1
     //#define J_INTERPOLATE  true
     //#define J_HOLD_MULTIPLIER 0.5
   #endif
@@ -3109,7 +3109,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E0)
-    #define E0_CURRENT 900
+    #define E0_CURRENT 750
     #define E0_MICROSTEPS 16
     #define E0_RSENSE 0.11
     #define E0_CHAIN_POS -1
@@ -3118,7 +3118,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E1)
-    #define E1_CURRENT 900
+    #define E1_CURRENT 750
     #define E1_MICROSTEPS E0_MICROSTEPS
     #define E1_RSENSE 0.11
     #define E1_CHAIN_POS -1
@@ -3127,7 +3127,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E2)
-    #define E2_CURRENT 1900
+    #define E2_CURRENT 1400
     #define E2_MICROSTEPS E0_MICROSTEPS
     #define E2_RSENSE 0.11
     #define E2_CHAIN_POS -1
@@ -3364,8 +3364,8 @@
   #define Z2_HYBRID_THRESHOLD 5
   #define Z3_HYBRID_THRESHOLD 5
   #define Z4_HYBRID_THRESHOLD      3
-  #define I_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
-  #define J_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
+  #define I_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
+  #define J_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
   #define K_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
   #define U_HYBRID_THRESHOLD       3  // [mm/s]
   #define V_HYBRID_THRESHOLD       3
