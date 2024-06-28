@@ -61,6 +61,22 @@
 //===========================================================================
 
 /**
+ * Note on the use of SYNC_NONZ_BED
+ * Currently only applied to I and J stepper drivers. 
+ * Work would have to be done to expand it to other drivers, or automate which drivers are "bed" drivers
+ * 
+ * Current actions that are impacted when SYNC_NONZ_BED is enabled:
+ *  - first homing motion on any Z, (nonZ bed) axes will move all of them towards a home position
+ *    - subsequent homing motions will only affect their specific axis or move the known axes up to the 0 position
+ *    - this is a limitation because after the first move all the axes are assumed to be at position 0
+ *  - babystepping with M290 will also affect the (nonZ bed) axes. 
+ *    - currently this does not also update the probe offsets except on the z value
+ *    - for this reason, it is recommended to likely use P0 when babystepping with M290
+ *    - also worth noting that it is not cummulative and rather a distinct change factor
+ */
+
+
+/**
  * Here are some useful links to help get your machine configured and calibrated:
  *
  * Example Configs:     https://github.com/MarlinFirmware/Configurations/branches/all
@@ -80,7 +96,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Ian,24-06-19,HTMP1.1_ZVW-1)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Ian,24-06-27,HTMP1.1_ZVW-V2-851)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section machine
@@ -1311,10 +1327,10 @@
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
-  #define DEFAULT_ZJERK  0.3
+  #define DEFAULT_ZJERK 0.3
   #define DEFAULT_EJERK 5.0
-  //#define DEFAULT_IJERK  0.3
-  //#define DEFAULT_JJERK  0.3
+  #define DEFAULT_IJERK 0.3
+  #define DEFAULT_JJERK 0.3
   //#define DEFAULT_KJERK  0.3
   //#define DEFAULT_UJERK  0.3
   //#define DEFAULT_VJERK  0.3
@@ -2105,7 +2121,7 @@
    * at which point movement will be level to the machine's XY plane.
    * The height can be set with M420 Z<height>
    */
-  #define ENABLE_LEVELING_FADE_HEIGHT
+  //#define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
     #define DEFAULT_LEVELING_FADE_HEIGHT 1.0 // (mm) Default fade height.
   #endif
