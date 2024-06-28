@@ -42,6 +42,10 @@
   FORCE_INLINE void mod_probe_offset(const_float_t offs) {
     if (TERN1(BABYSTEP_HOTEND_Z_OFFSET, active_extruder == 0)) {
       probe.offset.z += offs;
+      #if ENABLED(SYNC_NONZ_BED)
+        probe.offset.i += offs;
+        probe.offset.j += offs;
+      #endif
       SERIAL_ECHO_MSG(STR_PROBE_OFFSET " " STR_Z, probe.offset.z);
     }
     else {
@@ -78,9 +82,16 @@ void GcodeSuite::M290() {
         #endif
       }
   #else
+    //SYNC_NONZ_BED solution to babystepping applied here
     if (parser.seenval('Z') || parser.seenval('S')) {
       const float offs = constrain(parser.value_axis_units(Z_AXIS), -2, 2);
+      if ENABLED(SYNC_NONZ_BED) {
+        babystep.add_mm(Z_AXIS, offs);
+        babystep.add_mm(I_AXIS, offs);
+        babystep.add_mm(J_AXIS, offs);
+      } else {
       babystep.add_mm(Z_AXIS, offs);
+      }
       #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
         if (parser.boolval('P', true)) mod_probe_offset(offs);
       #endif
