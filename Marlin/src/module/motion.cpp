@@ -1912,8 +1912,10 @@ void prepare_line_to_destination() {
       // Get the ABC or XYZ positions in mm
       abce_pos_t target = planner.get_axis_positions_mm();
 
-      // TODO: potentially add logic to synchronize I, J, and Z axes here
-      // In theory this works by updating multiple targets
+      // If user wants to sync the non-z bed and has a homing move on any of the bed axes, then
+      // set the target for all of them to 0
+      // In the worse case, this moves all of them for the first move
+      // Subsequent homing moves are not affected as each of the targeted axes are already "at 0"
       if (ENABLED(SYNC_NONZ_BED) && (axis==Z_AXIS || axis==I_AXIS || axis==J_AXIS)) {
         target[Z_AXIS] = 0;
         target[I_AXIS] = 0;
