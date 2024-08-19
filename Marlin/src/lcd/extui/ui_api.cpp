@@ -50,7 +50,6 @@
 #include "../../gcode/gcode.h"
 #include "../../module/motion.h"
 #include "../../module/planner.h"
-#include "../../module/probe.h"
 #include "../../module/temperature.h"
 #include "../../module/printcounter.h"
 #include "../../libs/duration_t.h"
@@ -80,6 +79,10 @@
 
 #if ENABLED(BACKLASH_GCODE)
   #include "../../feature/backlash.h"
+#endif
+
+#if HAS_BED_PROBE
+  #include "../../module/probe.h"
 #endif
 
 #if HAS_LEVELING
@@ -1067,7 +1070,7 @@ namespace ExtUI {
   void injectCommands_P(PGM_P const gcode) { queue.inject_P(gcode); }
   void injectCommands(char * const gcode)  { queue.inject(gcode); }
 
-  bool commandsInQueue() { return (planner.movesplanned() || queue.has_commands_queued()); }
+  bool commandsInQueue() { return (planner.has_blocks_queued() || queue.has_commands_queued()); }
 
   bool isAxisPositionKnown(const axis_t axis) { return axis_is_trusted((AxisEnum)axis); }
   bool isAxisPositionKnown(const extruder_t) { return axis_is_trusted(E_AXIS); }
@@ -1188,6 +1191,10 @@ namespace ExtUI {
     return isPrinting() && (isPrintingFromMediaPaused() || print_job_timer.isPaused());
   }
 
+  bool isOngoingPrintJob() {
+    return isPrintingFromMedia() || printJobOngoing();
+  }
+
   bool isMediaMounted() { return TERN0(HAS_MEDIA, card.isMounted()); }
 
   // Pause/Resume/Stop are implemented in MarlinUI
@@ -1219,7 +1226,7 @@ namespace ExtUI {
   void onSurviveInKilled() {
     thermalManager.disable_all_heaters();
     flags.printer_killed = 0;
-    marlin_state = MF_RUNNING;
+    marlin_state = MarlinState::MF_RUNNING;
     //SERIAL_ECHOLNPGM("survived at: ", millis());
   }
 
@@ -1278,6 +1285,9 @@ namespace ExtUI {
 //
 #if DISABLED(HAS_DWIN_E3V2)
   void MarlinUI::init_lcd() { ExtUI::onStartup(); }
+
+  void MarlinUI::clear_lcd() {}
+  void MarlinUI::clear_for_drawing() {}
 
   void MarlinUI::update() { ExtUI::onIdle(); }
 
