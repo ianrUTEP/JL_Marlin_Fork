@@ -1601,8 +1601,6 @@ void Planner::check_axes_activity() {
       #else
         float z_ubl_comp = bedlevel.get_z_correction(raw);
         raw.z += z_ubl_comp;
-        // TAGIAN: may be a race condition where different x and y values are passed when this happens
-        // unless a single value is used to apply (do not call get_z_correction for each axis)
         #if ENABLED(SYNC_NONZ_BED)
           raw.i += z_ubl_comp;
           raw.j += z_ubl_comp;
