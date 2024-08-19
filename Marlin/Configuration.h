@@ -36,13 +36,19 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02010300
-#define MIXER_NORMALIZER_DEBUG         // Added by config.ini
-#define I2C_BD_SDA_PIN PB7             // Added by config.ini
-#define I2C_BD_SCL_PIN PB6             // Added by config.ini
-#define I2C_BD_DELAY 20                // Added by config.ini
-#define BTT_MOTOR_EXPANSION            // Added by config.ini
-#define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini
-#define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini
+#define BTT_MOTOR_EXPANSION            // Added by config.ini 2024-06-23 21:54:52
+#define MIXER_NORMALIZER_DEBUG         // Added by config.ini 2024-06-23 21:54:53
+#define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini 2024-06-23 21:54:55
+#define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini 2024-06-23 21:54:55
+#define I_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
+#define J_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
+#define I_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
+#define I_SAFE_HOMING_X_POINT 231.55   // Added by config.ini 2024-06-23 21:07:02
+#define I_SAFE_HOMING_Y_POINT 30.09    // Added by config.ini 2024-06-23 21:07:02
+#define J_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
+#define J_SAFE_HOMING_X_POINT 129.03   // Added by config.ini 2024-06-23 21:07:02
+#define J_SAFE_HOMING_Y_POINT 261.36   // Added by config.ini 2024-06-23 21:07:02
+#define SYNC_NONZ_BED                  // Added by config.ini 2024-06-23 22:38:57
 //#define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Z_PROBE_END_SCRIPT             // Added by config.ini 2024-01-22 15:09:02
 //#define Y_MAX_PIN                      // Added by config.ini
@@ -53,6 +59,22 @@
 //===========================================================================
 //============================= Getting Started =============================
 //===========================================================================
+
+/**
+ * Note on the use of SYNC_NONZ_BED
+ * Currently only applied to I and J stepper drivers. 
+ * Work would have to be done to expand it to other drivers, or automate which drivers are "bed" drivers
+ * 
+ * Current actions that are impacted when SYNC_NONZ_BED is enabled:
+ *  - first homing motion on any Z, (nonZ bed) axes will move all of them towards a home position
+ *    - subsequent homing motions will only affect their specific axis or move the known axes up to the 0 position
+ *    - this is a limitation because after the first move all the axes are assumed to be at position 0
+ *  - babystepping with M290 will also affect the (nonZ bed) axes. 
+ *    - currently this does not also update the probe offsets except on the z value
+ *    - for this reason, it is recommended to likely use P0 when babystepping with M290
+ *    - also worth noting that it is not cummulative and rather a distinct change factor
+ */
+
 
 /**
  * Here are some useful links to help get your machine configured and calibrated:
@@ -74,7 +96,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Ian,24-06-21,TBZ10-4)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Ian,24-06-27,HTMP1.1_ZVW-V2-851)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section machine
@@ -129,7 +151,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Test Bench"
+#define CUSTOM_MACHINE_NAME "JL HTMP 1.1-ZVW"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -157,15 +179,15 @@
 #define Z_DRIVER_TYPE TMC2209
 #define X2_DRIVER_TYPE TMC2209
 #define Y2_DRIVER_TYPE TMC2209
-#define Z2_DRIVER_TYPE TMC2209
-#define Z3_DRIVER_TYPE TMC2209
+//#define Z2_DRIVER_TYPE TMC2209
+//#define Z3_DRIVER_TYPE TMC2209
 //#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE  A4988
-//#define J_DRIVER_TYPE  A4988
-//#define K_DRIVER_TYPE  A4988
-//#define U_DRIVER_TYPE  A4988
-//#define V_DRIVER_TYPE  A4988
-//#define W_DRIVER_TYPE  A4988
+#define I_DRIVER_TYPE TMC2209
+#define J_DRIVER_TYPE TMC2209
+// #define K_DRIVER_TYPE  TMC2209
+// #define U_DRIVER_TYPE  TMC2209
+// #define V_DRIVER_TYPE  TMC2209
+// #define W_DRIVER_TYPE  TMC2209
 #define E0_DRIVER_TYPE TMC2209
 #define E1_DRIVER_TYPE TMC2209
 #define E2_DRIVER_TYPE TMC2209
@@ -193,16 +215,16 @@
  * Regardless of these settings the axes are internally named I, J, K, U, V, W.
  */
 #ifdef I_DRIVER_TYPE
-  #define AXIS4_NAME 'A' // :['A', 'B', 'C', 'U', 'V', 'W']
-  #define AXIS4_ROTATES
+  #define AXIS4_NAME 'V' // :['A', 'B', 'C', 'U', 'V', 'W']
+  // #define AXIS4_ROTATES
 #endif
 #ifdef J_DRIVER_TYPE
-  #define AXIS5_NAME 'B' // :['B', 'C', 'U', 'V', 'W']
-  #define AXIS5_ROTATES
+  #define AXIS5_NAME 'W' // :['B', 'C', 'U', 'V', 'W']
+  // #define AXIS5_ROTATES
 #endif
 #ifdef K_DRIVER_TYPE
-  #define AXIS6_NAME 'C' // :['C', 'U', 'V', 'W']
-  #define AXIS6_ROTATES
+  #define AXIS6_NAME 'W' // :['C', 'U', 'V', 'W']
+  // #define AXIS6_ROTATES
 #endif
 #ifdef U_DRIVER_TYPE
   #define AXIS7_NAME 'U' // :['U', 'V', 'W']
@@ -566,7 +588,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 998
+#define TEMP_SENSOR_0 1047
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -574,7 +596,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 998
+#define TEMP_SENSOR_BED 501
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -1161,8 +1183,8 @@
   //#define ENDSTOPPULLDOWN_XMIN
   //#define ENDSTOPPULLDOWN_YMIN
   #define ENDSTOPPULLDOWN_ZMIN
-  //#define ENDSTOPPULLDOWN_IMIN
-  //#define ENDSTOPPULLDOWN_JMIN
+  #define ENDSTOPPULLDOWN_IMIN
+  #define ENDSTOPPULLDOWN_JMIN
   //#define ENDSTOPPULLDOWN_KMIN
   //#define ENDSTOPPULLDOWN_UMIN
   //#define ENDSTOPPULLDOWN_VMIN
@@ -1187,11 +1209,11 @@
 #define X_MAX_ENDSTOP_HIT_STATE HIGH
 #define Y_MIN_ENDSTOP_HIT_STATE HIGH
 #define Y_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_ENDSTOP_HIT_STATE LOW
 #define Z_MAX_ENDSTOP_HIT_STATE HIGH
-#define I_MIN_ENDSTOP_HIT_STATE HIGH
+#define I_MIN_ENDSTOP_HIT_STATE LOW
 #define I_MAX_ENDSTOP_HIT_STATE HIGH
-#define J_MIN_ENDSTOP_HIT_STATE HIGH
+#define J_MIN_ENDSTOP_HIT_STATE LOW
 #define J_MAX_ENDSTOP_HIT_STATE HIGH
 #define K_MIN_ENDSTOP_HIT_STATE HIGH
 #define K_MAX_ENDSTOP_HIT_STATE HIGH
@@ -1201,7 +1223,7 @@
 #define V_MAX_ENDSTOP_HIT_STATE HIGH
 #define W_MIN_ENDSTOP_HIT_STATE HIGH
 #define W_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_PROBE_ENDSTOP_HIT_STATE LOW
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1222,7 +1244,7 @@
 //#define ENDSTOP_NOISE_THRESHOLD 2
 
 // Check for stuck or disconnected endstops during homing moves.
-//#define DETECT_BROKEN_ENDSTOP
+#define DETECT_BROKEN_ENDSTOP
 
 //=============================================================================
 //============================== Movement Settings ============================
@@ -1249,7 +1271,7 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 320, 582 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 400, 400, 582 }
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1261,7 +1283,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE { 200, 200, 100, 22}
+#define DEFAULT_MAX_FEEDRATE { 200, 200, 20, 20, 20, 22}
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1274,7 +1296,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 5000}
+#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 500, 500, 5000}
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1305,10 +1327,10 @@
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
-  #define DEFAULT_ZJERK  0.3
+  #define DEFAULT_ZJERK 0.3
   #define DEFAULT_EJERK 5.0
-  //#define DEFAULT_IJERK  0.3
-  //#define DEFAULT_JJERK  0.3
+  #define DEFAULT_IJERK 0.3
+  #define DEFAULT_JJERK 0.3
   //#define DEFAULT_KJERK  0.3
   //#define DEFAULT_UJERK  0.3
   //#define DEFAULT_VJERK  0.3
@@ -1359,7 +1381,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
 #define USE_PROBE_FOR_Z_HOMING
@@ -1397,13 +1419,13 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 /**
  * Use the nozzle as the probe, as with a conductive
  * nozzle system or a piezo-electric smart effector.
  */
-#define NOZZLE_AS_PROBE
+//#define NOZZLE_AS_PROBE
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -1594,7 +1616,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET {0,0,0}
+#define NOZZLE_TO_PROBE_OFFSET { 63, 10, 0, 0, 0}
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 //#define PROBING_TOOL 0
@@ -1610,10 +1632,10 @@
 #define XY_PROBE_FEEDRATE (120*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (10*60)
+#define Z_PROBE_FEEDRATE_FAST (4*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
+#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 1)
 
 /**
  * Probe Activation Switch
@@ -1660,7 +1682,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 3
+#define MULTIPLE_PROBING 3
 #define EXTRA_PROBING 0
 
 /**
@@ -1678,9 +1700,9 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE 0   // (mm) Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES 0  // (mm) Z Clearance between probe points
-#define Z_CLEARANCE_MULTI_PROBE 0     // (mm) Z Clearance between multiple probes
-#define Z_PROBE_ERROR_TOLERANCE 10     // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
+#define Z_CLEARANCE_BETWEEN_PROBES 2  // (mm) Z Clearance between probe points
+#define Z_CLEARANCE_MULTI_PROBE 2     // (mm) Z Clearance between multiple probes
+#define Z_PROBE_ERROR_TOLERANCE 1     // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
 #define Z_AFTER_PROBING Z_AFTER_HOMING           // (mm) Z position after probing is done
 
 #define Z_PROBE_LOW_POINT -1          // (mm) Farthest distance below the trigger-point to go before stopping
@@ -1732,8 +1754,8 @@
 #define Y_ENABLE_ON 0
 #define Z_ENABLE_ON 0
 #define E_ENABLE_ON 0 // For all extruders
-//#define I_ENABLE_ON 0
-//#define J_ENABLE_ON 0
+#define I_ENABLE_ON 0
+#define J_ENABLE_ON 0
 //#define K_ENABLE_ON 0
 //#define U_ENABLE_ON 0
 //#define V_ENABLE_ON 0
@@ -1765,8 +1787,8 @@
 #define INVERT_X_DIR false
 #define INVERT_Y_DIR false
 #define INVERT_Z_DIR false
-//#define INVERT_I_DIR false
-//#define INVERT_J_DIR false
+#define INVERT_I_DIR false
+#define INVERT_J_DIR false
 //#define INVERT_K_DIR false
 //#define INVERT_U_DIR false
 //#define INVERT_V_DIR false
@@ -1796,10 +1818,10 @@
  */
 //#define Z_IDLE_HEIGHT Z_HOME_POS
 
-#define Z_CLEARANCE_FOR_HOMING 5    // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_CLEARANCE_FOR_HOMING 0    // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                       // You'll need this much clearance above Z_MAX_POS to avoid grinding.
 
-#define Z_AFTER_HOMING 10           // (mm) Height to move to after homing (if Z was homed)
+#define Z_AFTER_HOMING 0           // (mm) Height to move to after homing (if Z was homed)
 //#define XY_AFTER_HOMING { 10, 10 }  // (mm) Move to an XY position after homing (and raising Z)
 
 //#define EVENT_GCODE_AFTER_HOMING "M300 P440 S200"  // Commands to run after G28 (and move to XY_AFTER_HOMING)
@@ -1809,8 +1831,8 @@
 #define X_HOME_DIR -1
 #define Y_HOME_DIR 1
 #define Z_HOME_DIR -1
-//#define I_HOME_DIR -1
-//#define J_HOME_DIR -1
+#define I_HOME_DIR -1
+#define J_HOME_DIR -1
 //#define K_HOME_DIR -1
 //#define U_HOME_DIR -1
 //#define V_HOME_DIR -1
@@ -1844,10 +1866,10 @@
 #define X_MAX_POS (X_BED_SIZE + 130)
 #define Y_MAX_POS (Y_BED_SIZE + 28)
 #define Z_MAX_POS 350
-//#define I_MIN_POS 0
-//#define I_MAX_POS 50
-//#define J_MIN_POS 0
-//#define J_MAX_POS 50
+#define I_MIN_POS Z_MIN_POS
+#define I_MAX_POS Z_MAX_POS
+#define J_MIN_POS Z_MIN_POS
+#define J_MAX_POS Z_MAX_POS
 //#define K_MIN_POS 0
 //#define K_MAX_POS 50
 //#define U_MIN_POS 0
@@ -2099,7 +2121,7 @@
    * at which point movement will be level to the machine's XY plane.
    * The height can be set with M420 Z<height>
    */
-  #define ENABLE_LEVELING_FADE_HEIGHT
+  //#define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
     #define DEFAULT_LEVELING_FADE_HEIGHT 1.0 // (mm) Default fade height.
   #endif
@@ -2284,19 +2306,19 @@
  * - Allows Z homing only when XY positions are known and trusted.
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_CENTER  // (mm) X point for Z homing
-  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // (mm) Y point for Z homing
+  #define Z_SAFE_HOMING_X_POINT 25.39  // (mm) X point for Z homing
+  #define Z_SAFE_HOMING_Y_POINT 30.09  // (mm) Y point for Z homing
   #define Z_SAFE_HOMING_POINT_ABSOLUTE  // Ignore home offsets (M206) for Z homing position
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
+#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) , (4*60), (4*60)}
 
 // Validate that endstops are triggered on homing moves
-//#define VALIDATE_HOMING_ENDSTOPS
+#define VALIDATE_HOMING_ENDSTOPS
 
 // @section calibrate
 

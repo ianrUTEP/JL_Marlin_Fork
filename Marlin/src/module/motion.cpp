@@ -1912,6 +1912,17 @@ void prepare_line_to_destination() {
       // Get the ABC or XYZ positions in mm
       abce_pos_t target = planner.get_axis_positions_mm();
 
+      // If user wants to sync the non-z bed and has a homing move on any of the bed axes, then
+      // set the target for all of them to 0
+      // In the worse case, this moves all of them for the first move
+      // Subsequent homing moves are not affected as each of the targeted axes are already "at 0"
+      #if ALL(SYNC_NONZ_BED, HAS_I_AXIS, HAS_J_AXIS)
+        if(axis==Z_AXIS || axis==I_AXIS || axis==J_AXIS) {
+          target[Z_AXIS] = 0;
+          target[I_AXIS] = 0;
+          target[J_AXIS] = 0;
+        }
+      #endif
       target[axis] = 0;                         // Set the single homing axis to 0
       planner.set_machine_position_mm(target);  // Update the machine position
 

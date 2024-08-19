@@ -786,6 +786,7 @@ class Planner {
     #if HAS_POSITION_MODIFIERS
       FORCE_INLINE static void apply_modifiers(xyze_pos_t &pos, bool leveling=ENABLED(PLANNER_LEVELING)) {
         TERN_(SKEW_CORRECTION, skew(pos));
+        //TAGIAN: Here, just add something to adjust the other axes too - if the pos has info on the other axes
         if (leveling) apply_leveling(pos);
         TERN_(FWRETRACT, apply_retract(pos));
       }
