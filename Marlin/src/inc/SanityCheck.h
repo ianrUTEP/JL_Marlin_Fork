@@ -237,9 +237,9 @@ static_assert(COUNT(arm) == LOGICAL_AXES, "AXIS_RELATIVE_MODES must contain " _L
 
 // Serial DMA is only available for some STM32 MCUs and HC32
 #if ENABLED(SERIAL_DMA)
-  #if defined(ARDUINO_ARCH_HC32)
+  #ifdef ARDUINO_ARCH_HC32
     // checks for HC32 are located in HAL/HC32/inc/SanityCheck.h
-  #elif !HAL_STM32 || NONE(STM32F0xx, STM32F1xx, STM32F2xx, STM32F4xx, STM32F7xx)
+  #elif DISABLED(HAL_STM32) || NONE(STM32F0xx, STM32F1xx, STM32F2xx, STM32F4xx, STM32F7xx)
     #error "SERIAL_DMA is only available for some STM32 MCUs and requires HAL/STM32."
   #elif !defined(HAL_UART_MODULE_ENABLED) || defined(HAL_UART_MODULE_ONLY)
     #error "SERIAL_DMA requires STM32 platform HAL UART (without HAL_UART_MODULE_ONLY)."
@@ -837,9 +837,7 @@ static_assert(COUNT(arm) == LOGICAL_AXES, "AXIS_RELATIVE_MODES must contain " _L
  * Nonlinear Extrusion requirements
  */
 #if ENABLED(NONLINEAR_EXTRUSION)
-  #if DISABLED(ADAPTIVE_STEP_SMOOTHING)
-    #error "ADAPTIVE_STEP_SMOOTHING is required for NONLINEAR_EXTRUSION."
-  #elif HAS_MULTI_EXTRUDER
+  #if HAS_MULTI_EXTRUDER
     #error "NONLINEAR_EXTRUSION doesn't currently support multi-extruder setups."
   #elif DISABLED(CPU_32_BIT)
     #error "NONLINEAR_EXTRUSION requires a 32-bit CPU."
@@ -1011,8 +1009,12 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
 #endif
 
 // Fan Kickstart power
-#if FAN_KICKSTART_TIME && !WITHIN(FAN_KICKSTART_POWER, 64, 255)
-  #error "FAN_KICKSTART_POWER must be an integer from 64 to 255."
+#if FAN_KICKSTART_TIME
+  #if ENABLED(FAN_KICKSTART_LINEAR) && FAN_KICKSTART_POWER != 255
+    #error "FAN_KICKSTART_LINEAR requires a FAN_KICKSTART_POWER of 255."
+  #elif !WITHIN(FAN_KICKSTART_POWER, 64, 255)
+    #error "FAN_KICKSTART_POWER must be an integer from 64 to 255."
+  #endif
 #endif
 
 /**
@@ -1387,6 +1389,10 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
       #error "BIQU MicroProbe requires a PROBE_ENABLE_PIN."
     #endif
 
+    #if ENABLED(FT_MOTION) && DISABLED(ENDSTOP_INTERRUPTS_FEATURE)
+      #error "BIQU Microprobe requires ENDSTOP_INTERRUPTS_FEATURE with FT_MOTION."
+    #endif
+
     #if ENABLED(BIQU_MICROPROBE_V1)
       #if ENABLED(INVERTED_PROBE_STATE)
         #if Z_MIN_PROBE_ENDSTOP_HIT_STATE != LOW
@@ -1441,14 +1447,18 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
    * Check for improper PROBING_MARGIN
    */
   #if NONE(NOZZLE_AS_PROBE, IS_KINEMATIC)
-    static_assert(PROBING_MARGIN       >= 0, "PROBING_MARGIN must be >= 0.");
+    #ifdef PROBING_MARGIN
+      static_assert(PROBING_MARGIN     >= 0, "PROBING_MARGIN must be >= 0.");
+    #endif
     static_assert(PROBING_MARGIN_BACK  >= 0, "PROBING_MARGIN_BACK must be >= 0.");
     static_assert(PROBING_MARGIN_FRONT >= 0, "PROBING_MARGIN_FRONT must be >= 0.");
     static_assert(PROBING_MARGIN_LEFT  >= 0, "PROBING_MARGIN_LEFT must be >= 0.");
     static_assert(PROBING_MARGIN_RIGHT >= 0, "PROBING_MARGIN_RIGHT must be >= 0.");
   #endif
   #define _MARGIN(A) TERN(IS_KINEMATIC, PRINTABLE_RADIUS, ((A##_BED_SIZE) / 2))
-  static_assert(PROBING_MARGIN       < _MARGIN(X), "PROBING_MARGIN is too large.");
+  #ifdef PROBING_MARGIN
+    static_assert(PROBING_MARGIN     < _MARGIN(X), "PROBING_MARGIN is too large.");
+  #endif
   static_assert(PROBING_MARGIN_BACK  < _MARGIN(Y), "PROBING_MARGIN_BACK is too large.");
   static_assert(PROBING_MARGIN_FRONT < _MARGIN(Y), "PROBING_MARGIN_FRONT is too large.");
   static_assert(PROBING_MARGIN_LEFT  < _MARGIN(X), "PROBING_MARGIN_LEFT is too large.");
@@ -1717,6 +1727,28 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
     #error "QUICK_HOME is incompatible with CODEPENDENT_XY_HOMING."
   #elif IS_KINEMATIC
     #error "CODEPENDENT_XY_HOMING requires a Cartesian setup."
+  #endif
+#endif
+
+/**
+ * Assert that the homing current must not be greater than the base current.
+ * Current may be reduced "to prevent damage" but in fact it's typically reduced to prevent spurious
+ * DIAG triggering from fast high torque moves with large jerk values which are more prone to cause binding.
+ */
+#define _BAD_HOME_CURRENT(N) (N##_CURRENT_HOME > N##_CURRENT) ||
+#if MAIN_AXIS_MAP(_BAD_HOME_CURRENT) MAP(_BAD_HOME_CURRENT, X2, Y2, Z2, Z3, Z4) 0
+  #ifndef ALLOW_HIGHER_CURRENT_HOME
+    #error "*_CURRENT_HOME should be <= *_CURRENT. Define ALLOW_HIGHER_CURRENT_HOME in your configuration to continue anyway."
+  #else
+    #define HIGHER_CURRENT_HOME_WARNING 1
+  #endif
+#endif
+#undef _BAD_HOME_CURRENT
+
+#if ENABLED(PROBING_USE_CURRENT_HOME)
+  #if  (defined(Z_CURRENT_HOME)  && !HAS_CURRENT_HOME(Z))  || (defined(Z2_CURRENT_HOME) && !HAS_CURRENT_HOME(Z2)) \
+    || (defined(Z3_CURRENT_HOME) && !HAS_CURRENT_HOME(Z3)) || (defined(Z4_CURRENT_HOME) && !HAS_CURRENT_HOME(Z4))
+    #error "PROBING_USE_CURRENT_HOME requires a Z_CURRENT_HOME value that differs from Z_CURRENT."
   #endif
 #endif
 
@@ -2917,6 +2949,8 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
     #error "MMU2_SERIAL_PORT cannot be the same as SERIAL_PORT_2."
   #elif defined(LCD_SERIAL_PORT) && MMU2_SERIAL_PORT == LCD_SERIAL_PORT
     #error "MMU2_SERIAL_PORT cannot be the same as LCD_SERIAL_PORT."
+  #elif defined(RS485_SERIAL_PORT) && MMU2_SERIAL_PORT == RS485_SERIAL_PORT
+    #error "MMU2_SERIAL_PORT cannot be the same as RS485_SERIAL_PORT."
   #endif
 #endif
 
@@ -2928,6 +2962,8 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
     #error "LCD_SERIAL_PORT cannot be the same as SERIAL_PORT."
   #elif defined(SERIAL_PORT_2) && LCD_SERIAL_PORT == SERIAL_PORT_2
     #error "LCD_SERIAL_PORT cannot be the same as SERIAL_PORT_2."
+  #elif defined(RS485_SERIAL_PORT) && LCD_SERIAL_PORT == RS485_SERIAL_PORT
+    #error "LCD_SERIAL_PORT cannot be the same as RS485_SERIAL_PORT."
   #endif
 #else
   #if HAS_DGUS_LCD
@@ -2938,6 +2974,17 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
     #error "MALYAN_LCD requires LCD_SERIAL_PORT to be defined."
   #elif ENABLED(NEXTION_LCD)
     #error "NEXTION_LCD requires LCD_SERIAL_PORT to be defined."
+  #endif
+#endif
+
+/**
+ * RS485 bus requires a dedicated serial port
+ */
+#ifdef RS485_SERIAL_PORT
+  #if RS485_SERIAL_PORT == SERIAL_PORT
+    #error "RS485_SERIAL_PORT cannot be the same as SERIAL_PORT."
+  #elif defined(SERIAL_PORT_2) && RS485_SERIAL_PORT == SERIAL_PORT_2
+    #error "RS485_SERIAL_PORT cannot be the same as SERIAL_PORT_2."
   #endif
 #endif
 
@@ -3833,7 +3880,7 @@ static_assert(_PLUS_TEST(3), "DEFAULT_MAX_ACCELERATION values must be positive."
     #elif ENABLED(LASER_MOVE_G0_OFF)
       #error "LASER_MOVE_G0_OFF is no longer required, G0 and G28 cannot apply power."
     #elif ENABLED(LASER_MOVE_G28_OFF)
-      #error "LASER_MOVE_G0_OFF is no longer required, G0 and G28 cannot apply power."
+      #error "LASER_MOVE_G28_OFF is no longer required, G0 and G28 cannot apply power."
     #elif ENABLED(LASER_MOVE_POWER)
       #error "LASER_MOVE_POWER is no longer applicable."
     #endif
@@ -4332,6 +4379,15 @@ static_assert(_PLUS_TEST(3), "DEFAULT_MAX_ACCELERATION values must be positive."
     #error "FT_MOTION does not currently support MIXING_EXTRUDER."
   #elif DISABLED(FTM_UNIFIED_BWS)
     #error "FT_MOTION requires FTM_UNIFIED_BWS to be enabled because FBS is not yet implemented."
+  #endif
+  #if !HAS_X_AXIS
+    static_assert(FTM_DEFAULT_SHAPER_X != ftMotionShaper_NONE, "Without any linear axes FTM_DEFAULT_SHAPER_X must be ftMotionShaper_NONE.");
+  #endif
+  #if HAS_DYNAMIC_FREQ_MM
+    static_assert(FTM_DEFAULT_DYNFREQ_MODE != dynFreqMode_Z_BASED, "dynFreqMode_Z_BASED requires a Z axis.");
+  #endif
+  #if HAS_DYNAMIC_FREQ_G
+    static_assert(FTM_DEFAULT_DYNFREQ_MODE != dynFreqMode_MASS_BASED, "dynFreqMode_MASS_BASED requires an X axis and an extruder.");
   #endif
 #endif
 
