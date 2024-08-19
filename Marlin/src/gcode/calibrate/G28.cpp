@@ -594,8 +594,14 @@ void GcodeSuite::G28() {
           }
         #endif
 
-        if (doI && ENABLED(I_SAFE_HOMING)) home_i_safely(); else if (doI) homeaxis(I_AXIS);
-        if (doJ && ENABLED(J_SAFE_HOMING)) home_j_safely(); else if (doJ) homeaxis(J_AXIS);
+        SECONDARY_AXIS_CODE(
+          if (doI && ENABLED(I_SAFE_HOMING)) home_i_safely(); else if (doI) homeaxis(I_AXIS);,
+          if (doJ && ENABLED(J_SAFE_HOMING)) home_j_safely(); else if (doJ) homeaxis(J_AXIS);,
+          if (doK) homeaxis(K_AXIS),
+          if (doU) homeaxis(U_AXIS),
+          if (doV) homeaxis(V_AXIS),
+          if (doW) homeaxis(W_AXIS)
+        );
 
         // Go ahead and disable these because we don't want repeats of I and J, but removing them from the
         // macro results in a compile problem for some reason
