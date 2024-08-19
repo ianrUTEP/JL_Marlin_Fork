@@ -85,13 +85,13 @@ void GcodeSuite::M290() {
     //SYNC_NONZ_BED solution to babystepping applied here
     if (parser.seenval('Z') || parser.seenval('S')) {
       const float offs = constrain(parser.value_axis_units(Z_AXIS), -2, 2);
-      if ENABLED(SYNC_NONZ_BED) {
+      #if ALL(SYNC_NONZ_BED, HAS_I_AXIS, HAS_J_AXIS)
         babystep.add_mm(Z_AXIS, offs);
         babystep.add_mm(I_AXIS, offs);
         babystep.add_mm(J_AXIS, offs);
-      } else {
-      babystep.add_mm(Z_AXIS, offs);
-      }
+      #else
+        babystep.add_mm(Z_AXIS, offs);
+      #endif
       #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
         if (parser.boolval('P', true)) mod_probe_offset(offs);
       #endif
