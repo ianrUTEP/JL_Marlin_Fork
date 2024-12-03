@@ -40,15 +40,15 @@
 #define MIXER_NORMALIZER_DEBUG         // Added by config.ini 2024-06-23 21:54:53
 #define X_MAX_PIN E3_DIAG_PIN          // Added by config.ini 2024-06-23 21:54:55
 #define Y_MIN_PIN E4_DIAG_PIN          // Added by config.ini 2024-06-23 21:54:55
-//#define I_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
-//#define J_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
-//#define I_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
-//#define I_SAFE_HOMING_X_POINT 231.55   // Added by config.ini 2024-06-23 21:07:02
-//#define I_SAFE_HOMING_Y_POINT 30.09    // Added by config.ini 2024-06-23 21:07:02
-//#define J_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
-//#define J_SAFE_HOMING_X_POINT 129.03   // Added by config.ini 2024-06-23 21:07:02
-//#define J_SAFE_HOMING_Y_POINT 261.36   // Added by config.ini 2024-06-23 21:07:02
-//#define SYNC_NONZ_BED                  // Added by config.ini 2024-06-23 22:38:57
+#define I_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
+#define J_MIN_PIN Z_MIN_PIN      // Added by config.ini 2024-06-23 20:38:19
+#define I_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
+#define I_SAFE_HOMING_X_POINT 231.55   // Added by config.ini 2024-06-23 21:07:02
+#define I_SAFE_HOMING_Y_POINT 30.09    // Added by config.ini 2024-06-23 21:07:02
+#define J_SAFE_HOMING                  // Added by config.ini 2024-06-23 21:07:02
+#define J_SAFE_HOMING_X_POINT 129.03   // Added by config.ini 2024-06-23 21:07:02
+#define J_SAFE_HOMING_Y_POINT 261.36   // Added by config.ini 2024-06-23 21:07:02
+#define SYNC_NONZ_BED                  // Added by config.ini 2024-06-23 22:38:57
 //#define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Z_PROBE_END_SCRIPT             // Added by config.ini 2024-01-22 15:09:02
 //#define Y_MAX_PIN                      // Added by config.ini
@@ -96,7 +96,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Ian,24-08-19,TB-Heater)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Ian,24-12-03,HTMP1.1_ZVW-V2-851)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section machine
@@ -105,6 +105,8 @@
 #ifndef MOTHERBOARD
   #define MOTHERBOARD BOARD_BTT_OCTOPUS_PRO_V1_1
 #endif
+
+// @section serial
 
 /**
  * Select the serial port on the board to use for communication with the host.
@@ -141,7 +143,7 @@
 
 /**
  * Select a third serial port on the board to use for communication with the host.
- * Currently only supported for AVR, DUE, LPC1768/9 and STM32/STM32F1
+ * Currently supported for AVR, DUE, SAMD51, LPC1768/9, STM32/STM32F1/HC32, and Teensy 4.x
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
  */
 //#define SERIAL_PORT_3 1
@@ -161,7 +163,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Test Bench"
+#define CUSTOM_MACHINE_NAME "JL HTMP 1.1-ZVW"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -189,11 +191,11 @@
 #define Z_DRIVER_TYPE TMC2209
 #define X2_DRIVER_TYPE TMC2209
 #define Y2_DRIVER_TYPE TMC2209
-#define Z2_DRIVER_TYPE TMC2209
-#define Z3_DRIVER_TYPE TMC2209
+//#define Z2_DRIVER_TYPE TMC2209
+//#define Z3_DRIVER_TYPE TMC2209
 //#define Z4_DRIVER_TYPE A4988
-//#define I_DRIVER_TYPE TMC2209
-//#define J_DRIVER_TYPE TMC2209
+#define I_DRIVER_TYPE TMC2209
+#define J_DRIVER_TYPE TMC2209
 // #define K_DRIVER_TYPE  TMC2209
 // #define U_DRIVER_TYPE  TMC2209
 // #define V_DRIVER_TYPE  TMC2209
@@ -225,11 +227,11 @@
  * Regardless of these settings the axes are internally named I, J, K, U, V, W.
  */
 #ifdef I_DRIVER_TYPE
-  //#define AXIS4_NAME 'V' // :['A', 'B', 'C', 'U', 'V', 'W']
+  #define AXIS4_NAME 'V' // :['A', 'B', 'C', 'U', 'V', 'W']
   // #define AXIS4_ROTATES
 #endif
 #ifdef J_DRIVER_TYPE
-  //#define AXIS5_NAME 'W' // :['B', 'C', 'U', 'V', 'W']
+  #define AXIS5_NAME 'W' // :['B', 'C', 'U', 'V', 'W']
   // #define AXIS5_ROTATES
 #endif
 #ifdef K_DRIVER_TYPE
@@ -420,14 +422,15 @@
  *   PRUSA_MMU1           : Průša MMU1 (The "multiplexer" version)
  *   PRUSA_MMU2           : Průša MMU2
  *   PRUSA_MMU2S          : Průša MMU2S (Requires MK3S extruder with motion sensor, EXTRUDERS = 5)
+ *   PRUSA_MMU3           : Průša MMU3  (Requires MK3S extruder with motion sensor and MMU firmware version 3.x.x, EXTRUDERS = 5)
  *   EXTENDABLE_EMU_MMU2  : MMU with configurable number of filaments (ERCF, SMuFF or similar with Průša MMU2 compatible firmware)
  *   EXTENDABLE_EMU_MMU2S : MMUS with configurable number of filaments (ERCF, SMuFF or similar with Průša MMU2 compatible firmware)
  *
  * Requires NOZZLE_PARK_FEATURE to park print head in case MMU unit fails.
  * See additional options in Configuration_adv.h.
- * :["PRUSA_MMU1", "PRUSA_MMU2", "PRUSA_MMU2S", "EXTENDABLE_EMU_MMU2", "EXTENDABLE_EMU_MMU2S"]
+ * :["PRUSA_MMU1", "PRUSA_MMU2", "PRUSA_MMU2S", "PRUSA_MMU3", "EXTENDABLE_EMU_MMU2", "EXTENDABLE_EMU_MMU2S"]
  */
-//#define MMU_MODEL PRUSA_MMU2
+//#define MMU_MODEL PRUSA_MMU3
 
 // @section psu control
 
@@ -606,7 +609,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 998
+#define TEMP_SENSOR_BED 501
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -836,6 +839,40 @@
   //#define BED_LIMIT_SWITCHING   // Keep the bed temperature within BED_HYSTERESIS of the target
 #endif
 
+/**
+ * Peltier Bed - Heating and Cooling
+ *
+ * A Peltier device transfers heat from one side to the other in proportion to the amount of
+ * current flowing through the device and the direction of current flow. So the same device
+ * can both heat and cool.
+ *
+ * When "cooling" in addition to rejecting the heat transferred from the hot side to the cold
+ * side, the dissipated power (voltage * current) must also be rejected. Be sure to set up a
+ * fan that can be powered in sync with the Peltier unit.
+ *
+ * This feature is only set up to run in bang-bang mode because Peltiers don't handle PWM
+ * well without filter circuitry.
+ *
+ * Since existing 3D printers are made to handle relatively high current for the heated bed,
+ * we can use the heated bed power pins to control the Peltier power using the same G-codes
+ * as the heated bed (M140, M190, etc.).
+ *
+ * A second GPIO pin is required to control current direction.
+ * Two configurations are possible: Relay and H-Bridge
+ *
+ * (At this time only relay is supported. H-bridge requires 4 MOS switches configured in H-Bridge.)
+ *
+ * Power is handled by the bang-bang control loop: 0 or 255.
+ * Cooling applications are more common than heating, so the pin states are commonly:
+ *   LOW  = Heating = Relay Energized
+ *   HIGH = Cooling = Relay in "Normal" state
+ */
+//#define PELTIER_BED
+#if ENABLED(PELTIER_BED)
+  #define PELTIER_DIR_PIN           -1  // Relay control pin for Peltier
+  #define PELTIER_DIR_HEAT_STATE   LOW  // The relay pin state that causes the Peltier to heat
+#endif
+
 // Add 'M190 R T' for more gradual M190 R bed cooling.
 #define BED_ANNEALING_GCODE
 
@@ -941,7 +978,7 @@
 //============================= Mechanical Settings =========================
 //===========================================================================
 
-// @section machine
+// @section kinematics
 
 // Enable one of the options below for CoreXY, CoreXZ, or CoreYZ kinematics,
 // either in the usual order or reversed
@@ -964,6 +1001,15 @@
 
 // Enable for a belt style printer with endless "Z" motion
 //#define BELTPRINTER
+
+// Articulated robot (arm). Joints are directly mapped to axes with no kinematics.
+//#define ARTICULATED_ROBOT_ARM
+
+// For a hot wire cutter with parallel horizontal axes (X, I) where the heights of the two wire
+// ends are controlled by parallel axes (Y, J). Joints are directly mapped to axes (no kinematics).
+//#define FOAMCUTTER_XYUV
+
+// @section polargraph
 
 // Enable for Polargraph Kinematics
 //#define POLARGRAPH
@@ -1151,15 +1197,6 @@
   #define FEEDRATE_SCALING                  // Convert XY feedrate from mm/s to degrees/s on the fly
 #endif
 
-// @section machine
-
-// Articulated robot (arm). Joints are directly mapped to axes with no kinematics.
-//#define ARTICULATED_ROBOT_ARM
-
-// For a hot wire cutter with parallel horizontal axes (X, I) where the heights of the two wire
-// ends are controlled by parallel axes (Y, J). Joints are directly mapped to axes (no kinematics).
-//#define FOAMCUTTER_XYUV
-
 //===========================================================================
 //============================== Endstop Settings ===========================
 //===========================================================================
@@ -1198,8 +1235,8 @@
   //#define ENDSTOPPULLDOWN_XMIN
   //#define ENDSTOPPULLDOWN_YMIN
   #define ENDSTOPPULLDOWN_ZMIN
-  //#define ENDSTOPPULLDOWN_IMIN
-  //#define ENDSTOPPULLDOWN_JMIN
+  #define ENDSTOPPULLDOWN_IMIN
+  #define ENDSTOPPULLDOWN_JMIN
   //#define ENDSTOPPULLDOWN_KMIN
   //#define ENDSTOPPULLDOWN_UMIN
   //#define ENDSTOPPULLDOWN_VMIN
@@ -1224,11 +1261,11 @@
 #define X_MAX_ENDSTOP_HIT_STATE HIGH
 #define Y_MIN_ENDSTOP_HIT_STATE HIGH
 #define Y_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_ENDSTOP_HIT_STATE LOW
 #define Z_MAX_ENDSTOP_HIT_STATE HIGH
-//#define I_MIN_ENDSTOP_HIT_STATE LOW
+#define I_MIN_ENDSTOP_HIT_STATE LOW
 #define I_MAX_ENDSTOP_HIT_STATE HIGH
-//#define J_MIN_ENDSTOP_HIT_STATE LOW
+#define J_MIN_ENDSTOP_HIT_STATE LOW
 #define J_MAX_ENDSTOP_HIT_STATE HIGH
 #define K_MIN_ENDSTOP_HIT_STATE HIGH
 #define K_MAX_ENDSTOP_HIT_STATE HIGH
@@ -1238,7 +1275,7 @@
 #define V_MAX_ENDSTOP_HIT_STATE HIGH
 #define W_MIN_ENDSTOP_HIT_STATE HIGH
 #define W_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_PROBE_ENDSTOP_HIT_STATE LOW
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1259,7 +1296,7 @@
 //#define ENDSTOP_NOISE_THRESHOLD 2
 
 // Check for stuck or disconnected endstops during homing moves.
-//#define DETECT_BROKEN_ENDSTOP
+#define DETECT_BROKEN_ENDSTOP
 
 //=============================================================================
 //============================== Movement Settings ============================
@@ -1286,7 +1323,7 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 320, 582 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT { 80, 80, 400, 400, 400, 582 }
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1298,7 +1335,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE { 200, 200, 100, 22}
+#define DEFAULT_MAX_FEEDRATE { 200, 200, 20, 20, 20, 22}
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1311,7 +1348,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 5000}
+#define DEFAULT_MAX_ACCELERATION { 3000, 3000, 500, 500, 500, 5000}
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1396,7 +1433,7 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
 // Force the use of the probe for Z-axis homing
 #define USE_PROBE_FOR_Z_HOMING
@@ -1434,13 +1471,13 @@
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 /**
  * Use the nozzle as the probe, as with a conductive
  * nozzle system or a piezo-electric smart effector.
  */
-#define NOZZLE_AS_PROBE
+//#define NOZZLE_AS_PROBE
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -1632,7 +1669,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET {0,0,0}
+#define NOZZLE_TO_PROBE_OFFSET { 63, 10, 0, 0, 0}
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 //#define PROBING_TOOL 0
@@ -1648,10 +1685,10 @@
 #define XY_PROBE_FEEDRATE (120*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (10*60)
+#define Z_PROBE_FEEDRATE_FAST (4*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
+#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 1)
 
 /**
  * Probe Activation Switch
@@ -1675,6 +1712,7 @@
   #define PROBE_TARE_DELAY 200    // (ms) Delay after tare before
   #define PROBE_TARE_STATE HIGH   // State to write pin for tare
   //#define PROBE_TARE_PIN PA5    // Override default pin
+  //#define PROBE_TARE_MENU       // Display a menu item to tare the probe
   #if ENABLED(PROBE_ACTIVATION_SWITCH)
     //#define PROBE_TARE_ONLY_WHILE_INACTIVE  // Fail to tare/probe if PROBE_ACTIVATION_SWITCH is active
   #endif
@@ -1698,7 +1736,7 @@
  * A total of 2 does fast/slow probes with a weighted average.
  * A total of 3 or more adds more slow probes, taking the average.
  */
-//#define MULTIPLE_PROBING 3
+#define MULTIPLE_PROBING 3
 #define EXTRA_PROBING 0
 
 /**
@@ -1712,13 +1750,13 @@
  * probe Z Offset set with NOZZLE_TO_PROBE_OFFSET, M851, or the LCD.
  * Only integer values >= 1 are valid here.
  *
- * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
- *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
+ * Example: 'M851 Z-5' with a CLEARANCE of 4  =>  9mm from bed to nozzle.
+ *     But: 'M851 Z+1' with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE 0   // (mm) Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES 0  // (mm) Z Clearance between probe points
-#define Z_CLEARANCE_MULTI_PROBE 0     // (mm) Z Clearance between multiple probes
-#define Z_PROBE_ERROR_TOLERANCE 10     // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
+#define Z_CLEARANCE_BETWEEN_PROBES 2  // (mm) Z Clearance between probe points
+#define Z_CLEARANCE_MULTI_PROBE 2     // (mm) Z Clearance between multiple probes
+#define Z_PROBE_ERROR_TOLERANCE 1     // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
 #define Z_AFTER_PROBING Z_AFTER_HOMING           // (mm) Z position after probing is done
 
 #define Z_PROBE_LOW_POINT -1          // (mm) Farthest distance below the trigger-point to go before stopping
@@ -1767,17 +1805,17 @@
 // @section stepper drivers
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
-// :{ 0:'Low', 1:'High' }
-#define X_ENABLE_ON 0
-#define Y_ENABLE_ON 0
-#define Z_ENABLE_ON 0
-#define E_ENABLE_ON 0 // For all extruders
-#define I_ENABLE_ON 0
-#define J_ENABLE_ON 0
-//#define K_ENABLE_ON 0
-//#define U_ENABLE_ON 0
-//#define V_ENABLE_ON 0
-//#define W_ENABLE_ON 0
+// :['LOW', 'HIGH']
+#define X_ENABLE_ON LOW
+#define Y_ENABLE_ON LOW
+#define Z_ENABLE_ON LOW
+#define E_ENABLE_ON LOW // For all extruders
+#define I_ENABLE_ON LOW
+#define J_ENABLE_ON LOW
+#define K_ENABLE_ON LOW
+#define U_ENABLE_ON LOW
+#define V_ENABLE_ON LOW
+#define W_ENABLE_ON LOW
 
 // Disable axis steppers immediately when they're not being stepped.
 // WARNING: When motors turn off there is a chance of losing position accuracy!
@@ -1836,10 +1874,10 @@
  */
 //#define Z_IDLE_HEIGHT Z_HOME_POS
 
-#define Z_CLEARANCE_FOR_HOMING 5    // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_CLEARANCE_FOR_HOMING 0    // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                       // You'll need this much clearance above Z_MAX_POS to avoid grinding.
 
-#define Z_AFTER_HOMING 10           // (mm) Height to move to after homing (if Z was homed)
+#define Z_AFTER_HOMING 0           // (mm) Height to move to after homing (if Z was homed)
 //#define XY_AFTER_HOMING { 10, 10 }  // (mm) Move to an XY position after homing (and raising Z)
 
 //#define EVENT_GCODE_AFTER_HOMING "M300 P440 S200"  // Commands to run after G28 (and move to XY_AFTER_HOMING)
@@ -2052,9 +2090,9 @@
         //#define FIL_MOTION8_PULLUP
         //#define FIL_MOTION8_PULLDOWN
       #endif
-    #endif
-  #endif
-#endif
+    #endif // FILAMENT_MOTION_SENSOR
+  #endif // FILAMENT_RUNOUT_DISTANCE_MM
+#endif // FILAMENT_RUNOUT_SENSOR
 
 //===========================================================================
 //=============================== Bed Leveling ==============================
@@ -2141,7 +2179,7 @@
    * at which point movement will be level to the machine's XY plane.
    * The height can be set with M420 Z<height>
    */
-  #define ENABLE_LEVELING_FADE_HEIGHT
+  //#define ENABLE_LEVELING_FADE_HEIGHT
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
     #define DEFAULT_LEVELING_FADE_HEIGHT 1.0 // (mm) Default fade height.
   #endif
@@ -2326,19 +2364,22 @@
  * - Allows Z homing only when XY positions are known and trusted.
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_CENTER  // (mm) X point for Z homing
-  #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // (mm) Y point for Z homing
+  #define Z_SAFE_HOMING_X_POINT 25.39  // (mm) X point for Z homing
+  #define Z_SAFE_HOMING_Y_POINT 30.09  // (mm) Y point for Z homing
   #define Z_SAFE_HOMING_POINT_ABSOLUTE  // Ignore home offsets (M206) for Z homing position
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
+#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) , (4*60), (4*60)}
+
+// Edit homing feedrates with M210 and MarlinUI menu items
+//#define EDITABLE_HOMING_FEEDRATE
 
 // Validate that endstops are triggered on homing moves
-//#define VALIDATE_HOMING_ENDSTOPS
+#define VALIDATE_HOMING_ENDSTOPS
 
 // @section calibrate
 
@@ -3278,6 +3319,11 @@
 //#define ANYCUBIC_LCD_VYPER
 
 //
+// Sovol SV-06 Resistive Touch Screen
+//
+//#define SOVOL_SV06_RTS
+
+//
 // 320x240 Nextion 2.8" serial TFT Resistive Touch Screen NX3224T028
 //
 //#define NEXTION_TFT
@@ -3448,6 +3494,8 @@
  *   TFT_ROTATE_180, TFT_ROTATE_180_MIRROR_X, TFT_ROTATE_180_MIRROR_Y,
  *   TFT_ROTATE_270, TFT_ROTATE_270_MIRROR_X, TFT_ROTATE_270_MIRROR_Y,
  *   TFT_MIRROR_X, TFT_MIRROR_Y, TFT_NO_ROTATION
+ *
+ * :{ 'TFT_NO_ROTATION':'None', 'TFT_ROTATE_90':'90°', 'TFT_ROTATE_90_MIRROR_X':'90° (Mirror X)', 'TFT_ROTATE_90_MIRROR_Y':'90° (Mirror Y)', 'TFT_ROTATE_180':'180°', 'TFT_ROTATE_180_MIRROR_X':'180° (Mirror X)', 'TFT_ROTATE_180_MIRROR_Y':'180° (Mirror Y)', 'TFT_ROTATE_270':'270°', 'TFT_ROTATE_270_MIRROR_X':'270° (Mirror X)', 'TFT_ROTATE_270_MIRROR_Y':'270° (Mirror Y)', 'TFT_MIRROR_X':'Mirror X', 'TFT_MIRROR_Y':'Mirror Y' }
  */
 //#define TFT_ROTATION TFT_NO_ROTATION
 
