@@ -307,7 +307,7 @@
  */
 #if ALL(HAS_HOTEND, THERMAL_PROTECTION_HOTENDS)
   #define THERMAL_PROTECTION_PERIOD 45        // (seconds)
-  #define THERMAL_PROTECTION_HYSTERESIS 12     // (°C)
+  #define THERMAL_PROTECTION_HYSTERESIS 4     // (°C)
 
   //#define ADAPTIVE_FAN_SLOWING              // Slow down the part-cooling fan if the temperature drops
   #if ENABLED(ADAPTIVE_FAN_SLOWING)
@@ -329,7 +329,7 @@
    * and/or decrease WATCH_TEMP_INCREASE. WATCH_TEMP_INCREASE should not be set
    * below 2.
    */
-  #define WATCH_TEMP_PERIOD 60                // (seconds)
+  #define WATCH_TEMP_PERIOD 30                // (seconds)
   #define WATCH_TEMP_INCREASE 2               // (°C)
 #endif
 
@@ -551,10 +551,10 @@
  */
 #define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
-  #define HOTEND_IDLE_TIMEOUT_SEC (12*60)    // (seconds) Time without extruder movement to trigger protection
-  #define HOTEND_IDLE_MIN_TRIGGER 280       // (°C) Minimum temperature to enable hotend protection
+  #define HOTEND_IDLE_TIMEOUT_SEC (5*60)    // (seconds) Time without extruder movement to trigger protection
+  #define HOTEND_IDLE_MIN_TRIGGER 150       // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET 0       // (°C) Safe temperature for the nozzle after timeout
-  #define HOTEND_IDLE_BED_TARGET 0          // (°C) Safe temperature for the bed after timeout
+  #define HOTEND_IDLE_BED_TARGET 30          // (°C) Safe temperature for the bed after timeout
 #endif
 
 // @section temperature
@@ -865,8 +865,8 @@
  *   - Define the extra endstop pins here to override defaults. No auto-assignment.
  */
 #if HAS_X2_STEPPER && DISABLED(DUAL_X_CARRIAGE)
-  #define INVERT_X2_VS_X_DIR        // X2 direction signal is the opposite of X
-  #define X_DUAL_ENDSTOPS           // X2 has its own endstop
+  //#define INVERT_X2_VS_X_DIR        // X2 direction signal is the opposite of X
+  //#define X_DUAL_ENDSTOPS           // X2 has its own endstop
   #if ENABLED(X_DUAL_ENDSTOPS)
     #define X2_STOP_PIN X_MAX_PIN   // X2 endstop pin override
     #define X2_ENDSTOP_ADJUSTMENT 0   // X2 offset relative to X endstop
@@ -874,8 +874,8 @@
 #endif
 
 #if HAS_Y2_STEPPER
-  #define INVERT_Y2_VS_Y_DIR        // Y2 direction signal is the opposite of Y
-  #define Y_DUAL_ENDSTOPS           // Y2 has its own endstop
+  //#define INVERT_Y2_VS_Y_DIR        // Y2 direction signal is the opposite of Y
+  //#define Y_DUAL_ENDSTOPS           // Y2 has its own endstop
   #if ENABLED(Y_DUAL_ENDSTOPS)
     #define Y2_STOP_PIN Y_MAX_PIN   // Y2 endstop pin override
     #define Y2_ENDSTOP_ADJUSTMENT 0   // Y2 offset relative to Y endstop
@@ -929,10 +929,10 @@
  * the position of the toolhead relative to the workspace.
  */
 
-#define SENSORLESS_BACKOFF_MM {8, 8, 0, 0, 0}   // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
+#define SENSORLESS_BACKOFF_MM {2, 2, 0}   // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
 
-#define HOMING_BUMP_MM {0,0,2,2,2}            // (linear=mm, rotational=°) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR {2,2,4,4,4}       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define HOMING_BUMP_MM {0,0,2}            // (linear=mm, rotational=°) Backoff from endstops after first bump
+#define HOMING_BUMP_DIVISOR {2,2,4}       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (linear=mm, rotational=°) Backoff from endstops after homing
 //#define XY_COUNTERPART_BACKOFF_MM 0         // (mm) Backoff X after homing Y, and vice-versa
@@ -962,7 +962,7 @@
 
   // Safety: The probe needs time to recognize the command.
   //         Minimum command delay (ms). Enable and increase if needed.
-  #define BLTOUCH_DELAY 500
+  //#define BLTOUCH_DELAY 500
 
   /**
    * Settings for BLTOUCH Classic 1.2, 1.3 or BLTouch Smart 1.0, 2.0, 2.2, 3.0, 3.1, and most clones:
@@ -1026,7 +1026,7 @@
  * Z Steppers Auto-Alignment
  * Add the G34 command to align multiple Z steppers using a bed probe.
  */
-//#define Z_STEPPER_AUTO_ALIGN
+#define Z_STEPPER_AUTO_ALIGN
 #if ENABLED(Z_STEPPER_AUTO_ALIGN)
   /**
    * Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
@@ -1034,7 +1034,7 @@
    * If not defined, probe limits will be used.
    * Override with 'M422 S<index> X<pos> Y<pos>'.
    */
-  #define Z_STEPPER_ALIGN_XY { { 30, 30 }, { X_BED_SIZE-30,30}, { X_CENTER, Y_BED_SIZE -30 } }
+  //#define Z_STEPPER_ALIGN_XY { { 30, 30 }, { X_BED_SIZE-30,30}, { X_CENTER, Y_BED_SIZE -30 } }
 
   /**
    * Orientation for the automatically-calculated probe positions.
@@ -1067,17 +1067,17 @@
    * positions in the bed carriage, with one position per Z stepper in stepper
    * driver order.
    */
-  #define Z_STEPPER_ALIGN_STEPPER_XY { { -230, 42 }, { X_BED_SIZE + 15, 42}, { 130, Y_BED_SIZE + 100 } }
+  //#define Z_STEPPER_ALIGN_STEPPER_XY { { -230, 42 }, { X_BED_SIZE + 15, 42}, { 130, Y_BED_SIZE + 100 } }
 
   #ifndef Z_STEPPER_ALIGN_STEPPER_XY
     // Amplification factor. Used to scale the correction step up or down in case
     // the stepper (spindle) position is farther out than the test point.
-    #define Z_STEPPER_ALIGN_AMP 1.5       // Use a value > 1.0 NOTE: This may cause instability!
+    #define Z_STEPPER_ALIGN_AMP 1       // Use a value > 1.0 NOTE: This may cause instability!
   #endif
 
   // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
   #define G34_MAX_GRADE 5                 // (%) Maximum incline that G34 will handle
-  #define Z_STEPPER_ALIGN_ITERATIONS 10    // Number of iterations to apply during alignment
+  #define Z_STEPPER_ALIGN_ITERATIONS 5    // Number of iterations to apply during alignment
   #define Z_STEPPER_ALIGN_ACC 0.01        // Stop iterating early if the accuracy is better than this
   #define RESTORE_LEVELING_AFTER_G34      // Restore leveling after G34 is done?
   // After G34, re-home Z (G28 Z) or just calculate it from the last probe heights?
@@ -1226,7 +1226,7 @@
 
 // @section motion
 
-#define AXIS_RELATIVE_MODES {false,false,false,false,false,false}
+#define AXIS_RELATIVE_MODES {false,false,false,false}
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -1249,8 +1249,8 @@
  * The default timeout duration can be overridden with M18 and M84. Set to 0 for No Timeout.
  */
 #define DEFAULT_STEPPER_TIMEOUT_SEC 120
-//#define DISABLE_IDLE_X
-//#define DISABLE_IDLE_Y
+#define DISABLE_IDLE_X
+#define DISABLE_IDLE_Y
 //#define DISABLE_IDLE_Z    // Disable if the nozzle could fall onto your printed part!
 //#define DISABLE_IDLE_I
 //#define DISABLE_IDLE_J
@@ -1733,7 +1733,7 @@
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
   #define SD_FINISHED_STEPPERRELEASE false   // Disable steppers when SD Print is finished
-  #define SD_FINISHED_RELEASECOMMAND "M84XY"  // Use "M84XYE" to keep Z enabled so your bed stays in place
+  #define SD_FINISHED_RELEASECOMMAND "M84XYE"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
   // Since the FAT gets out of order with usage, SDCARD_SORT_ALPHA is recommended.
@@ -2309,10 +2309,10 @@
 
   #define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
 
-  //#define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
+  #define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
   #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
-    #define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
-    //#define BABYSTEP_GFX_OVERLAY          // Enable graphical overlay on Z-offset editor
+    //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
+    #define BABYSTEP_GFX_OVERLAY          // Enable graphical overlay on Z-offset editor
   #endif
 #endif
 
@@ -2991,8 +2991,8 @@
   #define INTERPOLATE true
 
   #if AXIS_IS_TMC_CONFIG(X)
-    #define X_CURRENT 2000              // (mA) RMS current. Multiply by 1.414 for peak current.
-    #define X_CURRENT_HOME 1000   // (mA) RMS current for homing. (Typically lower than *_CURRENT.)
+    #define X_CURRENT 1200              // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT_HOME X_CURRENT/2   // (mA) RMS current for homing. (Typically lower than *_CURRENT.)
     #define X_MICROSTEPS 16            // 0..256
     #define X_RSENSE 0.11
     #define X_CHAIN_POS -1             // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
@@ -3011,8 +3011,8 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Y)
-    #define Y_CURRENT 2000
-    #define Y_CURRENT_HOME 1000
+    #define Y_CURRENT 1200
+    #define Y_CURRENT_HOME Y_CURRENT/2
     #define Y_MICROSTEPS 16
     #define Y_RSENSE 0.11
     #define Y_CHAIN_POS -1
@@ -3031,13 +3031,13 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z)
-    #define Z_CURRENT 1500
+    #define Z_CURRENT 1000
     #define Z_CURRENT_HOME Z_CURRENT
     #define Z_MICROSTEPS 16
     #define Z_RSENSE 0.11
     #define Z_CHAIN_POS -1
     //#define Z_INTERPOLATE  true
-    //#define Z_HOLD_MULTIPLIER 1.0
+    #define Z_HOLD_MULTIPLIER 1.0
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z2)
@@ -3047,7 +3047,7 @@
     #define Z2_RSENSE Z_RSENSE
     #define Z2_CHAIN_POS -1
     //#define Z2_INTERPOLATE true
-    //#define Z2_HOLD_MULTIPLIER 1.0
+    #define Z2_HOLD_MULTIPLIER 1.0
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z3)
@@ -3071,21 +3071,21 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(I)
-    #define I_CURRENT Z_CURRENT
-    #define I_CURRENT_HOME Z_CURRENT_HOME
-    #define I_MICROSTEPS Z_MICROSTEPS
-    #define I_RSENSE Z_RSENSE
-    #define I_CHAIN_POS -1
+    //#define I_CURRENT Z_CURRENT
+    //#define I_CURRENT_HOME Z_CURRENT_HOME
+    //#define I_MICROSTEPS Z_MICROSTEPS
+    //#define I_RSENSE Z_RSENSE
+    //#define I_CHAIN_POS -1
     //#define I_INTERPOLATE  true
     //#define I_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(J)
-    #define J_CURRENT Z_CURRENT
-    #define J_CURRENT_HOME Z_CURRENT_HOME
-    #define J_MICROSTEPS Z_MICROSTEPS
-    #define J_RSENSE Z_RSENSE
-    #define J_CHAIN_POS -1
+    //#define J_CURRENT Z_CURRENT
+    //#define J_CURRENT_HOME Z_CURRENT_HOME
+    //#define J_MICROSTEPS Z_MICROSTEPS
+    //#define J_RSENSE Z_RSENSE
+    //#define J_CHAIN_POS -1
     //#define J_INTERPOLATE  true
     //#define J_HOLD_MULTIPLIER 0.5
   #endif
@@ -3131,7 +3131,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E0)
-    #define E0_CURRENT 750
+    #define E0_CURRENT 900
     #define E0_MICROSTEPS 16
     #define E0_RSENSE 0.11
     #define E0_CHAIN_POS -1
@@ -3140,7 +3140,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E1)
-    #define E1_CURRENT 750
+    #define E1_CURRENT 900
     #define E1_MICROSTEPS E0_MICROSTEPS
     #define E1_RSENSE 0.11
     #define E1_CHAIN_POS -1
@@ -3149,7 +3149,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E2)
-    #define E2_CURRENT 1400
+    #define E2_CURRENT 900
     #define E2_MICROSTEPS E0_MICROSTEPS
     #define E2_RSENSE 0.11
     #define E2_CHAIN_POS -1
@@ -3393,8 +3393,8 @@
   #define Z2_HYBRID_THRESHOLD 5
   #define Z3_HYBRID_THRESHOLD 5
   #define Z4_HYBRID_THRESHOLD      3
-  #define I_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
-  #define J_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
+  //#define I_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
+  //#define J_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
   #define K_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
   #define U_HYBRID_THRESHOLD       3  // [mm/s]
   #define V_HYBRID_THRESHOLD       3
@@ -3438,10 +3438,10 @@
 
   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY 41
-    #define X2_STALL_SENSITIVITY 41
-    #define Y_STALL_SENSITIVITY 40
-    #define Y2_STALL_SENSITIVITY 40
+    #define X_STALL_SENSITIVITY 35
+    #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
+    #define Y_STALL_SENSITIVITY 35
+    #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
     //#define Z3_STALL_SENSITIVITY Z_STALL_SENSITIVITY
@@ -3468,7 +3468,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   #define TMC_HOME_PHASE { -1, -1, -1, -1, -1}
+   #define TMC_HOME_PHASE { 896, 896, -1}
 
   /**
    * Step on both rising and falling edge signals (as with a square wave).
@@ -4010,7 +4010,7 @@
  *
  * Execute certain G-code commands immediately after power-on.
  */
-#define STARTUP_COMMANDS "M118 A1 P0 action:notification Set your mix ratio"
+//#define STARTUP_COMMANDS "M118 A1 P0 action:notification Set your mix ratio"
 
 /**
  * G-code Macros
