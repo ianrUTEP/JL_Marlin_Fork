@@ -57,7 +57,7 @@ def process_sheet(workbook):
 # turns a map of printer parameters into an ini file
 def printer_map_ini(printer_name, printer_params):
   fname = config_path(printer_name+"_config.ini")
-  file = open(fname,"w")
+  file = open(fname,"w",encoding="utf-8")
   for category in printer_params:
     file.write("[config:"+category+"]\n")
     file.writelines(printer_params[category])
