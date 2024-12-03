@@ -926,10 +926,10 @@
  * the position of the toolhead relative to the workspace.
  */
 
-#define SENSORLESS_BACKOFF_MM {8, 8, 0, 0, 0}   // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
+#define SENSORLESS_BACKOFF_MM {8, 8, 0}   // (linear=mm, rotational=°) Backoff from endstops before sensorless homing
 
-#define HOMING_BUMP_MM {0,0,2,2,2}            // (linear=mm, rotational=°) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR {2,2,4,4,4}       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+#define HOMING_BUMP_MM {0,0,2}            // (linear=mm, rotational=°) Backoff from endstops after first bump
+#define HOMING_BUMP_DIVISOR {2,2,4}       // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (linear=mm, rotational=°) Backoff from endstops after homing
 //#define XY_COUNTERPART_BACKOFF_MM 0         // (mm) Backoff X after homing Y, and vice-versa
@@ -1023,7 +1023,7 @@
  * Z Steppers Auto-Alignment
  * Add the G34 command to align multiple Z steppers using a bed probe.
  */
-//#define Z_STEPPER_AUTO_ALIGN
+#define Z_STEPPER_AUTO_ALIGN
 #if ENABLED(Z_STEPPER_AUTO_ALIGN)
   /**
    * Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
@@ -1064,7 +1064,7 @@
    * positions in the bed carriage, with one position per Z stepper in stepper
    * driver order.
    */
-  #define Z_STEPPER_ALIGN_STEPPER_XY { { -230, 42 }, { X_BED_SIZE + 15, 42}, { 130, Y_BED_SIZE + 100 } }
+  //#define Z_STEPPER_ALIGN_STEPPER_XY { { -230, 42 }, { X_BED_SIZE + 15, 42}, { 130, Y_BED_SIZE + 100 } }
 
   #ifndef Z_STEPPER_ALIGN_STEPPER_XY
     // Amplification factor. Used to scale the correction step up or down in case
@@ -1075,7 +1075,7 @@
   // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
   #define G34_MAX_GRADE 5                 // (%) Maximum incline that G34 will handle
   #define Z_STEPPER_ALIGN_ITERATIONS 10    // Number of iterations to apply during alignment
-  #define Z_STEPPER_ALIGN_ACC 0.01        // Stop iterating early if the accuracy is better than this
+  #define Z_STEPPER_ALIGN_ACC 1        // Stop iterating early if the accuracy is better than this
   #define RESTORE_LEVELING_AFTER_G34      // Restore leveling after G34 is done?
   // After G34, re-home Z (G28 Z) or just calculate it from the last probe heights?
   // Re-homing might be more precise in reproducing the actual 'G28 Z' homing height, especially on an uneven bed.
@@ -1218,7 +1218,7 @@
 
 // @section motion
 
-#define AXIS_RELATIVE_MODES {false,false,false,false,false,false}
+#define AXIS_RELATIVE_MODES {false,false,false,false}
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -2290,9 +2290,9 @@
 
   #define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
 
-  //#define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
+  #define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
   #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
-    #define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
+    //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
     //#define BABYSTEP_GFX_OVERLAY          // Enable graphical overlay on Z-offset editor
   #endif
 #endif
@@ -2972,7 +2972,7 @@
   #define INTERPOLATE true
 
   #if AXIS_IS_TMC_CONFIG(X)
-    #define X_CURRENT 2000              // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT 300              // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME X_CURRENT   // (mA) RMS current for homing. (Typically lower than *_CURRENT.)
     #define X_MICROSTEPS 16            // 0..256
     #define X_RSENSE 0.11
@@ -2992,7 +2992,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Y)
-    #define Y_CURRENT 2000
+    #define Y_CURRENT 300
     #define Y_CURRENT_HOME Y_CURRENT
     #define Y_MICROSTEPS 16
     #define Y_RSENSE 0.11
@@ -3012,7 +3012,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z)
-    #define Z_CURRENT 1500
+    #define Z_CURRENT 300
     #define Z_CURRENT_HOME Z_CURRENT
     #define Z_MICROSTEPS 16
     #define Z_RSENSE 0.11
@@ -3022,7 +3022,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z2)
-    #define Z2_CURRENT 1000
+    #define Z2_CURRENT 300
     #define Z2_CURRENT_HOME Z_CURRENT_HOME
     #define Z2_MICROSTEPS Z_MICROSTEPS
     #define Z2_RSENSE Z_RSENSE
@@ -3032,7 +3032,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(Z3)
-    #define Z3_CURRENT 1000
+    #define Z3_CURRENT 300
     #define Z3_CURRENT_HOME Z_CURRENT_HOME
     #define Z3_MICROSTEPS Z_MICROSTEPS
     #define Z3_RSENSE Z_RSENSE
@@ -3052,21 +3052,21 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(I)
-    #define I_CURRENT Z_CURRENT
-    #define I_CURRENT_HOME Z_CURRENT_HOME
-    #define I_MICROSTEPS Z_MICROSTEPS
-    #define I_RSENSE Z_RSENSE
-    #define I_CHAIN_POS -1
+    //#define I_CURRENT Z_CURRENT
+    //#define I_CURRENT_HOME Z_CURRENT_HOME
+    //#define I_MICROSTEPS Z_MICROSTEPS
+    //#define I_RSENSE Z_RSENSE
+    //#define I_CHAIN_POS -1
     //#define I_INTERPOLATE  true
     //#define I_HOLD_MULTIPLIER 0.5
   #endif
 
   #if AXIS_IS_TMC_CONFIG(J)
-    #define J_CURRENT Z_CURRENT
-    #define J_CURRENT_HOME Z_CURRENT_HOME
-    #define J_MICROSTEPS Z_MICROSTEPS
-    #define J_RSENSE Z_RSENSE
-    #define J_CHAIN_POS -1
+    //#define J_CURRENT Z_CURRENT
+    //#define J_CURRENT_HOME Z_CURRENT_HOME
+    //#define J_MICROSTEPS Z_MICROSTEPS
+    //#define J_RSENSE Z_RSENSE
+    //#define J_CHAIN_POS -1
     //#define J_INTERPOLATE  true
     //#define J_HOLD_MULTIPLIER 0.5
   #endif
@@ -3112,7 +3112,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E0)
-    #define E0_CURRENT 750
+    #define E0_CURRENT 300
     #define E0_MICROSTEPS 16
     #define E0_RSENSE 0.11
     #define E0_CHAIN_POS -1
@@ -3121,7 +3121,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E1)
-    #define E1_CURRENT 750
+    #define E1_CURRENT 300
     #define E1_MICROSTEPS E0_MICROSTEPS
     #define E1_RSENSE 0.11
     #define E1_CHAIN_POS -1
@@ -3130,7 +3130,7 @@
   #endif
 
   #if AXIS_IS_TMC_CONFIG(E2)
-    #define E2_CURRENT 1400
+    #define E2_CURRENT 300
     #define E2_MICROSTEPS E0_MICROSTEPS
     #define E2_RSENSE 0.11
     #define E2_CHAIN_POS -1
@@ -3374,8 +3374,8 @@
   #define Z2_HYBRID_THRESHOLD 5
   #define Z3_HYBRID_THRESHOLD 5
   #define Z4_HYBRID_THRESHOLD      3
-  #define I_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
-  #define J_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
+  //#define I_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
+  //#define J_HYBRID_THRESHOLD Z_HYBRID_THRESHOLD        // [linear=mm/s, rotational=°/s]
   #define K_HYBRID_THRESHOLD       3  // [linear=mm/s, rotational=°/s]
   #define U_HYBRID_THRESHOLD       3  // [mm/s]
   #define V_HYBRID_THRESHOLD       3
@@ -3449,7 +3449,7 @@
    *
    * Values from 0..1023, -1 to disable homing phase for that axis.
    */
-   #define TMC_HOME_PHASE { -1, -1, -1, -1, -1}
+   #define TMC_HOME_PHASE { -1, -1, -1}
 
   /**
    * Step on both rising and falling edge signals (as with a square wave).
