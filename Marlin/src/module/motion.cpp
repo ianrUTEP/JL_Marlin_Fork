@@ -107,7 +107,9 @@ xyze_pos_t current_position = LOGICAL_AXIS_ARRAY(0, X_HOME_POS, Y_HOME_POS, Z_IN
  */
 xyze_pos_t destination; // {0}
 
-float z_deltas[NUM_Z_STEPPERS];  // Initialize array, should be zeros
+#if Z_AXIS
+  float z_deltas[NUM_Z_STEPPERS];  // Initialize array, should be zeros
+#endif
 
 // G60/G61 Position Save and Return
 #if SAVED_POSITIONS
@@ -507,6 +509,7 @@ void report_current_position_projected() {
       // Cartesian kinematics
       switch (axis) {
         default: break;
+        #if X_AXIS
         case X_AXIS:
           #if HAS_CURRENT_HOME(X)
             _SAVE_SET_CURRENT(X);
@@ -515,6 +518,8 @@ void report_current_position_projected() {
             _SAVE_SET_CURRENT(X2);
           #endif
           break;
+        #endif
+        #if Y_AXIS
         case Y_AXIS:
           #if HAS_CURRENT_HOME(Y)
             _SAVE_SET_CURRENT(Y);
@@ -523,6 +528,8 @@ void report_current_position_projected() {
             _SAVE_SET_CURRENT(Y2);
           #endif
           break;
+        #endif
+        #if Z_AXIS
         case Z_AXIS:
           #if HAS_CURRENT_HOME(Z)
             _SAVE_SET_CURRENT(Z);
@@ -537,6 +544,7 @@ void report_current_position_projected() {
             _SAVE_SET_CURRENT(Z4);
           #endif
           break;
+        #endif
       }
 
     #endif // kinematics
@@ -753,6 +761,7 @@ void report_current_position_projected() {
       // Cartesian kinematics
       switch (axis) {
         default: break;
+        #if X_AXIS
         case X_AXIS:
           #if HAS_CURRENT_HOME(X)
             _RESTORE_CURRENT(X);
@@ -761,6 +770,8 @@ void report_current_position_projected() {
             _RESTORE_CURRENT(X2);
           #endif
           break;
+        #endif
+        #if Y_AXIS
         case Y_AXIS:
           #if HAS_CURRENT_HOME(Y)
             _RESTORE_CURRENT(Y);
@@ -769,6 +780,8 @@ void report_current_position_projected() {
             _RESTORE_CURRENT(Y2);
           #endif
           break;
+        #endif
+        #if Z_AXIS
         case Z_AXIS:
           #if HAS_CURRENT_HOME(Z)
             _RESTORE_CURRENT(Z);
@@ -783,6 +796,7 @@ void report_current_position_projected() {
             _RESTORE_CURRENT(Z4);
           #endif
           break;
+        #endif
       }
 
     #endif // kinematics

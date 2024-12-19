@@ -49,6 +49,7 @@
 //#define J_SAFE_HOMING_X_POINT 129.03   // Added by config.ini 2024-06-23 21:07:02
 //#define J_SAFE_HOMING_Y_POINT 261.36   // Added by config.ini 2024-06-23 21:07:02
 //#define SYNC_NONZ_BED                  // Added by config.ini 2024-06-23 22:38:57
+//#define PREHEAT_2_TEMP_HOTEND          // Added by config.ini 2024-12-05 14:43:29
 //#define OBSTACLE5 {233-(CLIP_W),305-(CLIP_H),233+(CLIP_W),305} // Added by config.ini
 //#define Z_PROBE_END_SCRIPT             // Added by config.ini 2024-01-22 15:09:02
 //#define Y_MAX_PIN                      // Added by config.ini
@@ -96,7 +97,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(Ian,24-12-03,MP2.2)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Ian,24-12-03,MP2.1)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 // @section machine
@@ -163,7 +164,7 @@
 //#define BLUETOOTH
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "JL MP2.2"
+#define CUSTOM_MACHINE_NAME "JL MP2.1"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -737,9 +738,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 44.4900
-    #define DEFAULT_Ki 3.2700
-    #define DEFAULT_Kd 151.3700
+    #define DEFAULT_Kp 167.24
+    #define DEFAULT_Ki 23.6215
+    #define DEFAULT_Kd 296.015
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
@@ -830,9 +831,9 @@
 
   // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define DEFAULT_bedKp 36.7000
-  #define DEFAULT_bedKi 1.4700
-  #define DEFAULT_bedKd 612.4100
+  #define DEFAULT_bedKp 33.552
+  #define DEFAULT_bedKi 1.7189
+  #define DEFAULT_bedKd 436.6235
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #else
@@ -1912,7 +1913,7 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 212
+#define X_BED_SIZE 190
 #define Y_BED_SIZE 215
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
@@ -2499,7 +2500,7 @@
 #define PREHEAT_1_FAN_SPEED 0     // Value from 0 to 255
 
 //#define PREHEAT_2_LABEL "ABS"
-//#define PREHEAT_2_TEMP_HOTEND 225
+//#define PREHEAT_2_TEMP_ HOTEND 225
 //#define PREHEAT_2_TEMP_BED 60
 //#define PREHEAT_2_TEMP_CHAMBER 35
 //#define PREHEAT_2_FAN_SPEED 0     // Value from 0 to 255
