@@ -1305,6 +1305,8 @@ void do_blocking_move_to(const xyze_pos_t &raw, const_feedRate_t fr_mm_s/*=0.0f*
    *  - If lowering is not allowed then skip a downward move
    *  - Execute the move at the probing (or homing) feedrate
    */
+
+   // TODO: IAN ADD V AND W TO CLEARANCE - DON'T FORGET SYNC AXES
   void do_z_clearance(const_float_t zclear, const bool with_probe/*=true*/, const bool lower_allowed/*=false*/) {
     UNUSED(with_probe);
     float zdest = zclear;
@@ -2709,6 +2711,8 @@ void prepare_line_to_destination() {
     //
     // Homing Z with a probe? Raise Z (maybe) and deploy the Z probe.
     //
+    // TODO: IAN V W RAIZE ON HOMING Z - MIGHT HAVE TO EDIT PROBE STOW AND DEPLOY
+    //            ACTUALLY, THERE IS A Z PROBE CLEARANCE FUNCTION THAT I MIGHT EDIT
     #if HOMING_Z_WITH_PROBE
       if (axis == Z_AXIS && probe.deploy()) {
         probe.stow();
@@ -2776,6 +2780,7 @@ void prepare_line_to_destination() {
 
     // Determine if a homing bump will be done and the bumps distance
     // When homing Z with probe respect probe clearance
+    // TODO: IAN V W DETERMINE BUMP NEEDED
     const bool use_probe_bump = TERN0(HOMING_Z_WITH_PROBE, axis == Z_AXIS && home_bump_mm(axis));
     const float bump = axis_home_dir * (
       use_probe_bump ? _MAX(TERN0(HOMING_Z_WITH_PROBE, Z_CLEARANCE_BETWEEN_PROBES), home_bump_mm(axis)) : home_bump_mm(axis)
@@ -2784,11 +2789,13 @@ void prepare_line_to_destination() {
     //
     // Fast move towards endstop until triggered
     //
+    // TODO: IAN V W FIRST HOME SPEED
     const float move_length = 1.5f * max_length(TERN(DELTA, Z_AXIS, axis)) * axis_home_dir;
     if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Home Fast: ", move_length, "mm");
     do_homing_move(axis, move_length, 0.0, !use_probe_bump);
 
     // If a second homing move is configured...
+    // TODO: IAN V W BUMP AGAIN
     if (bump) {
       #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
         if (axis == Z_AXIS && !bltouch.high_speed_mode) bltouch.stow(); // Intermediate STOW (in LOW SPEED MODE)
@@ -3091,6 +3098,7 @@ void set_axis_is_at_home(const AxisEnum axis) {
 
   /**
    * Z Probe Z Homing? Account for the probe's Z offset.
+   * TODO: IAN ADD PROBE OFFSET V W WHEN THEY ARE HOMED!
    */
   #if HAS_BED_PROBE && Z_HOME_TO_MIN
     if (axis == Z_AXIS) {
