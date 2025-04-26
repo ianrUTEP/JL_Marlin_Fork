@@ -107,6 +107,10 @@ xyze_pos_t current_position = LOGICAL_AXIS_ARRAY(0, X_HOME_POS, Y_HOME_POS, Z_IN
  */
 xyze_pos_t destination; // {0}
 
+#if Z_AXIS
+  float z_deltas[NUM_Z_STEPPERS];  // Initialize array, should be zeros
+#endif
+
 // G60/G61 Position Save and Return
 #if SAVED_POSITIONS
   Flags<SAVED_POSITIONS> did_save_position;
@@ -396,9 +400,15 @@ void report_current_position_projected() {
       // Cartesian kinematics
       switch (axis) {
         default: break;
-        case X_AXIS: MAP(_MAP_SAVE_SET, X, X2); break;
-        case Y_AXIS: MAP(_MAP_SAVE_SET, Y, Y2); break;
-        case Z_AXIS: MAP(_MAP_SAVE_SET, Z, Z2, Z3, Z4); break;
+        #if X_AXIS
+          case X_AXIS: MAP(_MAP_SAVE_SET, X, X2); break;
+        #endif
+        #if Y_AXIS
+          case Y_AXIS: MAP(_MAP_SAVE_SET, Y, Y2); break;
+        #endif
+        #if Z_AXIS
+          case Z_AXIS: MAP(_MAP_SAVE_SET, Z, Z2, Z3, Z4); break;
+        #endif
       }
 
     #endif // kinematics
@@ -551,9 +561,15 @@ void report_current_position_projected() {
       // Cartesian kinematics
       switch (axis) {
         default: break;
-        case X_AXIS: MAP(_MAP_RESTORE, X, X2); break;
-        case Y_AXIS: MAP(_MAP_RESTORE, Y, Y2); break;
-        case Z_AXIS: MAP(_MAP_RESTORE, Z, Z2, Z3, Z4); break;
+        #if X_AXIS
+          case X_AXIS: MAP(_MAP_RESTORE, X, X2); break;
+        #endif
+        #if Y_AXIS
+          case Y_AXIS: MAP(_MAP_RESTORE, Y, Y2); break;
+        #endif
+        #if Z_AXIS
+          case Z_AXIS: MAP(_MAP_RESTORE, Z, Z2, Z3, Z4); break;
+        #endif
       }
 
     #endif // kinematics
@@ -1062,6 +1078,8 @@ void do_blocking_move_to(const xyze_pos_t &raw, const_feedRate_t fr_mm_s/*=0.0f*
    *  - If lowering is not allowed then skip a downward move
    *  - Execute the move at the probing (or homing) feedrate
    */
+
+   // TODO: IAN ADD V AND W TO CLEARANCE - DON'T FORGET SYNC AXES
   void do_z_clearance(const_float_t zclear, const bool with_probe/*=true*/, const bool lower_allowed/*=false*/) {
     UNUSED(with_probe);
     float zdest = zclear;
@@ -2254,6 +2272,17 @@ void prepare_line_to_destination() {
       // Get the ABC or XYZ positions in mm
       abce_pos_t target = planner.get_axis_positions_mm();
 
+      // If user wants to sync the non-z bed and has a homing move on any of the bed axes, then
+      // set the target for all of them to 0
+      // In the worse case, this moves all of them for the first move
+      // Subsequent homing moves are not affected as each of the targeted axes are already "at 0"
+      #if ALL(SYNC_NONZ_BED, HAS_I_AXIS, HAS_J_AXIS)
+        if(axis==Z_AXIS || axis==I_AXIS || axis==J_AXIS) {
+          target[Z_AXIS] = 0;
+          target[I_AXIS] = 0;
+          target[J_AXIS] = 0;
+        }
+      #endif
       target[axis] = 0;                         // Set the single homing axis to 0
       planner.set_machine_position_mm(target);  // Update the machine position
 
@@ -2460,6 +2489,8 @@ void prepare_line_to_destination() {
     // Homing Z with a probe? Raise Z (maybe) and deploy the Z probe.
     // Return early if probe deployment fails.
     //
+    // TODO: IAN V W RAIZE ON HOMING Z - MIGHT HAVE TO EDIT PROBE STOW AND DEPLOY
+    //            ACTUALLY, THERE IS A Z PROBE CLEARANCE FUNCTION THAT I MIGHT EDIT
     #if HOMING_Z_WITH_PROBE
       if (axis == Z_AXIS && probe.deploy()) { probe.stow(); return; }
     #endif
@@ -2525,6 +2556,7 @@ void prepare_line_to_destination() {
 
     // Determine if a homing bump will be done and the bumps distance
     // When homing Z with probe respect probe clearance
+    // TODO: IAN V W DETERMINE BUMP NEEDED
     const bool use_probe_bump = TERN0(HOMING_Z_WITH_PROBE, axis == Z_AXIS && home_bump_mm(axis));
     const float bump = axis_home_dir * (
       use_probe_bump ? _MAX(TERN0(HOMING_Z_WITH_PROBE, Z_CLEARANCE_BETWEEN_PROBES), home_bump_mm(axis)) : home_bump_mm(axis)
@@ -2533,11 +2565,13 @@ void prepare_line_to_destination() {
     //
     // Fast move towards endstop until triggered
     //
+    // TODO: IAN V W FIRST HOME SPEED
     const float move_length = 1.5f * max_length(TERN(DELTA, Z_AXIS, axis)) * axis_home_dir;
     if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM("Home Fast: ", move_length, "mm");
     do_homing_move(axis, move_length, 0.0, !use_probe_bump);
 
     // If a second homing move is configured...
+    // TODO: IAN V W BUMP AGAIN
     if (bump) {
       #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
         if (axis == Z_AXIS && !bltouch.high_speed_mode) bltouch.stow(); // Intermediate STOW (in LOW SPEED MODE)
@@ -2840,6 +2874,7 @@ void set_axis_is_at_home(const AxisEnum axis) {
 
   /**
    * Z Probe Z Homing? Account for the probe's Z offset.
+   * TODO: IAN ADD PROBE OFFSET V W WHEN THEY ARE HOMED!
    */
   #if HAS_BED_PROBE && Z_HOME_TO_MIN
     if (axis == Z_AXIS) {

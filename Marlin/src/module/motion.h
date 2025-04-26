@@ -48,6 +48,10 @@ extern bool relative_mode;
 extern xyze_pos_t current_position,  // High-level current tool position
                   destination;       // Destination for a move
 
+#if Z_AXIS
+  extern float z_deltas[NUM_Z_STEPPERS];  // Array storing each Z stepper's position away from "true Z"
+#endif
+
 // G60/G61 Position Save and Return
 #if SAVED_POSITIONS
   extern Flags<SAVED_POSITIONS> did_save_position;
